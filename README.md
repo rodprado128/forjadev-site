@@ -62,6 +62,7 @@ E um `CNAME` para `www` apontando para `rodprado128.github.io`.
 ```
 index.html            página única com todas as âncoras
 404.html              erro 404 com a mesma identidade
+CHANGELOG.md          decisões de conteúdo e premissas de cada mudança
 site.webmanifest      ícones e cores do app
 robots.txt            libera tudo e aponta o sitemap
 sitemap.xml           uma URL
@@ -70,7 +71,7 @@ assets/
   css/tokens.css      design tokens da marca (fonte da verdade)
   css/style.css       estilos do site
   js/main.js          menu, FAQ, navegação ativa, brilho dos botões
-  js/animations.js    malha de faíscas, terminal, reveal, contadores, parallax
+  js/animations.js    malha de faíscas, mockup do hero, reveal, contadores, parallax
   img/                foto, og-image, favicons e logos SVG
   icons/              os 6 ícones do sistema da marca
 ```
@@ -91,7 +92,8 @@ contraste WCAG. Ao editar, mantenha:
 - **Em seção escura, o texto secundário é `--fd-cinza-claro` (`#C6CBD1`)**.
   Cinza Lima `#5F6A76` reprova sobre Aço e só vale sobre superfície clara.
 - **JetBrains Mono é exclusiva de bloco de código e terminal** — nunca em título,
-  corpo, preço ou rótulo.
+  corpo, preço ou rótulo. A barra de endereço do mockup do hero é interface de
+  navegador, não bloco de código: fica em Archivo.
 - **Barlow Condensed SemiBold sempre em caixa alta**, tracking +2%.
 - **Um único elemento com elevação `--fd-elev-destaque` por seção.**
 - Divisor tracejado laranja 6/6px no lugar de linha simples.
@@ -100,10 +102,19 @@ contraste WCAG. Ao editar, mantenha:
 
 ## Acessibilidade e movimento
 
-`prefers-reduced-motion: reduce` desliga a malha de faíscas, o efeito de
-digitação, o scroll reveal, o parallax, o cursor spark e o pulso do botão de
-WhatsApp. Todo conteúdo continua legível e o site permanece navegável por
+`prefers-reduced-motion: reduce` desliga a malha de faíscas, a montagem do
+mockup do hero, o scroll reveal, o parallax, o cursor spark e o pulso do botão
+de WhatsApp. Todo conteúdo continua legível e o site permanece navegável por
 teclado.
 
 O conteúdo comercial (pacotes, prazos, preços e condições) vem da tabela de
 preços pública, edição 2026.1.
+
+## Promessa da página
+
+A página vende **código próprio, preço fechado e nenhuma mensalidade de
+plataforma** — não velocidade. Prazo aparece como característica da entrega,
+nunca como argumento central: contra construtor com IA, que entrega "site em
+minutos", disputa de prazo é terreno perdido por definição. Ao mexer em
+headline, meta tags, JSON-LD, CTA ou rodapé, mantenha esse eixo. O histórico
+da decisão está no [CHANGELOG.md](CHANGELOG.md).

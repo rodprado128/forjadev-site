@@ -247,13 +247,6 @@ p{text-wrap:pretty}
 .terminal__body .ok{color:#4ADE80}
 .terminal__linha{display:block;white-space:pre}
 
-/* Cursor do typewriter */
-.caret{
-  display:inline-block;width:.6em;height:1.05em;
-  background:var(--fd-laranja);vertical-align:-.18em;margin-left:2px;
-  animation:piscar 1s steps(1) infinite;
-}
-@keyframes piscar{0%,50%{opacity:1}50.01%,100%{opacity:0}}
 
 /* ---------- 8. HEADER ---------- */
 .progresso{
@@ -400,10 +393,10 @@ p{text-wrap:pretty}
   transform:rotate(-18deg);
 }
 .hero__titulo{
-  font-size:clamp(2.35rem,6.6vw,4.25rem);
+  font-size:clamp(2.1rem,5.2vw,3.5rem);   /* teto de 56px — H1 de landing no brand guide */
   color:#fff;letter-spacing:-.01em;
 }
-.hero__titulo em{font-style:normal;color:var(--fd-laranja)}  /* 6.10:1 sobre Aco */
+.hero__destaque{color:var(--fd-laranja)}  /* 6.10:1 sobre Aco */
 .hero__sub{
   font-size:clamp(1.0625rem,1.9vw,1.1875rem);
   color:var(--txt-2);margin-top:1.35rem;max-width:52ch;
@@ -415,8 +408,179 @@ p{text-wrap:pretty}
   display:flex;align-items:center;gap:.6rem;
 }
 .hero__nota svg{flex:none;color:var(--fd-laranja)}
-.hero__terminal{width:100%}
-.hero__terminal .terminal__body{min-height:calc(5 * 1.75em + 2.3rem)}
+/* ---------- 9.1 MOCKUP DE DISPOSITIVOS (HERO) ---------- */
+/* Entrou no lugar do bloco de terminal do hero. O comprador principal e
+   leigo em tecnologia: estetica de linha de comando ele nao reconhece,
+   imagem de site aberto no navegador e no celular ele reconhece na hora.
+   O terminal continua onde e reforco tecnico (como funciona, stack, 404).
+   Desenhado so em CSS: nenhuma imagem, nenhum request a mais, e a altura
+   sai de aspect-ratio, entao nao ha layout shift. */
+.hero__mockup{width:100%}
+.mockup{
+  position:relative;width:100%;
+  max-width:540px;margin-inline:auto;
+  padding-bottom:clamp(1.5rem,4vw,2.5rem);   /* respiro para o celular transbordar */
+}
+
+/* --- janela do navegador --- */
+.mockup__janela{
+  container-type:inline-size;
+  position:relative;aspect-ratio:16/10;
+  display:flex;flex-direction:column;overflow:hidden;
+  background:var(--fd-aco-frio);
+  box-shadow:0 18px 50px rgba(0,0,0,.5);
+  outline:1px solid rgba(255,255,255,.08);outline-offset:-1px;
+  clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%);
+}
+.mockup__barra{
+  position:relative;flex:none;
+  display:flex;align-items:center;gap:.55rem;
+  padding:.55rem .7rem;
+}
+.mockup__dots{display:flex;gap:5px;flex:none}
+.mockup__dots i{display:block;width:7px;height:7px;border-radius:50%}
+/* Barra de endereco e interface de navegador, nao bloco de codigo:
+   fica em Archivo. JetBrains Mono continua exclusiva do terminal. */
+.mockup__url{
+  flex:1;min-width:0;
+  display:flex;align-items:center;gap:.3rem;
+  padding:.18rem .6rem;border-radius:var(--fd-r-pill);
+  background:rgba(20,26,32,.55);
+  color:var(--fd-cinza-claro);
+  font-size:.6875rem;line-height:1.7;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mockup__url svg{flex:none;color:#4ADE80}   /* cadeado https — mesmo verde do terminal */
+.mockup__carga{
+  position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:var(--fd-laranja);
+  transform:scaleX(0);transform-origin:0 50%;
+}
+.mockup__tela{
+  position:relative;flex:1;min-height:0;
+  overflow:hidden;background:var(--fd-branco);
+}
+
+/* --- o site em miniatura --- */
+/* --u e a unidade da miniatura e acompanha a largura do proprio aparelho,
+   entao a mesma marcacao serve a janela e ao celular. O valor em px e o
+   fallback para navegador sem unidade de container. */
+.mini{
+  --u:4.4px;
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  gap:calc(var(--u) * 3.5);padding:calc(var(--u) * 4);
+}
+@supports (width:1cqi){
+  .mockup__janela .mini{--u:.9cqi}
+  .mockup__fone .mini{--u:3.4cqi}
+}
+.mini__topo{
+  flex:none;display:flex;align-items:center;gap:calc(var(--u) * 2.5);
+  padding-bottom:calc(var(--u) * 2.5);
+  border-bottom:1px solid rgba(20,26,32,.10);
+}
+.mini__marca{flex:none;width:calc(var(--u) * 13);height:calc(var(--u) * 2.8);background:var(--fd-aco)}
+.mini__menu{display:flex;gap:calc(var(--u) * 2);margin-left:auto}
+.mini__menu i{display:block;width:calc(var(--u) * 5);height:calc(var(--u) * 1.2);background:rgba(20,26,32,.26)}
+/* Laranja aqui e superficie, nunca texto — a miniatura nao tem texto. */
+.mini__acao{
+  flex:none;width:calc(var(--u) * 11);height:calc(var(--u) * 4);
+  background:var(--fd-laranja);
+  clip-path:polygon(0 0,calc(100% - var(--u) * 1.2) 0,100% calc(var(--u) * 1.2),100% 100%,0 100%);
+}
+.mini__hero{flex:none;display:flex;flex-direction:column;gap:calc(var(--u) * 1.8)}
+.mini__titulo{width:76%;height:calc(var(--u) * 3.6);background:var(--fd-aco)}
+.mini__titulo--curto{width:50%}
+.mini__linha{width:86%;height:calc(var(--u) * 1.4);background:rgba(20,26,32,.22)}
+.mini__linha--curta{width:62%}
+.mini__botao{
+  width:calc(var(--u) * 22);height:calc(var(--u) * 5.4);
+  margin-top:calc(var(--u) * 1.6);background:var(--fd-laranja);
+  clip-path:polygon(0 0,calc(100% - var(--u) * 1.6) 0,100% calc(var(--u) * 1.6),100% 100%,0 100%);
+}
+.mini__cards{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--u) * 2.5)}
+.mini__cards span{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#D9DDE1 0 44%,var(--fd-bigorna) 44%);
+  clip-path:polygon(0 0,calc(100% - var(--u) * 2) 0,100% calc(var(--u) * 2),100% 100%,0 100%);
+}
+.mini__cards span::after{
+  content:"";position:absolute;left:14%;right:34%;top:62%;
+  height:calc(var(--u) * 1.2);background:rgba(20,26,32,.24);
+}
+
+/* --- celular --- */
+/* Unica peca do sistema com canto arredondado: e o desenho de um objeto
+   real, nao um card. O chanfro sistemico fica na janela do navegador. */
+.mockup__fone{
+  container-type:inline-size;
+  position:absolute;left:0;bottom:0;
+  width:clamp(80px,21%,116px);aspect-ratio:9/18.5;
+  background:var(--fd-aco);border-radius:16px;
+  box-shadow:inset 0 0 0 2px var(--fd-aco-frio),0 16px 36px rgba(0,0,0,.55);
+}
+.mockup__fone::before{
+  content:"";position:absolute;z-index:2;
+  top:5px;left:50%;transform:translateX(-50%);
+  width:26%;height:3px;border-radius:var(--fd-r-pill);background:var(--fd-aco-frio);
+}
+.mockup__tela--fone{
+  position:absolute;inset:11px 5px 8px;
+  border-radius:8px;overflow:hidden;background:var(--fd-branco);
+}
+.mini--fone{
+  inset:0 0 auto 0;height:auto;
+  gap:calc(var(--u) * 2.6);padding:calc(var(--u) * 3);
+}
+.mini--fone .mini__marca{width:calc(var(--u) * 14);height:calc(var(--u) * 3)}
+.mini--fone .mini__menu i{width:calc(var(--u) * 4);height:calc(var(--u) * 1.4)}
+.mini--fone .mini__titulo{width:88%;height:calc(var(--u) * 4)}
+.mini--fone .mini__titulo--curto{width:60%}
+.mini--fone .mini__botao{width:70%;height:calc(var(--u) * 6)}
+.mini--fone .mini__cards{flex:none;grid-template-columns:1fr;gap:calc(var(--u) * 2.6)}
+.mini--fone .mini__cards span{height:calc(var(--u) * 16)}
+@media (min-width:1000px){.mockup__fone{left:-7%}}   /* so com a calha do grid ao lado */
+
+/* --- selo "no ar" — pill, entao mantem o raio e nao recebe chanfro --- */
+.mockup__selo{
+  position:absolute;right:0;bottom:0;z-index:3;
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.3rem .75rem;border-radius:var(--fd-r-pill);
+  background:var(--fd-aco-elevado);color:#fff;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 10px 24px rgba(0,0,0,.45);
+}
+.mockup__selo i{flex:none;width:7px;height:7px;border-radius:50%;background:#4ADE80}
+
+/* --- montagem e movimento --- */
+/* Estado de repouso = site pronto. A montagem so acontece quando o JS
+   marca .is-montando, entao sem JS a peca ja aparece completa. */
+@keyframes mockupCarga{0%{transform:scaleX(0);opacity:1}72%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+@keyframes mockupEntra{from{opacity:0;transform:translateY(calc(var(--u) * 2.5))}to{opacity:1;transform:none}}
+@keyframes mockupFone{from{opacity:0;transform:translateY(12%)}to{opacity:1;transform:none}}
+@keyframes mockupRola{0%,10%{transform:translateY(0)}90%,100%{transform:translateY(-32%)}}
+@keyframes mockupPulso{0%,100%{opacity:1}50%{opacity:.28}}
+
+.mockup.is-montando .mockup__carga{animation:mockupCarga 1.2s var(--fd-ease) both}
+.mockup.is-montando .mini__topo{animation:mockupEntra .5s var(--fd-ease-out) .34s both}
+.mockup.is-montando .mini__hero > *{animation:mockupEntra .5s var(--fd-ease-out) both}
+.mockup.is-montando .mini__hero > :nth-child(1){animation-delay:.5s}
+.mockup.is-montando .mini__hero > :nth-child(2){animation-delay:.58s}
+.mockup.is-montando .mini__hero > :nth-child(3){animation-delay:.66s}
+.mockup.is-montando .mini__hero > :nth-child(4){animation-delay:.72s}
+.mockup.is-montando .mini__hero > :nth-child(5){animation-delay:.82s}
+.mockup.is-montando .mini__cards span{animation:mockupEntra .5s var(--fd-ease-out) both}
+.mockup.is-montando .mini__cards span:nth-child(1){animation-delay:.98s}
+.mockup.is-montando .mini__cards span:nth-child(2){animation-delay:1.06s}
+.mockup.is-montando .mini__cards span:nth-child(3){animation-delay:1.14s}
+.mockup.is-montando .mockup__fone{animation:mockupFone .6s var(--fd-ease-out) 1.5s both}
+.mockup.is-montando .mockup__selo{animation:mockupEntra .5s var(--fd-ease-out) 1.9s both}
+
+/* Continuos: so rodam com o hero na tela e a aba visivel. */
+.mockup .mini--fone{animation:mockupRola 14s var(--fd-ease) 2.4s infinite alternate;animation-play-state:paused}
+.mockup .mockup__selo i{animation:mockupPulso 2.4s ease-in-out infinite;animation-play-state:paused}
+.mockup.is-ativo .mini--fone,
+.mockup.is-ativo .mockup__selo i{animation-play-state:running}
 
 .hero__scroll{
   position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);
@@ -851,7 +1015,6 @@ p{text-wrap:pretty}
   .hero__canvas,.spark,.hero__scroll::after{display:none!important}
   .zap{opacity:1;visibility:visible;transform:none}
   .zap::before{display:none}
-  .caret{animation:none;opacity:1}
   .secao__textura,.hero__brilho{animation:none!important;transform:none!important}
 }
 

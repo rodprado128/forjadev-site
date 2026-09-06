@@ -1,6 +1,6 @@
 /* ============================================================
    ForjaDev — animations.js
-   Movimento: malha de faiscas no hero, terminal com digitacao,
+   Movimento: malha de faiscas no hero, mockup de dispositivos,
    scroll reveal, contadores, parallax, header e barra de leitura.
    Sem dependencia externa. Tudo desliga em prefers-reduced-motion.
    ============================================================ */
@@ -176,132 +176,55 @@
   }
 
   /* ---------------------------------------------------------
-     2. TERMINAL COM DIGITACAO
-     O HTML ja traz o conteudo final. Aqui ele e reescrito
-     linha a linha. Sem JS ou com movimento reduzido, fica estatico.
+     2. MOCKUP DE DISPOSITIVOS NO HERO
+     Entrou no lugar do terminal com digitacao: o comprador leigo
+     reconhece a imagem de um site, nao a estetica de linha de comando.
+     O HTML ja traz a peca montada — sem JS, ou com movimento reduzido,
+     ela aparece pronta. Aqui so ligamos a montagem (uma vez a cada
+     entrada em tela) e o movimento continuo, que fica pausado fora da
+     viewport e com a aba escondida. Nada e medido nem escrito em estilo
+     inline: a animacao inteira e CSS, entao nao ha layout forcado.
      --------------------------------------------------------- */
-  function terminal() {
-    var alvo = document.getElementById('terminalHero');
-    if (!alvo || reduz) return;
+  function mockup() {
+    var el = document.getElementById('heroMockup');
+    if (!el || reduz) return;
 
-    var roteiros = [
-      [
-        { t: '$ forjadev --deploy', c: 'prompt', digita: true },
-        { t: 'build ....... html · css · js', c: '' },
-        { t: 'lighthouse .. 96 · 100 · 100', c: 'ok' },
-        { t: 'deploy ...... no ar em 3 dias', c: '' },
-        { t: '# preco fechado, sem mensalidade', c: 'comentario' }
-      ],
-      [
-        { t: '$ forjadev --status', c: 'prompt', digita: true },
-        { t: 'mobile ...... primeiro no celular', c: '' },
-        { t: 'carrega ..... abaixo de 2s', c: 'ok' },
-        { t: 'suporte ..... 15 dias apos entrega', c: '' },
-        { t: '# o ferro quente nao espera.', c: 'comentario' }
-      ]
-    ];
+    var recemMontado = false;
 
-    var estatico = alvo.innerHTML;
-    var r = 0, timers = [];
+    function montar() {
+      el.classList.remove('is-montando');
+      void el.offsetWidth;                     // reinicia as animacoes
+      el.classList.add('is-montando');
+    }
+    function ligar() { el.classList.add('is-ativo'); }
+    function desligar() { el.classList.remove('is-ativo'); }
 
-    /* Trava a altura do corpo do terminal na do roteiro mais alto.
-       Sem isso, limpar o bloco para redigitar encolhe a caixa e o Chrome
-       contabiliza o vai-e-vem como layout shift (0,25 no celular, onde as
-       linhas quebram). Mede uma vez, fora da tela, e refaz no resize. */
-    function travarAltura() {
-      alvo.style.minHeight = '';
-      var maior = alvo.getBoundingClientRect().height;
-      var sombra = alvo.cloneNode(false);
-      sombra.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;' +
-                             'pointer-events:none;min-height:0;width:' + alvo.offsetWidth + 'px';
-      alvo.parentNode.appendChild(sombra);
-      for (var k = 0; k < roteiros.length; k++) {
-        sombra.textContent = '';
-        for (var j = 0; j < roteiros[k].length; j++) {
-          var it = roteiros[k][j];
-          var ln = document.createElement('span');
-          ln.className = 'terminal__linha' + (it.c && it.c !== 'prompt' ? ' ' + it.c : '');
-          ln.textContent = it.t;
-          sombra.appendChild(ln);
-        }
-        maior = Math.max(maior, sombra.getBoundingClientRect().height);
-      }
-      sombra.parentNode.removeChild(sombra);
-      alvo.style.minHeight = Math.ceil(maior) + 'px';
+    /* O hero abre acima da dobra. Montar aqui, ainda dentro do script
+       defer, evita o pisca de "pronto -> some -> monta" que sobraria se
+       a montagem so comecasse no primeiro retorno do IntersectionObserver. */
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      recemMontado = true;
+      ligar();
+      montar();
     }
 
-    var tRedim;
-    window.addEventListener('resize', function () {
-      clearTimeout(tRedim);
-      tRedim = setTimeout(travarAltura, 200);
-    }, { passive: true });
-
-    function limpar() { timers.forEach(clearTimeout); timers = []; }
-    function espera(fn, ms) { timers.push(setTimeout(fn, ms)); }
-
-    function linhaEl(item) {
-      var el = document.createElement('span');
-      el.className = 'terminal__linha' + (item.c && item.c !== 'prompt' ? ' ' + item.c : '');
-      return el;
-    }
-
-    function rodar() {
-      if (reduz) { alvo.innerHTML = estatico; return; }
-      alvo.textContent = '';
-      var roteiro = roteiros[r % roteiros.length];
-      r++;
-      passo(roteiro, 0);
-    }
-
-    function passo(roteiro, i) {
-      if (i >= roteiro.length) {
-        espera(rodar, 4200);
-        return;
-      }
-      var item = roteiro[i];
-      var el = linhaEl(item);
-      alvo.appendChild(el);
-
-      if (item.digita) {
-        var caret = document.createElement('span');
-        caret.className = 'caret';
-        el.appendChild(caret);
-        var k = 0;
-        (function teclar() {
-          if (k <= item.t.length) {
-            var txt = item.t.slice(0, k);
-            el.textContent = '';
-            var pr = document.createElement('span');
-            pr.className = 'prompt';
-            pr.textContent = txt.slice(0, 1);
-            el.appendChild(pr);
-            el.appendChild(document.createTextNode(txt.slice(1)));
-            el.appendChild(caret);
-            k++;
-            espera(teclar, 52 + Math.random() * 46);
-          } else {
-            espera(function () { if (caret.parentNode) caret.parentNode.removeChild(caret); passo(roteiro, i + 1); }, 380);
-          }
-        })();
-      } else {
-        el.textContent = item.t;
-        el.style.opacity = '0';
-        el.style.transition = 'opacity .22s cubic-bezier(.22,.61,.36,1)';
-        requestAnimationFrame(function () { el.style.opacity = '1'; });
-        espera(function () { passo(roteiro, i + 1); }, 420);
-      }
-    }
-
-    // so comeca quando o hero esta visivel
     if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function (ents) {
-        if (ents[0].isIntersecting) { obs.disconnect(); travarAltura(); rodar(); }
-      }, { threshold: 0.2 });
-      obs.observe(alvo);
-    } else { travarAltura(); rodar(); }
+      new IntersectionObserver(function (ents) {
+        if (ents[0].isIntersecting) {
+          ligar();
+          if (recemMontado) recemMontado = false; else montar();
+        } else {
+          desligar();
+          recemMontado = false;
+        }
+      }, { threshold: 0.25 }).observe(el);
+    } else if (!recemMontado) {
+      ligar();
+      montar();
+    }
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) limpar(); else if (!reduz) { limpar(); rodar(); }
+      if (document.hidden) desligar(); else ligar();
     });
   }
 
@@ -467,10 +390,11 @@
 
   function iniciar() {
     // essenciais: precisam responder desde o primeiro scroll
+    mockup();
     revelar();
     contadoresSoltos();
     aoRolar();
-    agendar(function () { terminal(); cursorSpark(); }, 350);
+    agendar(cursorSpark, 350);
     agendar(malha, 2200);
   }
 
