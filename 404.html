@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada (404) | ForjaDev</title>
+<meta name="description" content="A página que você procurou não existe no site da ForjaDev. Volte para o início ou chame no WhatsApp.">
+<meta name="theme-color" content="#141A20">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex, follow">
+
+<link rel="icon" href="/assets/img/forjadev-favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/assets/img/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black-400-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-400-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/barlow-condensed-600-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<style>
+.erro{
+  min-height:100svh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background-color:var(--fd-aco);color:#fff;
+  --txt:#fff;--txt-2:var(--fd-cinza-claro);
+  padding-block:clamp(3rem,10vw,6rem);
+}
+.erro__grade{display:grid;gap:clamp(2rem,5vw,3.5rem);grid-template-columns:1fr;align-items:center}
+@media (min-width:900px){.erro__grade{grid-template-columns:minmax(0,1fr) minmax(0,460px)}}
+.erro__codigo{
+  font-family:var(--fd-font-display);
+  font-size:clamp(4.5rem,16vw,9rem);line-height:.9;
+  color:var(--fd-laranja);          /* 6.10:1 sobre Aco */
+  letter-spacing:-.02em;
+}
+.erro h1{font-size:clamp(1.75rem,4.6vw,2.75rem);color:#fff;margin-top:1rem}
+.erro p:not(.erro__codigo){color:var(--txt-2);margin-top:1rem;font-size:var(--fd-size-body-lg);max-width:48ch}
+.erro__acoes{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2rem}
+.erro__logo{margin-bottom:2rem;display:inline-block}
+.erro__logo img{height:32px;width:auto}
+</style>
+</head>
+<body>
+
+<main class="erro" id="conteudo">
+  <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="erro__grade">
+
+      <div>
+        <a class="erro__logo" href="/" aria-label="ForjaDev — voltar ao início">
+          <img src="/assets/img/forjadev-horizontal-negativo.svg" alt="ForjaDev" width="173" height="32">
+        </a>
+
+        <p class="erro__codigo">404</p>
+        <h1>Essa página não foi forjada.</h1>
+        <p>O endereço não existe ou mudou de lugar. Volte para o início — ou me chame direto e resolvemos em um minuto.</p>
+
+        <div class="erro__acoes">
+          <a class="btn btn--primario" href="/">Voltar ao início</a>
+          <a class="btn btn--contorno" rel="noopener" target="_blank"
+             href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Cheguei%20em%20uma%20p%C3%A1gina%20que%20n%C3%A3o%20existe%20no%20site%20da%20ForjaDev."
+             aria-label="Chamar no WhatsApp da ForjaDev — 44 99119-2295 (abre em nova aba)">Chamar no WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal__header" aria-hidden="true">
+          <i class="dot--erro"></i><i class="dot--alerta"></i><i class="dot--sucesso"></i>
+          <span class="terminal__titulo">forjadev — bash</span>
+        </div>
+        <div class="terminal__body">
+          <span class="terminal__linha"><span class="prompt">$</span> forjadev --open</span>
+          <span class="terminal__linha">status ........ 404 not found</span>
+          <span class="terminal__linha">rota .......... inexistente</span>
+          <span class="terminal__linha ok">sugestao ...... voltar para a home</span>
+          <span class="terminal__linha comentario"># o ferro quente nao espera.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+# ForjaDev — https://forjadev.app.br
+User-agent: *
+Allow: /
+
+Sitemap: https://forjadev.app.br/sitemap.xml

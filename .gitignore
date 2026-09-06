@@ -1,0 +1,22 @@
+# Documentos-fonte — NAO publicar
+# A tabela de agencias contem valores liquidos de fornecedor (uso restrito).
+ForjaDev-Tabela-de-Precos-Agencias-2026_1.pdf
+ForjaDev-Tabela-de-Precos-2026_1.pdf
+FORJADEV-BRAND-GUIDE_1.md
+
+# Original da foto (7,7 MB) — a versao publicada esta em assets/img/
+045_AVA.jpg
+
+# tokens.css da raiz e o arquivo de origem; a versao usada e assets/css/tokens.css
+/tokens.css
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.log
+
+# Node (caso alguem rode um servidor local)
+node_modules/

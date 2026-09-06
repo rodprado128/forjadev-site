@@ -1,0 +1,283 @@
+/* ForjaDev — design tokens 2026.1.1
+   Cole no topo do seu boilerplate.
+   Fontes: Archivo + Archivo Black + Barlow Condensed + JetBrains Mono (Google Fonts). */
+/* ============================================================
+   FONTES — auto-hospedadas em /assets/fonts (woff2, subset latin).
+   Trocado o @import do Google Fonts por arquivos locais porque:
+   1) o @import bloqueia a renderizacao em cascata;
+   2) o ida-e-volta ate fonts.googleapis.com + fonts.gstatic.com
+      atrasava a primeira pintura em ~1s no 4G simulado;
+   3) a troca tardia da fonte reflowava o H1 (86px -> 130px) e
+      gerava CLS de 0,23 — reprovando o alvo de Lighthouse 90+.
+   Mesmas familias, mesmas versoes, font-display:swap mantido.
+   Licenca SIL OFL 1.1 — ver assets/fonts/OFL.txt
+   ============================================================ */
+
+/* Archivo 400 — latin-ext */
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('/assets/fonts/archivo-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Archivo 400 — latin */
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:400;
+  font-display:optional;
+  src:url('/assets/fonts/archivo-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Archivo 700 — latin-ext */
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url('/assets/fonts/archivo-700-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Archivo 700 — latin */
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:700;
+  font-display:optional;
+  src:url('/assets/fonts/archivo-700-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Archivo Black 400 — latin-ext */
+@font-face{
+  font-family:'Archivo Black';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('/assets/fonts/archivo-black-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Archivo Black 400 — latin */
+@font-face{
+  font-family:'Archivo Black';
+  font-style:normal;
+  font-weight:400;
+  font-display:optional;
+  src:url('/assets/fonts/archivo-black-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Barlow Condensed 600 — latin-ext */
+@font-face{
+  font-family:'Barlow Condensed';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('/assets/fonts/barlow-condensed-600-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Barlow Condensed 600 — latin */
+@font-face{
+  font-family:'Barlow Condensed';
+  font-style:normal;
+  font-weight:600;
+  font-display:optional;
+  src:url('/assets/fonts/barlow-condensed-600-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* JetBrains Mono 400 — latin-ext */
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('/assets/fonts/jetbrains-mono-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* JetBrains Mono 400 — latin */
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:400;
+  font-display:optional;
+  src:url('/assets/fonts/jetbrains-mono-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---- Fallbacks com metrica casada (largura medida no Chrome) ----
+   Cada familia lista o candidato local mais proximo primeiro. Se ele nao
+   existir no sistema, o navegador cai para a face seguinte e, no limite,
+   para system-ui sem ajuste — o mesmo comportamento de antes. */
+@font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:98.71%;font-weight:400}
+@font-face{font-family:'Archivo Fallback';src:local('Roboto');size-adjust:106.06%;font-weight:400}
+@font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:99.60%;font-weight:700}
+@font-face{font-family:'Archivo Fallback';src:local('Roboto');size-adjust:105.86%;font-weight:700}
+@font-face{font-family:'Archivo Black Fallback';src:local('Arial Black');size-adjust:99.99%}
+@font-face{font-family:'Archivo Black Fallback';src:local('Arial');size-adjust:119.00%}
+@font-face{font-family:'Barlow Condensed Fallback';src:local('Arial Narrow');size-adjust:94.40%}
+@font-face{font-family:'Barlow Condensed Fallback';src:local('Arial');size-adjust:71.65%}
+@font-face{font-family:'JetBrains Mono Fallback';src:local('Consolas');size-adjust:109.13%}
+@font-face{font-family:'JetBrains Mono Fallback';src:local('Menlo');size-adjust:125.14%}
+
+:root{
+  /* cor */
+  --fd-aco:#141A20;
+  --fd-aco-frio:#2C353F;
+  --fd-laranja:#FF6A00;   /* superficie e destaque — NUNCA texto sobre claro */
+  --fd-brasa:#C94300;     /* fundo de botao com texto branco (4.9:1) */
+  --fd-faisca:#FFB020;
+  --fd-cinza:#5F6A76;
+  --fd-bigorna:#F4F5F6;
+  --fd-branco:#FFFFFF;
+  --fd-sucesso:#15803D;
+  --fd-erro:#C81E1E;
+
+  /* tipografia */
+  --fd-font-display:'Archivo Black','Archivo Black Fallback',system-ui,sans-serif;
+  --fd-font-texto:'Archivo','Archivo Fallback',system-ui,sans-serif;
+  --fd-font-label:'Barlow Condensed','Barlow Condensed Fallback',system-ui,sans-serif;
+  --fd-font-code:'JetBrains Mono','JetBrains Mono Fallback',ui-monospace,'SF Mono',Consolas,monospace;
+
+  --fd-size-display:3.5rem;  /* 56 */
+  --fd-size-h1:2.5rem;       /* 40 */
+  --fd-size-h2:1.75rem;      /* 28 */
+  --fd-size-h3:1.375rem;     /* 22 */
+  --fd-size-body-lg:1.125rem;/* 18 */
+  --fd-size-body:1rem;       /* 16 */
+  --fd-size-small:0.875rem;  /* 14 */
+  --fd-size-code:0.875rem;   /* 14 */
+  --fd-size-label:0.8125rem; /* 13 */
+
+  --fd-lh-tight:1.15;
+  --fd-lh-base:1.55;
+
+  /* espacamento — escala 4px */
+  --fd-s1:.25rem; --fd-s2:.5rem;  --fd-s3:.75rem; --fd-s4:1rem;
+  --fd-s6:1.5rem; --fd-s8:2rem;   --fd-s12:3rem;  --fd-s16:4rem;
+
+  /* chanfro sistemico — forma padrao de canto em peca de destaque */
+  --fd-chanfro-lg:16px;   /* card, bloco de destaque, terminal */
+  --fd-chanfro-sm:8px;    /* botao, bloco retangular menor */
+
+  /* raio — uso restrito: pill, badge e superficie secundaria */
+  --fd-r-sm:4px; --fd-r-md:8px; --fd-r-lg:16px; --fd-r-pill:999px;
+
+  /* elevacao */
+  --fd-elev-repouso:0 1px 2px rgba(20,26,32,.06),0 8px 24px rgba(20,26,32,.08);
+  --fd-elev-hover:0 4px 28px rgba(20,26,32,.14);
+  --fd-elev-destaque:0 8px 40px rgba(255,106,0,.18),0 2px 8px rgba(20,26,32,.12);
+  --fd-shadow:var(--fd-elev-repouso);  /* alias legado */
+
+  /* gradientes oficiais — nunca sobre o logo */
+  --fd-grad-brasa:linear-gradient(135deg,#C94300 0%,#FF6A00 100%);
+  --fd-grad-aco:linear-gradient(180deg,#141A20 0%,#2C353F 100%);
+
+  /* aliases usados nos trechos do brand guide */
+  --forja-chanfro-lg:var(--fd-chanfro-lg);
+  --forja-chanfro-sm:var(--fd-chanfro-sm);
+  --forja-font-code:var(--fd-font-code);
+  --forja-elevacao-repouso:var(--fd-elev-repouso);
+  --forja-elevacao-hover:var(--fd-elev-hover);
+  --forja-elevacao-destaque:var(--fd-elev-destaque);
+}
+
+/* ---------- tipografia ---------- */
+.fd-label{font-family:var(--fd-font-label);font-weight:600;text-transform:uppercase;letter-spacing:.02em;font-size:var(--fd-size-label)}
+.fd-code{font-family:var(--fd-font-code);font-size:var(--fd-size-code)}
+
+/* ---------- chanfro sistemico ---------- */
+.fd-chanfro-lg{clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%)}
+.fd-chanfro-sm{clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-sm)) 0,100% var(--fd-chanfro-sm),100% 100%,0 100%)}
+
+/* ---------- botoes ---------- */
+.fd-btn{font-family:var(--fd-font-texto);font-weight:700;background:var(--fd-brasa);color:#fff;border:0;padding:var(--fd-s3) var(--fd-s6);cursor:pointer;
+        clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-sm)) 0,100% var(--fd-chanfro-sm),100% 100%,0 100%)}
+.fd-btn:hover{background:#B03A00}
+.fd-btn--alt{background:var(--fd-laranja);color:var(--fd-aco)}  /* 6.1:1 */
+
+/* ---------- card ---------- */
+.fd-card{background:var(--fd-branco);padding:var(--fd-s6);box-shadow:var(--fd-elev-repouso);transition:box-shadow .2s ease,transform .2s ease;
+         clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%)}
+.fd-card:hover{box-shadow:var(--fd-elev-hover);transform:translateY(-2px)}
+.fd-card--destaque{box-shadow:var(--fd-elev-destaque)}
+/* superficie secundaria e lista densa — o chanfro poluiria a leitura */
+.fd-card--simples{clip-path:none;border-radius:var(--fd-r-md)}
+
+/* ---------- preco ---------- */
+.fd-preco{font-family:var(--fd-font-display);color:var(--fd-aco);background:var(--fd-laranja);padding:var(--fd-s2) var(--fd-s4);display:inline-block;
+          clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-sm)) 0,100% var(--fd-chanfro-sm),100% 100%,0 100%)}
+
+/* ---------- badge / pill: mantem o raio, nao recebe chanfro ---------- */
+.fd-badge{background:rgba(255,106,0,.12);color:var(--fd-brasa);font-family:var(--fd-font-label);font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+          font-size:var(--fd-size-label);border-radius:var(--fd-r-pill);padding:4px 12px;display:inline-block}
+.fd-badge--escuro{background:var(--fd-faisca);color:var(--fd-aco)}  /* 9.58:1 sobre aco */
+
+/* ---------- bloco de codigo / terminal ---------- */
+.fd-terminal{background:var(--fd-aco);overflow:hidden;font-family:var(--fd-font-code);
+             clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%)}
+.fd-terminal__header{background:var(--fd-aco-frio);padding:var(--fd-s2) var(--fd-s3);display:flex;gap:6px}
+.fd-terminal__header i{width:8px;height:8px;border-radius:50%;display:block}
+.fd-terminal__header .fd-dot--erro{background:var(--fd-erro)}
+.fd-terminal__header .fd-dot--alerta{background:var(--fd-faisca)}
+.fd-terminal__header .fd-dot--sucesso{background:var(--fd-sucesso)}
+.fd-terminal__body{padding:var(--fd-s4);color:var(--fd-bigorna);font-size:var(--fd-size-code);line-height:1.6}
+.fd-terminal__body .fd-prompt{color:var(--fd-laranja);font-weight:400}
+
+/* ---------- texturas — so em fundo de secao, capa ou CTA ---------- */
+.fd-textura-aco{background-color:var(--fd-aco);
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 8px)}
+.fd-textura-grid{background-color:var(--fd-bigorna);
+  background-image:radial-gradient(circle,rgba(20,26,32,.08) 1px,transparent 1px);background-size:16px 16px}
+
+/* ---------- divisor tecnico ---------- */
+.fd-divisor{height:2px;border:0;background:repeating-linear-gradient(90deg,#FF6A00 0px,#FF6A00 6px,transparent 6px,transparent 12px)}
+
+/* ---------- conjunto de icones ---------- */
+/* SVG de 24x24, traco 2px, currentColor no corpo e laranja no acento */
+.fd-icone{width:24px;height:24px;display:inline-block;vertical-align:middle;color:var(--fd-aco)}
+
+/* ============================================================
+   EXTENSAO PARA O SITE — 2026
+   Nao substitui nenhum token acima; apenas acrescenta o que o
+   meio digital exige e o material impresso nao previa.
+   ============================================================ */
+:root{
+  /* Texto secundario em SECAO ESCURA.
+     #5F6A76 (Cinza Lima) reprova sobre #141A20 — razao 2.06:1.
+     Este cinza claro entrega 11.1:1 sobre Aco e e o unico
+     autorizado para texto secundario em fundo escuro. */
+  --fd-cinza-claro:#C6CBD1;
+
+  /* Brasa escurecida para TEXTO pequeno sobre fundo claro.
+     Brasa puro (#C94300) entrega 4.87:1 sobre branco, mas so 4.49:1 sobre
+     Bigorna (#F4F5F6) — 0,01 abaixo do AA. Este tom entrega 5.54:1 sobre
+     Bigorna e ja e o hover oficial de botao do brand guide.
+     Fundo de botao continua sendo Brasa puro. */
+  --fd-brasa-texto:#B03A00;
+
+  /* Superficie elevada dentro de secao escura */
+  --fd-aco-elevado:#1C242D;
+
+  /* Movimento — nunca linear, 150ms a 300ms */
+  --fd-ease:cubic-bezier(.22,.61,.36,1);
+  --fd-ease-out:cubic-bezier(.16,1,.3,1);
+  --fd-dur-rapida:150ms;
+  --fd-dur-media:220ms;
+  --fd-dur-lenta:300ms;
+
+  /* Chanfro animavel — o hover desloca o corte, nao arredonda */
+  --fd-chanfro-hover:22px;
+
+  /* Ritmo vertical de secao — denso, industrial, nao arejado */
+  --fd-secao-y:clamp(4rem,8.5vw,7rem);
+  --fd-wrap:1200px;
+  --fd-gutter:clamp(1.25rem,4vw,2.5rem);
+
+  /* Altura do header (usada por scroll-padding e pelo hero) */
+  --fd-header-h:76px;
+  --fd-header-h-scroll:60px;
+}
+
+/* Chanfro animavel: registrar o custom property permite transicao suave do
+   clip-path. Navegador sem suporte ignora a at-rule e o corte apenas salta. */
+@property --fd-ch{ syntax:'<length>'; inherits:false; initial-value:8px; }
