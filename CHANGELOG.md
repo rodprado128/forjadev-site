@@ -90,9 +90,47 @@ página 404.
 7. **O `og-image.jpg` foi regerado** com a headline nova, mantendo nome e
    caminho. Facebook, LinkedIn e X guardam cache por URL: para o novo card
    aparecer imediatamente, rode o link no Sharing Debugger / Post Inspector.
-8. **O brand guide não foi editado.** A linha "Posicionamento" do
-   `FORJADEV-BRAND-GUIDE_1.md` ainda diz *"Sites e landing pages entregues em
-   dias, não em meses"* — que é exatamente a promessa que esta mudança
-   aposentou no site. O guia é a fonte única da verdade da marca e atualizá-lo
-   é decisão do dono da marca, não efeito colateral de uma mudança de página.
-   **Fica registrado como pendência.**
+8. **O brand guide não foi editado nesta etapa.** A linha "Posicionamento" do
+   `FORJADEV-BRAND-GUIDE_1.md` ainda dizia *"Sites e landing pages entregues em
+   dias, não em meses"* — exatamente a promessa que esta mudança aposentou no
+   site. O guia é a fonte única da verdade da marca e atualizá-lo é decisão do
+   dono da marca, não efeito colateral de uma mudança de página.
+   **Pendência resolvida em seguida — ver abaixo.**
+
+---
+
+## 2026-09-06 — Brand guide alinhado ao novo posicionamento
+
+Fecha a pendência 8 acima, por decisão do dono da marca. O
+`FORJADEV-BRAND-GUIDE_1.md` é gitignored (referência local, não versionada),
+então a mudança não aparece no diff deste commit — fica registrada aqui.
+
+**Versão do guia:** 2026.1.1 → **2026.1.2**
+
+| Onde | Antes | Depois |
+|---|---|---|
+| `Posicionamento` | Sites e landing pages entregues em dias, não em meses. Preço fechado, prazo curto, execução técnica própria. | Sites e landing pages em código próprio. O cliente é dono do que recebe, hospeda onde quiser e não paga mensalidade de plataforma para o site continuar no ar. Preço fechado, execução técnica própria, prazo curto. |
+| Tom de voz | — | Bullet novo: **"Prazo é característica, não promessa central"**, com o motivo (construtor com IA entrega "site em minutos"; disputa de velocidade é terreno perdido) |
+| Exemplos `Faça` | Abriam com *"Seu site no ar em 3 dias."* | Abrem com *"Código seu. Hospedagem sua. Sem mensalidade."*; o prazo continua na lista, em terceiro |
+| Exemplos `Não faça` | — | `+ "Seu site no ar em tempo recorde."` |
+| Prompt base de imagem | *"…a Brazilian web development studio that ships websites in days."* | *"…that hand-codes websites the client owns outright — no page builder, no platform subscription."* |
+| Prompt base — `Mood` | `fast, capable, hands-on…` | `solid, capable, hands-on…` |
+| Contexto de negócio | Produtos: sites institucionais (entrega rápida, custo baixo)… | Produtos: … sempre em código próprio entregue ao cliente, custo baixo, sem mensalidade de plataforma |
+
+**Por que os seis pontos derivados foram junto:** o prompt base de geração de
+imagem e o bloco de tom de voz são o que uma IA lê para produzir peça nova.
+Corrigir só a linha `Posicionamento` e deixar o prompt dizendo *ships websites
+in days* reintroduziria a promessa aposentada em todo material gerado a partir
+do guia.
+
+**Intocado, de propósito:**
+
+- *"O ferro quente não espera."* — assinatura, fala de agilidade de
+  atendimento, não de competir em minutos com construtor.
+- **Comprador principal / secundário** — a descrição diz que eles compram por
+  "preço, prazo e confiança". É pesquisa sobre o comprador, não promessa da
+  marca; o prazo continua sendo um critério real de compra.
+- **Bullet "Concreto — número, prazo e preço aparecem cedo"** — é regra de
+  redação (seja específico), não de posicionamento.
+- Ícone `relogio-forja` com uso "prazo", garantia de 15 dias, e todo o sistema
+  visual, tipográfico e de cor.
