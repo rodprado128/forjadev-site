@@ -1,5 +1,179 @@
 # Mudanças
 
+## 2026-09-06 — Copy: fora a vigência e o ClickUp, fora a primeira pessoa
+
+Quatro alterações de texto e a criação da documentação técnica do site. Nenhuma
+mudança de layout, de token, de cor, de fonte ou de comportamento — só copy, mais
+a limpeza de uma regra de CSS que ficou sem elemento.
+
+### 1. Removida a legenda de vigência da tabela de adicionais
+
+| | |
+|---|---|
+| **Antes** | `<caption>Valores somados ao pacote — edição 2026.1, vigência de 90 dias.</caption>` |
+| **Depois** | *(elemento removido)* |
+
+**Racional:** anunciar prazo de validade de tabela cria urgência artificial e
+convida o visitante a perguntar "e depois dos 90 dias?" numa página cujo
+argumento é previsibilidade de preço. A informação de edição continua no
+cabeçalho dos pacotes ("Pacotes · Edição 2026.1") e a validade continua declarada
+aos buscadores pelo `priceValidUntil` do JSON-LD.
+
+A frase era o conteúdo inteiro do `<caption>`, então o elemento saiu junto — sem
+tag vazia. A regra `.tabela caption` de `assets/css/style.css` foi removida
+porque ficou sem elemento para estilizar. O `padding-bottom:1rem` que ela
+aplicava era o único espaço que ela ocupava: com a legenda fora, a folga entre o
+cabeçalho da seção e a tabela passou a ser exatamente a mesma das outras seções
+(32px em 360/768px, 48px em 1440px, medida no navegador). Não sobrou respiro
+órfão — o ritmo, na verdade, ficou mais regular.
+
+### 2. Removida a menção a ClickUp
+
+| | |
+|---|---|
+| **Antes** | "**Cada projeto tem um painel próprio no ClickUp.** Você abre a demanda, vê o status de cada etapa, anexa arquivo e consulta todo o histórico quando quiser. Acesso liberado no início, sem custo adicional." |
+| **Depois** | "Você abre a demanda, vê o status de cada etapa, anexa arquivo e consulta todo o histórico quando quiser. Acesso liberado no início, sem custo adicional." |
+
+**Racional:** nomear a ferramenta amarra a entrega a um fornecedor específico e
+não diz nada ao comprador principal, que é leigo em tecnologia — o que ele compra
+é "vejo o andamento sem precisar perguntar", não a marca do painel.
+
+A frase aparecia em **três lugares** e saiu dos três, para o FAQ estruturado
+continuar espelhando o texto visível:
+
+- `index.html:816` — bloco "Acompanhamento online" de `#como-funciona`
+- `index.html:1025` — resposta da P8 do FAQ
+- `index.html:373` *(antes da edição: 389)* — `FAQPage` do JSON-LD
+
+Em cada caso a frase era a primeira de um parágrafo maior, então só a frase saiu.
+A outra menção a ClickUp — o comentário `# painel no clickup, liberado no inicio`
+no terminal `status` — **foi preservada de propósito**, conforme instrução.
+
+### 3. Título de "Quem faz" reescrito
+
+| | |
+|---|---|
+| **Antes** | Quem escreve o código é quem atende você. |
+| **Depois** | Sem intermediário entre o que você pede e quem constrói. |
+
+**Racional:** "quem escreve o código é quem atende" descreve uma operação de uma
+pessoa só, que o comprador lê como risco de amadorismo; "sem intermediário"
+descreve o mesmo fato como benefício — o pedido chega em quem executa, sem
+telefone sem fio.
+
+Mesma tag, mesma classe, mesmo `id`, mesmo tamanho e peso de fonte. A regra
+`h1,h2,h3,h4 { text-wrap:balance }` já existia: em 360px a frase quebra em 4
+linhas equilibradas e a última tem 2 palavras ("quem constrói."), sem viúva. Não
+foi preciso `<br>` nem CSS novo.
+
+### 4. Bio reescrita em terceira pessoa (3 parágrafos)
+
+| | Antes | Depois |
+|---|---|---|
+| **P1** | **Eu escrevo o código do seu site.** HTML, CSS e JavaScript, do zero, sem construtor visual e sem tema comprado — o que entra na página é linha que **eu consigo** abrir e explicar. | **O código do seu site é escrito à mão.** HTML, CSS e JavaScript, do zero, sem construtor visual e sem tema comprado — o que entra na página é linha que **dá para** abrir e explicar. |
+| **P2** | Antes de virar página, boa parte do trabalho é fluxo: … webhook que dispara o aviso na hora. **Integro com API, planilha e CRM e faço isso rodar sozinho.** | Antes de virar página, boa parte do trabalho é fluxo: … webhook que dispara o aviso na hora. **Integração com API, planilha e CRM, configurada para rodar sozinha.** |
+| **P3** | E o site tem que abrir rápido e ser achado. Performance, SEO técnico e publicação **são** parte da entrega: **eu subo, configuro** o domínio e **deixo** funcionando. | E o site tem que abrir rápido e ser achado. Performance, SEO técnico e publicação **fazem** parte da entrega: **a ForjaDev sobe o site, configura** o domínio e **deixa** funcionando. |
+
+**Racional:** a bio em primeira pessoa faz a ForjaDev soar como freelancer, não
+como estúdio — e é justamente na seção que existe para dar confiança. Descrever o
+trabalho pelo que ele é, e o executor como a marca, sustenta o mesmo fato sem o
+tom de perfil pessoal.
+
+Estrutura preservada: continuam três `<p>` separados dentro de `.bio__texto`,
+sem `<strong>` nem `<span>` (os originais também não tinham). Varredura final no
+bloco: zero verbo em primeira pessoa, singular ou plural.
+
+### 5. Parágrafo do CTA final reescrito
+
+| | |
+|---|---|
+| **Antes** | **Me manda** o que você precisa e **eu volto** com escopo, prazo e valor fechados. O código e a hospedagem ficam no seu nome, sem mensalidade de plataforma. Briefing e layout aprovados até as 12h entram na fila do mesmo dia útil. |
+| **Depois** | **Envie** o que você precisa e **a ForjaDev volta** com escopo, prazo e valor fechados. O código e a hospedagem ficam no seu nome, sem mensalidade de plataforma. Briefing e layout aprovados até as 12h entram na fila do mesmo dia útil. |
+
+**Racional:** o fechamento é o pior lugar para soar informal — "me manda" pede
+intimidade que o visitante ainda não tem. O imperativo formal mantém a ordem
+direta que o brand guide pede e devolve a entrega à marca.
+
+Continua **um único `<p>`**, como no original. Botão, `href` do WhatsApp,
+`aria-label`, `target` e `rel` intocados.
+
+### Varredura global de primeira pessoa (nada alterado fora do escopo)
+
+Padrões `\bEu\b`, `\bmeu\b`, `\bminha\b`, `\bcomigo\b` e ` eu ` em todos os
+`.html`. Encontrado e **deixado como está**, por estar fora do escopo desta
+mudança:
+
+| Arquivo:linha | Trecho | Observação |
+|---|---|---|
+| `index.html:1001` | "A publicação e a configuração estão inclusas no preço — **eu subo** o site e deixo funcionando." | P6 do FAQ. Mesma construção que saiu do P3 da bio — **precisa do mesmo tratamento** |
+| `index.html:373` | idem, no `FAQPage` do JSON-LD | tem de mudar junto com a linha 1001 |
+| `index.html:330` e `936` | "Em quanto tempo **meu** site fica pronto?" | primeira pessoa **do visitante**, não da marca — correto como está |
+| `404.html:63` | "Volte para o início — ou **me chame** direto e resolvemos em um minuto." | fora do padrão buscado, mas é primeira pessoa da marca |
+
+### Arquivos tocados
+
+| Arquivo | O que |
+|---|---|
+| `index.html` | 4 alterações de copy (7 trechos: 1 remoção de elemento, 3 remoções de frase, 5 substituições de texto) |
+| `assets/css/style.css` | removida a regra `.tabela caption`, sem elemento depois da remoção 1 |
+| `DOCUMENTACAO-SITE.md` | **novo** — documentação técnica completa do site |
+| `CHANGELOG.md` | esta entrada |
+
+Intocados: `tokens.css`, os dois `.js`, `404.html`, `site.webmanifest`,
+`robots.txt`, `sitemap.xml`, `CNAME` e todos os assets.
+
+### Validação
+
+- **Parser HTML** (`node-html-parser`) em `index.html` e `404.html`: nenhuma tag
+  aberta sem fechar, nenhum elemento vazio deixado pelas remoções, JSON-LD
+  válido com 5 nós no `@graph`, um único `h1`, tabela ainda com `thead` e `tbody`.
+- **Nenhum estilo inline novo**, nenhuma cor hex, `border-radius` ou
+  `font-family` introduzido. Todas as cores continuam vindo de `tokens.css`.
+  Texto secundário em fundo escuro continua `--fd-cinza-claro` (`#C6CBD1`);
+  `#5F6A76` só aparece sobre superfície clara.
+- **Renderização em 360, 768 e 1440px** (Chrome headless, CDP): nenhuma rolagem
+  horizontal; folga cabeçalho→conteúdo idêntica entre `#prova`, `#pacotes`,
+  `#adicionais` e `#nao-incluso`; parágrafo do "Acompanhamento online" com
+  99/50/50px de altura e 9,6px de folga do `h3` — sem espaço órfão nas duas
+  seções que sofreram remoção.
+
+### Lighthouse
+
+Lighthouse 12.8.2, mobile, Chrome headless, servidor estático local. Quatro
+execuções por versão, **alternadas** entre a build anterior (extraída com
+`git archive HEAD`, servida na porta 8081) e a nova (porta 8080).
+
+| Categoria | Antes | Depois |
+|---|---|---|
+| Performance | 65 · 88 · 65 · 70 → mediana **67** | 61 · 71 · 74 · 68 → mediana **69** |
+| Acessibilidade | **100** | **100** |
+| Boas práticas | **100** | **100** |
+| SEO | **100** | **100** |
+| CLS | **0** | **0** |
+
+**Sobre a performance:** a mesma build anterior pontuou de 65 a 88 e teve TBT de
+70ms a 980ms entre execuções — a variação é da máquina, não do código. Foi por
+isso que as execuções foram alternadas. A mudança é só de texto, o payload ficou
+menor e nenhum recurso, script ou regra de layout mudou: não há regressão
+atribuível a ela. Acessibilidade, boas práticas e SEO, que são determinísticos,
+ficaram em 100 antes e depois. Para número confiável de performance, medir contra
+a URL pública em máquina ociosa.
+
+### Documentação nova
+
+Criado o `DOCUMENTACAO-SITE.md` na raiz, em PT-BR, com 13 seções extraídas da
+leitura do código: identificação e configuração real do Pages, stack e ausência
+de build step, árvore de arquivos comentada, mapa das 13 seções da página,
+tokens de `tokens.css` com onde cada um aparece, camada técnica da marca em uso,
+regra de proporção do laranja, cada função de `main.js` e `animations.js`
+(inclusive estrutura, timings, estados e como editar o mockup animado do hero),
+a ausência de formulário e como a conversão acontece por link, contrastes e
+recursos de acessibilidade, estratégia de fontes/CSS/imagens e SEO, inventário
+completo de copy com arquivo e linha, passo a passo do deploy e do DNS, guia de
+manutenção de preço/prazo/pacote/telefone, e 10 pendências conhecidas.
+
+---
+
 ## 2026-09-06 — Reposicionamento do hero
 
 Duas mudanças ligadas: a promessa central da página deixou de ser prazo e

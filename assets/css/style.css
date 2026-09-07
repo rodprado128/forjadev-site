@@ -690,7 +690,6 @@ p{text-wrap:pretty}
 /* ---------- 12. ADICIONAIS ---------- */
 .tabela-wrap{overflow-x:auto}
 .tabela{width:100%;border-collapse:collapse;text-align:left}
-.tabela caption{text-align:left;color:var(--txt-2);padding-bottom:1rem;font-size:.9375rem}
 .tabela th,.tabela td{padding:.9rem 1rem;vertical-align:top}
 .tabela thead th{
   font-family:var(--fd-font-label);font-weight:600;
