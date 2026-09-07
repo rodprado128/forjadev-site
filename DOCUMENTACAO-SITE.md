@@ -23,7 +23,7 @@ local, **não versionado** — ver `.gitignore`) e `assets/css/tokens.css`.
 | **Certificado HTTPS** | emitido e aprovado para `forjadev.app.br` e `www.forjadev.app.br`, válido até **2026-12-05** |
 | **Enforce HTTPS** | **desligado** (`https_enforced: false`) — ver Pendências |
 | **Peso total do que é publicado** | ~597 KB (todos os arquivos versionados somados) |
-| **Responsável técnico** | Rodrigo Prado — WhatsApp (44) 99119-2295 · rodrigodiaz128@gmail.com |
+| **Responsável técnico** | Rodrigo Prado — WhatsApp (44) 99119-2295 · rodrigo@forjadev.app.br |
 
 ---
 
@@ -363,7 +363,7 @@ A conversão inteira acontece por **link de saída**, em três formatos:
 | Canal | Destino | Onde aparece |
 |---|---|---|
 | WhatsApp | `https://wa.me/5544991192295?text=…` com mensagem pré-preenchida por contexto | header (desktop e mobile), 2 CTAs do hero, 1 botão por card de pacote (6), CTA dos adicionais, CTA final, rodapé, botão flutuante — 14 ocorrências |
-| E-mail | `mailto:rodrigodiaz128@gmail.com` | CTA final e rodapé |
+| E-mail | `mailto:rodrigo@forjadev.app.br` | CTA final e rodapé |
 | Perfis | LinkedIn e GitHub de Rodrigo Prado | bio e rodapé |
 
 Todos os links externos usam `target="_blank" rel="noopener"` e `aria-label`
@@ -615,7 +615,7 @@ duplicam conteúdo visível e precisam ser editados junto com ele.
 | P8 Como acompanho o andamento do projeto? | 1020 / 1025 |
 | O ferro quente não espera. | 1039 |
 | Envie o que você precisa e a ForjaDev volta com escopo, prazo e valor fechados. O código e a hospedagem ficam no seu nome, sem mensalidade de plataforma. Briefing e layout aprovados até as 12h entram na fila do mesmo dia útil. | 1040 |
-| (44) 99119-2295 · rodrigodiaz128@gmail.com · Maringá – PR | 1052–1054 |
+| (44) 99119-2295 · rodrigo@forjadev.app.br · Maringá – PR | 1052–1054 |
 | Rodapé: Sites e landing pages com código próprio, preço fechado e sem mensalidade de plataforma. Maringá – PR, para o Brasil todo. | 1072 |
 | Rodapé: Navegação · Contato · Voltar ao topo · © 2026 ForjaDev · Rodrigo Prado. | 1084–1111 |
 
