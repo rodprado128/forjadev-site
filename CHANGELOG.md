@@ -1,5 +1,60 @@
 # Mudanças
 
+## 2026-09-07 — Assinatura de e-mail: assets publicados em `/assinatura/`
+
+Publicação dos três PNG que a assinatura de e-mail carrega por URL absoluta, mais
+o HTML da assinatura versionado ao lado deles. Nada no site mudou: a pasta é
+servida como diretório de assets estáticos e não é referenciada por `index.html`
+nem pelo `sitemap.xml`.
+
+### 1. Arquivos publicados
+
+| Arquivo no repositório | Dimensão | Peso | Papel na assinatura |
+|---|---|---|---|
+| `assinatura/forjadev-topo.png` | 1080 × 32 | 6.221 B | faixa de chanfro do topo, exibida a 540 × 16 |
+| `assinatura/forjadev-foto-rodrigo.png` | 224 × 224 | 50.836 B | foto com chanfro, exibida a 112 × 112 |
+| `assinatura/forjadev-logo-negativo.png` | 238 × 44 | 9.240 B | logo do rodapé, exibida a 119 × 22 |
+| `assinatura/assinatura-forjadev-rodrigo.html` | — | 7.061 B | marcação da assinatura (tabela + estilo inline) |
+
+URLs públicas:
+
+- <https://forjadev.app.br/assinatura/forjadev-topo.png>
+- <https://forjadev.app.br/assinatura/forjadev-foto-rodrigo.png>
+- <https://forjadev.app.br/assinatura/forjadev-logo-negativo.png>
+
+### 2. Por que os arquivos não foram tocados
+
+Nenhum PNG foi renomeado, redimensionado, recomprimido ou convertido para WebP.
+São duas razões independentes:
+
+- **As dimensões são @2x de propósito.** Cada imagem tem o dobro do tamanho de
+  exibição declarado no HTML. Cliente de e-mail não aceita `srcset`, então a
+  única forma de a assinatura ficar nítida em tela de alta densidade é servir o
+  dobro e reduzir pelos atributos `width`/`height`.
+- **WebP não é confiável em cliente de e-mail.** Outlook para Windows, entre
+  outros, não renderiza o formato — a assinatura apareceria quebrada justamente
+  no cliente mais comum em ambiente corporativo.
+
+### 3. Verificação pós-deploy
+
+As três URLs respondem `200` com `Content-Type: image/png` e `Content-Length`
+igual ao byte do arquivo local. `forjadev-foto-rodrigo.png` foi baixada da URL
+pública e conferida por SHA-256 contra a cópia do repositório: **byte-idêntica**
+(`701F6880…D0188`), o que prova que o GitHub Pages entrega o arquivo sem
+reprocessar.
+
+O `.nojekyll` da raiz já existia e cobre a pasta nova — não foi preciso criar
+nada nem mexer em exclusão de Jekyll (o repositório não tem `_config.yml`).
+
+### 4. O diretório não é uma página
+
+`https://forjadev.app.br/assinatura/` responde **404** — não há `index.html` na
+pasta, e o `custom_404` do site assume. É o comportamento pretendido: o caminho
+existe para hospedar assets, não para ser visitado. Se um dia fizer sentido ter
+uma página de instalação da assinatura ali, é só acrescentar o `index.html`.
+
+---
+
 ## 2026-09-06 — Copy: fora a vigência e o ClickUp, fora a primeira pessoa
 
 Quatro alterações de texto e a criação da documentação técnica do site. Nenhuma

@@ -99,6 +99,12 @@ de vocabulário, nenhum é requisição de carregamento:
 ├── ForjaDev-Tabela-de-Precos-*.pdf   (ignorados) documentos comerciais de origem
 ├── 045_AVA.jpg                   (ignorado) original de 7,7 MB da foto do rodapé da bio
 │
+├── assinatura/                   assets da assinatura de e-mail — ver seção 12
+│   ├── forjadev-topo.png                 1080×32 (@2x de 540×16)
+│   ├── forjadev-foto-rodrigo.png         224×224 (@2x de 112×112)
+│   ├── forjadev-logo-negativo.png        238×44  (@2x de 119×22)
+│   └── assinatura-forjadev-rodrigo.html  marcação da assinatura; não é servida como página
+│
 └── assets/
     ├── css/
     │   ├── tokens.css            @font-face, tokens da marca e componentes do brand guide
@@ -683,9 +689,72 @@ Post Inspector.
 
 ---
 
-## 12. Manutenção
+## 12. Assinatura de e-mail
 
-### 12.1 Alterar preço
+A assinatura de e-mail do responsável técnico é HTML de e-mail (tabela + estilo
+inline) que carrega três imagens **do próprio site**, por URL absoluta. Os
+arquivos vivem em `assinatura/`, na raiz do repositório, e são servidos como
+assets estáticos.
+
+A pasta **não é uma página**: não tem `index.html`, não é referenciada por
+`index.html` nem pelo `sitemap.xml`, e `https://forjadev.app.br/assinatura/`
+responde 404 (o `custom_404` do site assume). O caminho existe para hospedar
+asset, não para ser visitado.
+
+### 12.1 Arquivos
+
+| Caminho no repositório | URL pública | Dimensão real | Exibição no HTML |
+|---|---|---|---|
+| `assinatura/forjadev-topo.png` | <https://forjadev.app.br/assinatura/forjadev-topo.png> | 1080 × 32 | 540 × 16 |
+| `assinatura/forjadev-foto-rodrigo.png` | <https://forjadev.app.br/assinatura/forjadev-foto-rodrigo.png> | 224 × 224 | 112 × 112 |
+| `assinatura/forjadev-logo-negativo.png` | <https://forjadev.app.br/assinatura/forjadev-logo-negativo.png> | 238 × 44 | 119 × 22 |
+| `assinatura/assinatura-forjadev-rodrigo.html` | — (versionado, não servido como página) | — | — |
+
+As três imagens estão em **@2x** — o dobro da dimensão de exibição. Cliente de
+e-mail não aceita `srcset`, então servir o dobro e reduzir pelos atributos
+`width`/`height` é a única forma de a assinatura ficar nítida em tela de alta
+densidade.
+
+### 12.2 Regra de manutenção
+
+> **Os nomes de arquivo são referenciados de forma absoluta dentro de
+> `assinatura-forjadev-rodrigo.html`.** Renomear, mover ou apagar qualquer um dos
+> três PNG quebra a assinatura em **todo e-mail já enviado** — o cliente busca a
+> imagem na URL a cada abertura, inclusive em mensagens de meses atrás. Mudar
+> nome exige editar os `src` correspondentes no HTML **e** reemitir a assinatura
+> para quem a usa; mesmo assim, o histórico enviado continua quebrado.
+
+Pela mesma razão, os arquivos não devem ser recomprimidos, redimensionados nem
+convertidos para WebP: as dimensões acima são as que o HTML pressupõe, e WebP não
+renderiza de forma confiável em cliente de e-mail (Outlook para Windows, entre
+outros) — justamente o cliente mais comum no ambiente corporativo que a
+assinatura alcança.
+
+### 12.3 Conferência depois de publicar
+
+Cada PNG deve responder `200` com `Content-Type: image/png`. `text/html` ou
+redirecionamento para `http` significam que algo saiu do lugar.
+
+```powershell
+"topo","foto-rodrigo","logo-negativo" | ForEach-Object {
+  $r = Invoke-WebRequest "https://forjadev.app.br/assinatura/forjadev-$_.png" -Method Head -UseBasicParsing
+  "{0,-16} {1} {2}" -f $_, $r.StatusCode, $r.Headers['Content-Type']
+}
+```
+
+Para provar que o Pages não reprocessou a imagem, comparar o hash do arquivo
+servido com o do repositório:
+
+```powershell
+Invoke-WebRequest "https://forjadev.app.br/assinatura/forjadev-foto-rodrigo.png" -OutFile "$env:TEMP\f.png" -UseBasicParsing
+(Get-FileHash "$env:TEMP\f.png").Hash -eq (Get-FileHash "assinatura\forjadev-foto-rodrigo.png").Hash
+```
+
+---
+
+## 13. Manutenção
+
+### 13.1 Alterar preço
 
 Um preço aparece em **três lugares** e os três precisam mudar juntos:
 
@@ -699,7 +768,7 @@ quebra layout. **Não troque a cor:** é `#141A20` sobre `#FF6A00` por regra de
 contraste. Para adicionais, o valor está na coluna `.tabela__valor` (linhas 726 a
 762) e alguns também aparecem no FAQ (R$ 180 na P2, R$ 690 na P4, R$ 140 na P5).
 
-### 12.2 Alterar prazo
+### 13.2 Alterar prazo
 
 Prazo aparece no badge do card (`.pacote__prazo`, linhas 605, 622, 639, 656, 673,
 690), no JSON-LD (`description` de cada oferta), no contador de `#prova` (linha
@@ -710,7 +779,7 @@ FAQ (linhas 333 e 941) e nas meta tags.
 Lembre do posicionamento: **prazo é característica da entrega, nunca a promessa
 central da página.**
 
-### 12.3 Alterar texto de pacote
+### 13.3 Alterar texto de pacote
 
 Nome (`.pacote__nome`), resumo (`.pacote__resumo`) e escopo (`.pacote__escopo`)
 são texto livre — o card é `flex-direction:column` com `.pacote__rodape` em
@@ -721,7 +790,7 @@ botão alinhados na base. Ao mexer no nome, **atualize também**:
 - a mensagem pré-preenchida do `wa.me` (o texto vai codificado na URL);
 - o `name` e a `description` da oferta no JSON-LD.
 
-### 12.4 Alterar telefone
+### 13.4 Alterar telefone
 
 O número `5544991192295` aparece em **14 URLs de `wa.me`** e o formato humano
 `(44) 99119-2295` em `aria-label`s, no CTA final e no rodapé. Também está no
@@ -731,7 +800,7 @@ JSON-LD (`telephone`, linha 161) e no `404.html`. Troque tudo de uma vez:
 grep -rn "5544991192295\|99119-2295" index.html 404.html
 ```
 
-### 12.5 O que NÃO editar sem consultar o manual de marca
+### 13.5 O que NÃO editar sem consultar o manual de marca
 
 - **A cor do botão.** `#FF6A00` com texto branco dá 2,87:1 e é reprovado. Botão
   com texto branco é sempre Brasa `#C94300`.
@@ -756,7 +825,7 @@ grep -rn "5544991192295\|99119-2295" index.html 404.html
 
 ---
 
-## 13. Pendências conhecidas
+## 14. Pendências conhecidas
 
 1. **Primeira pessoa ainda presente na P6 do FAQ.** "A publicação e a
    configuração estão inclusas no preço — **eu subo o site e deixo funcionando**"
