@@ -281,3 +281,37 @@
 /* Chanfro animavel: registrar o custom property permite transicao suave do
    clip-path. Navegador sem suporte ignora a at-rule e o corte apenas salta. */
 @property --fd-ch{ syntax:'<length>'; inherits:false; initial-value:8px; }
+
+/* ============================================================
+   MOVIMENTO — tokens nomeados da Camada de Movimento (2026.1.1)
+   --forja-* sao os nomes canonicos do brand guide. Os --fd-*
+   acima continuam valendo como atalho interno do site.
+   ============================================================ */
+:root{
+  /* duracao */
+  --forja-dur-instantaneo:120ms;  /* feedback de toque, mudanca de cor */
+  --forja-dur-rapido:200ms;       /* hover, foco */
+  --forja-dur-padrao:320ms;       /* card, painel, acordeao */
+  --forja-dur-cena:560ms;         /* entrada de secao, revelacao de heroi */
+
+  /* curva */
+  --forja-ease-impacto:cubic-bezier(.16,1,.3,1);     /* padrao do sistema */
+  --forja-ease-saida:cubic-bezier(.4,0,1,1);
+  --forja-ease-entrada:cubic-bezier(0,0,.2,1);
+  --forja-ease-faisca:cubic-bezier(.34,1.56,.64,1);  /* overshoot curto — so micro-elemento */
+
+  /* cadencia */
+  --forja-stagger:60ms;   /* atraso entre irmaos em lista/grid */
+  --forja-stagger-max:6;  /* a partir do 7o item, entram todos juntos */
+
+  /* detalhe tecnico */
+  --fd-filete-claro:rgba(20,26,32,.10);
+  --fd-filete-escuro:rgba(255,255,255,.08);
+  --forja-filete-claro:var(--fd-filete-claro);
+  --forja-filete-escuro:var(--fd-filete-escuro);
+  --forja-foco:2px solid var(--fd-laranja);
+
+  /* ritmo vertical — 72px a 120px em desktop, 48px a 72px em mobile.
+     Acima de 160px a pagina comeca a ler como catalogo de luxo. */
+  --fd-secao-y:clamp(3rem,7vw,7.5rem);
+}

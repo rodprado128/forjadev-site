@@ -1,7 +1,7 @@
 {
-  "name": "ForjaDev — Criação de sites em Maringá",
+  "name": "ForjaDev — Software House em Maringá/PR",
   "short_name": "ForjaDev",
-  "description": "Sites e landing pages com código próprio, preço fechado e sem mensalidade de plataforma. Maringá – PR.",
+  "description": "Sistemas, plataformas e produtos digitais em código próprio. Escopo fechado por fase, homologação antes do deploy, repositório e infraestrutura no nome do cliente. Maringá – PR.",
   "lang": "pt-BR",
   "start_url": "/",
   "scope": "/",
