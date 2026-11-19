@@ -31,7 +31,7 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<script>document.documentElement.classList.add("js");</script>
+<script>try{var fdTema=localStorage.getItem("fd-tema");if(fdTema==="claro"||fdTema==="escuro")document.documentElement.setAttribute("data-tema",fdTema);}catch(e){/* Preferência do sistema sem depender do armazenamento. */}</script>
 </head>
 <body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -66,7 +66,8 @@
 <main id="conteudo">
 
   <section class="hero" aria-labelledby="hero-titulo">
-    <div class="container">
+    <div class="container hero-grade">
+      <div class="hero-conteudo">
       <p class="rotulo-secao reveal">ForjaDev · Automação e integração · Maringá/PR</p>
       <h1 id="hero-titulo" class="hero-titulo" aria-label="Processos que andam sozinhos.">
         <span class="kinetic"><span style="--i:0">Processos</span></span>
@@ -83,8 +84,22 @@
       </div>
       <p class="hero-nota reveal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>
-        Diagnóstico pelo WhatsApp, sem compromisso — atendemos o Brasil todo.
+        Conte qual etapa ainda depende de copiar e colar.
       </p>
+      </div>
+      <div class="hero-visual" aria-label="Exemplo ilustrativo: uma entrada percorre sistemas conectados, com regras e registro">
+        <div class="hero-visual-cabecalho"><span class="hero-visual-rotulo">Fluxo ilustrativo</span><span class="hero-visual-sinal" aria-hidden="true"></span></div>
+        <p class="hero-visual-titulo">Uma entrada.<br>Sistemas conectados.</p>
+        <div class="hero-visual-caminho" aria-hidden="true">
+          <div class="hero-no"><span class="hero-no-numero">01</span><span>Entrada</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg></div>
+          <div class="hero-conector"><span></span></div>
+          <div class="hero-no hero-no-central"><span class="hero-no-numero">02</span><span>Regras do negócio</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6M18 3v3a6 6 0 0 1-6 6"/><circle cx="6" cy="3" r="2"/><circle cx="18" cy="3" r="2"/><circle cx="18" cy="21" r="2"/></svg></div>
+          <div class="hero-conector"><span></span></div>
+          <div class="hero-no"><span class="hero-no-numero">03</span><span>Registro e resposta</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 4h14v16H5zM8 9h8M8 13h5M8 17h7"/></svg></div>
+        </div>
+        <div class="hero-sistemas"><span>Salesforce</span><span>ClickUp</span><span>Sankhya</span><span>Omie</span><span>WhatsApp</span></div>
+        <p class="hero-visual-nota">O desenho real é definido no diagnóstico.</p>
+      </div>
     </div>
   </section>
 
@@ -125,6 +140,7 @@
         </div>
 
         <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-pedidos" aria-labelledby="aba-pedidos">
+          <h3 class="fluxo-titulo-estatico">Pedidos</h3>
           <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
             <path class="trilho" d="M 60 60 H 660"/>
             <circle class="no" cx="60" cy="60" r="34"/><text class="no-txt" x="60" y="65" text-anchor="middle">Entrada</text>
@@ -141,7 +157,8 @@
           </ol>
         </div>
 
-        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-tarefas" aria-labelledby="aba-tarefas" hidden>
+        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-tarefas" aria-labelledby="aba-tarefas">
+          <h3 class="fluxo-titulo-estatico">Tarefas do time</h3>
           <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
             <path class="trilho" d="M 60 60 H 660"/>
             <circle class="no" cx="60" cy="60" r="34"/><text class="no-txt" x="60" y="65" text-anchor="middle">Entrada</text>
@@ -158,7 +175,8 @@
           </ol>
         </div>
 
-        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-vendas" aria-labelledby="aba-vendas" hidden>
+        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-vendas" aria-labelledby="aba-vendas">
+          <h3 class="fluxo-titulo-estatico">Vendas e financeiro</h3>
           <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
             <path class="trilho" d="M 60 60 H 660"/>
             <circle class="no" cx="60" cy="60" r="34"/><text class="no-txt" x="60" y="65" text-anchor="middle">Captação</text>
@@ -194,7 +212,7 @@
             <li>Informação transportada à mão entre sistemas e planilhas</li>
             <li>Conferência repetida do mesmo dado em telas diferentes</li>
             <li>Retrabalho quando o volume cresce — e o erro junto</li>
-            <li>O processo depende de alguém lembrar de executa-lo</li>
+            <li>O processo depende de alguém lembrar de executá-lo</li>
           </ul>
         </article>
         <div class="seta-fluxo reveal" style="--d:1" aria-hidden="true">→</div>
@@ -235,7 +253,7 @@
           <span class="fase-num" aria-hidden="true">03</span>
           <div>
             <h3>Verificação</h3>
-            <p>Testamos com dados reais da sua operação, conferimos cada regra e só então entregamos para o dia a dia — com o processo documentado para evoluir depois.</p>
+            <p>Validamos o fluxo e as regras com seu time em ambiente de teste, usando dados autorizados. O processo fica documentado para a operação e a evolução depois da entrega.</p>
           </div>
         </article>
       </div>
@@ -284,7 +302,7 @@
         </details>
         <details class="reveal" style="--d:1">
           <summary>Com quais sistemas vocês trabalham?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
-          <p>Operações nossas costumam envolver sistemas como Salesforce, ClickUp, Sankhya, Omie e WhatsApp. A lista não é um selo de parceria: o diagnóstico define o desenho real do seu caso.</p>
+          <p>Integramos sistemas como Salesforce, ClickUp, Sankhya, Omie e WhatsApp, conforme os acessos e recursos disponíveis em cada ferramenta. A lista não é um selo de parceria: o diagnóstico define o desenho real do seu caso.</p>
         </details>
         <details class="reveal" style="--d:2">
           <summary>Nossa equipe ainda usa planilha. Faz sentido?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -306,7 +324,7 @@
     <div class="container container-estreito cta-interno">
       <p class="rotulo-secao reveal" style="margin-inline:auto">Contato</p>
       <h2 id="cta-titulo" class="reveal">Vamos olhar o seu processo junto</h2>
-      <p class="lead reveal">Chame a gente no WhatsApp, conte onde a informação trava e agende um diagnóstico — sem compromisso.</p>
+      <p class="lead reveal">Chame a gente no WhatsApp, conte onde a informação trava e agende um diagnóstico.</p>
       <a class="btn btn-acento btn-grande reveal" href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20agendar%20um%20diagn%C3%B3stico." target="_blank" rel="noopener">Agendar diagnóstico</a>
       <p class="cta-alt reveal">Prefere e-mail? <a href="mailto:rodrigo@forjadev.app.br">rodrigo@forjadev.app.br</a></p>
     </div>

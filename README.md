@@ -30,7 +30,7 @@ robots.txt / sitemap.xml / site.webmanifest
 ## Notas de implementação
 
 - Tema claro padrão; escuro opcional no botão do cabeçalho, persistido em `localStorage` (tolerante a storage bloqueado; sem `prefers-color-scheme` guardado, inicia claro com respeito ao `prefers-color-scheme`).
-- Reveals usam CSS scroll-driven (`animation-timeline: view()`) com detecção via `@supports` + `CSS.supports`; sem suporte, cai para `IntersectionObserver`. Sem JS, todo o conteúdo é visível.
+- Reveals usam CSS scroll-driven (`animation-timeline: view()`) com detecção via `@supports` + `CSS.supports`; sem suporte, cai para `IntersectionObserver`. A camada de movimento só é ativada depois da inicialização. Sem JS ou com o script bloqueado, navegação mobile e todos os exemplos permanecem acessíveis.
 - `prefers-reduced-motion` cancela deslocamentos, scrub e reveals (conteúdo sempre visível, não apenas mais rápido).
 - Fluxos exibidos são **ilustrativos**: explicam o tipo de problema resolvido; o desenho real nasce no diagnóstico.
 - Ícones: Lucide (stroke 1.75 no uso), servidos localmente.
@@ -39,3 +39,19 @@ robots.txt / sitemap.xml / site.webmanifest
 
 - O logo na página foi inlinado a partir dos vetores exatos extraídos do brand book (página 6), com recoloração por tema via variáveis — geometria preservada; modo escuro usa a variante autorizada (#EBEDF0 / #7689FE).
 - Fluxos exibidos continuam ilustrativos; nenhum número, case ou SLA do brand book (ex.: "1.248 pedidos", "−18h") foi usado em peça real.
+
+## Verificar e publicar são etapas diferentes
+
+O trabalho de redesign está na branch `redesign-2026`, em PR para `main`.
+GitHub Pages serve **`main` a partir da raiz**. Não fazer merge sem aprovação
+específica: o merge publica o site. Não alterar `CNAME`, `.nojekyll`, DNS,
+origem do Pages ou HTTPS.
+
+As demonstrações de automação são ilustrativas, sem backend conectado ou
+resultados de clientes. O CTA abre WhatsApp; não existe formulário que simule envio.
+
+A implementação foi verificada localmente com Chromium em 1440, 390 e 320 px:
+console/recursos, overflow, menu/Escape, temas, abas e FAQ, navegação sem JS,
+script bloqueado e redução de movimento. Isso não é medição de produção.
+Os artefatos completos de testes e screenshots são entregues pelo coordenador;
+Lighthouse, publicação e aceite do cliente só serão declarados com suas evidências.

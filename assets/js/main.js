@@ -11,26 +11,43 @@
     if (t === "escuro" || t === "claro") root.setAttribute("data-tema", t);
     else root.removeAttribute("data-tema");
     var meta = doc.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", t === "escuro" ? "#0D0F14" : "#F6F7F9");
+    var escuroAtual = t === "escuro" || (!t && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    if (meta) meta.setAttribute("content", escuroAtual ? "#0D0F14" : "#F6F7F9");
+    var controle = doc.querySelector(".tema-btn");
+    if (controle) { controle.setAttribute("aria-pressed", escuroAtual ? "true" : "false"); controle.setAttribute("aria-label", escuroAtual ? "Ativar tema claro" : "Ativar tema escuro"); }
   }
   var tema = temaSalvo();
   aplicarTema(tema);
 
-  /* Fallback de reveals quando não há animation-timeline */
+  /* Só ativar movimento depois da funcionalidade, nunca no <head>.
+     Se o script falhar, a apresentação base continua totalmente legível. */
   var temTimeline = window.CSS && CSS.supports && CSS.supports("animation-timeline", "view()");
-  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!temTimeline) root.classList.add("no-viewtl");
+  var mediaReduced = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+  var reduced = mediaReduced && mediaReduced.matches;
   var temIO = "IntersectionObserver" in window;
-  if (!temTimeline && !reduced && temIO) {
-    var io = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("fd-in"); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.15 });
-    doc.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-  } else if (!temTimeline && (reduced || !temIO)) {
+  if (!temTimeline) root.classList.add("no-viewtl");
+  try {
+    if (!temTimeline && !reduced && temIO) {
+      var io = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("fd-in"); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.15 });
+      doc.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    } else {
+      doc.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("fd-in"); });
+    }
+    if (temTimeline || temIO) root.classList.add("motion-ready");
+  } catch (e) {
+    root.classList.remove("motion-ready");
     doc.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("fd-in"); });
   }
+  if (mediaReduced && mediaReduced.addEventListener) mediaReduced.addEventListener("change", function (e) {
+    if (e.matches) {
+      doc.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("fd-in"); });
+      root.classList.remove("motion-ready");
+    }
+  });
 
   /* Ponto do fluxo: 1200ms, uma vez, quando o diagrama entra em cena */
   if (temIO && !reduced) {
@@ -54,13 +71,23 @@
   }
   if (btn && menu) {
     btn.addEventListener("click", function () { abrirMenu(!menuAberto()); });
-    menu.addEventListener("click", function (e) { if (e.target.closest("a")) abrirMenu(false); });
+    menu.addEventListener("click", function (e) {
+      var link = e.target.closest("a");
+      if (!link) return;
+      abrirMenu(false);
+      var hash = link.getAttribute("href");
+      if (hash && hash.charAt(0) === "#") {
+        var destino = doc.getElementById(hash.slice(1));
+        if (destino) { destino.setAttribute("tabindex", "-1"); destino.focus({ preventScroll: true }); }
+      }
+    });
     doc.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && menuAberto()) { abrirMenu(false); btn.focus(); }
     });
     doc.addEventListener("click", function (e) {
       if (menuAberto() && !e.target.closest(".topo")) abrirMenu(false);
     });
+    root.classList.add("menu-ready");
   }
 
   /* Tema: alternância com persistência tolerante a falhas */
@@ -72,6 +99,7 @@
       aplicarTema(novo);
       try { localStorage.setItem("fd-tema", novo); } catch (e) { /* segue sem persistir */ }
     });
+    root.classList.add("controls-ready");
   }
 
   /* Abas de fluxo: estado acessível + teclado, rótulos no diagrama */
@@ -104,6 +132,9 @@
       selecionar(abas[n]); abas[n].focus();
     });
   });
+
+  if (abas.length) { selecionar(abas[0]); root.classList.add("tabs-ready"); }
+  root.classList.add("js");
 
   /* Ano do rodapé */
   var ano = doc.getElementById("ano");
