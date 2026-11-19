@@ -122,7 +122,6 @@
         var di = painel.querySelector(".fluxo-diagrama");
         var nos = di.querySelectorAll(".no-txt");
         (noRotulos[b.id] || []).forEach(function (txt, i) { if (nos[i]) nos[i].textContent = txt; });
-        if (!reduced) { di.classList.remove("fd-roda"); requestAnimationFrame(function () { di.classList.add("fd-roda"); }); }
       }
     });
   }
