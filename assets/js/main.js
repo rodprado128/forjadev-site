@@ -5,15 +5,15 @@
   var doc = document, root = doc.documentElement;
 
   /* Tema: claro padrão; escuro opcional persistente, à prova de storage bloqueado */
-  function temaSalvo() { try { return localStorage.getItem("fd-theme"); } catch (e) { return null; } }
+  /* Tema conforme tokens oficiais: data-tema "claro"/"escuro"; sem atributo, o sistema decide */
+  function temaSalvo() { try { return localStorage.getItem("fd-tema"); } catch (e) { return null; } }
   function aplicarTema(t) {
-    if (t === "dark") { root.setAttribute("data-theme", "dark"); }
-    else { root.removeAttribute("data-theme"); t = "light"; }
+    if (t === "escuro" || t === "claro") root.setAttribute("data-tema", t);
+    else root.removeAttribute("data-tema");
     var meta = doc.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", t === "dark" ? "#10131A" : "#FFFFFF");
+    if (meta) meta.setAttribute("content", t === "escuro" ? "#0D0F14" : "#F6F7F9");
   }
   var tema = temaSalvo();
-  if (!tema) tema = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   aplicarTema(tema);
 
   /* Fallback de reveals quando não há animation-timeline */
@@ -67,9 +67,10 @@
   var temaBtn = doc.querySelector(".tema-btn");
   if (temaBtn) {
     temaBtn.addEventListener("click", function () {
-      var novo = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      var escuro = getComputedStyle(root).getPropertyValue("--fd-fundo").trim().toLowerCase() === "#0d0f14";
+      var novo = escuro ? "claro" : "escuro";
       aplicarTema(novo);
-      try { localStorage.setItem("fd-theme", novo); } catch (e) { /* segue sem persistir */ }
+      try { localStorage.setItem("fd-tema", novo); } catch (e) { /* segue sem persistir */ }
     });
   }
 

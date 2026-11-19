@@ -37,5 +37,5 @@ robots.txt / sitemap.xml / site.webmanifest
 
 ## Limitações conhecidas
 
-- Fotos dos sócios: versões novas (recorte do Rodrigo sem marca de evento e original do Bruno em resolução nativa) estavam indisponíveis no momento da implementação; usadas as fotos reais já autorizadas do acervo, a trocar em commit posterior quando os arquivos forem reenviados.
-- `assets/css/tokens.css` foi recriado a partir da especificação escrita do brand book 2027.2 (o arquivo oficial de tokens não estava acessível); substituir pelo original quando disponível, mantendo o uso dos `--fd-*`.
+- O logo na página foi inlinado a partir dos vetores exatos extraídos do brand book (página 6), com recoloração por tema via variáveis — geometria preservada; modo escuro usa a variante autorizada (#EBEDF0 / #7689FE).
+- Fluxos exibidos continuam ilustrativos; nenhum número, case ou SLA do brand book (ex.: "1.248 pedidos", "−18h") foi usado em peça real.
