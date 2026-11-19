@@ -223,18 +223,21 @@ html.js .fluxo-diagrama.fd-roda .ponto-path{animation:fd-desloc var(--fd-site-du
 }
 
 /* Progressive enhancement: conteúdo e navegação úteis antes de qualquer script. */
-html:not(.controls-ready) .tema-btn,html:not(.menu-ready) .menu-btn{display:none}
+html:not(.controls-ready) .tema-btn{display:none}
 html.tabs-ready .fluxo-abas{display:flex}
 html.tabs-ready .fluxo-titulo-estatico{display:none}
 html:not(.tabs-ready) .fluxo-painel-conteudo+.fluxo-painel-conteudo{margin-top:var(--fd-site-esp-7);padding-top:var(--fd-site-esp-6);border-top:1px solid var(--fd-borda)}
 .fluxo-titulo-estatico{font:var(--fd-tipo-titulo-3);font-size:1.25rem}
+/* Disclosure nativo aberto é também a navegação de emergência sem JS. */
+.nav-disclosure{margin-left:auto}
+.nav-disclosure>summary{list-style:none}
+.nav-disclosure>summary::-webkit-details-marker{display:none}
 @media(max-width:760px){
- html:not(.menu-ready) .topo{position:static;margin:var(--fd-site-esp-4)}
- html:not(.menu-ready) .topo-nav{flex-wrap:wrap;border-radius:var(--fd-raio-cartao)}
- html:not(.menu-ready) .menu{position:static;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:auto}
- html:not(.menu-ready) .menu a{font-size:.875rem}
- html:not(.menu-ready) .hero{padding-top:var(--fd-site-esp-6)}
- .menu-ready .menu{max-height:calc(100svh - 176px);overflow-y:auto}
+ .nav-disclosure>.menu-btn{display:inline-flex}
+ .nav-disclosure[open]>.menu{display:flex}
+ .nav-disclosure>.menu{position:fixed;inset:80px var(--fd-site-esp-4) auto;flex-direction:column;align-items:stretch;gap:0;background:var(--fd-superficie);border:1px solid var(--fd-borda);border-radius:var(--fd-raio-cartao);box-shadow:var(--fd-elevacao-3);padding:var(--fd-site-esp-4);max-height:calc(100svh - 176px);overflow-y:auto}
+ .nav-disclosure:not([open])>.menu{display:none}
+ html:not(.controls-ready) .tema-btn{display:none}
 }
 /* Cena editorial da entrada ao registro: decorativa, explicitamente ilustrativa. */
 .hero-grade{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--fd-site-esp-7);align-items:center;width:100%}

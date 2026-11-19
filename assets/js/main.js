@@ -24,7 +24,7 @@
   var temTimeline = window.CSS && CSS.supports && CSS.supports("animation-timeline", "view()");
   var mediaReduced = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
   var reduced = mediaReduced && mediaReduced.matches;
-  var temIO = "IntersectionObserver" in window;
+  var temIO = typeof window.IntersectionObserver === "function";
   if (!temTimeline) root.classList.add("no-viewtl");
   try {
     if (!temTimeline && !reduced && temIO) {
@@ -51,30 +51,36 @@
 
   /* Ponto do fluxo: 1200ms, uma vez, quando o diagrama entra em cena */
   if (temIO && !reduced) {
+    try {
     var dio = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add("fd-roda"); dio.unobserve(en.target); }
       });
     }, { threshold: 0.4 });
     doc.querySelectorAll(".fluxo-diagrama").forEach(function (el) { dio.observe(el); });
+    } catch (e) { /* O diagrama estático continua legível; controles não dependem do observer. */ }
   } else {
     doc.querySelectorAll(".fluxo-diagrama").forEach(function (el) { el.classList.add("fd-roda"); });
   }
 
-  /* Menu mobile: clique, teclado e Escape */
+  /* Menu é um disclosure nativo: continua operável sem JavaScript. */
   var btn = doc.querySelector(".menu-btn"), menu = doc.getElementById("menu-principal");
-  function menuAberto() { return menu.classList.contains("fd-aberto"); }
-  function abrirMenu(a) {
-    menu.classList.toggle("fd-aberto", a);
-    btn.setAttribute("aria-expanded", a ? "true" : "false");
-    btn.querySelector(".sr-only").textContent = a ? "Fechar menu" : "Abrir menu";
+  var disclosure = doc.getElementById("nav-disclosure");
+  var mobile = window.matchMedia("(max-width: 760px)");
+  function syncMenu() {
+    if (!btn || !disclosure) return;
+    btn.setAttribute("aria-expanded", disclosure.open ? "true" : "false");
+    btn.querySelector(".sr-only").textContent = disclosure.open ? "Fechar menu" : "Abrir menu";
   }
-  if (btn && menu) {
-    btn.addEventListener("click", function () { abrirMenu(!menuAberto()); });
+  if (btn && menu && disclosure) {
+    disclosure.open = !mobile.matches;
+    disclosure.addEventListener("toggle", syncMenu);
+    syncMenu();
+    if (mobile.addEventListener) mobile.addEventListener("change", function (e) { disclosure.open = !e.matches; syncMenu(); });
     menu.addEventListener("click", function (e) {
       var link = e.target.closest("a");
       if (!link) return;
-      abrirMenu(false);
+      if (mobile.matches) disclosure.open = false;
       var hash = link.getAttribute("href");
       if (hash && hash.charAt(0) === "#") {
         var destino = doc.getElementById(hash.slice(1));
@@ -82,10 +88,10 @@
       }
     });
     doc.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menuAberto()) { abrirMenu(false); btn.focus(); }
+      if (e.key === "Escape" && mobile.matches && disclosure.open) { disclosure.open = false; btn.focus(); }
     });
     doc.addEventListener("click", function (e) {
-      if (menuAberto() && !e.target.closest(".topo")) abrirMenu(false);
+      if (mobile.matches && disclosure.open && !e.target.closest(".topo")) disclosure.open = false;
     });
     root.classList.add("menu-ready");
   }
@@ -116,9 +122,7 @@
         var di = painel.querySelector(".fluxo-diagrama");
         var nos = di.querySelectorAll(".no-txt");
         (noRotulos[b.id] || []).forEach(function (txt, i) { if (nos[i]) nos[i].textContent = txt; });
-        di.classList.remove("fd-roda");
-        void di.getBoundingClientRect();
-        di.classList.add("fd-roda");
+        if (!reduced) { di.classList.remove("fd-roda"); requestAnimationFrame(function () { di.classList.add("fd-roda"); }); }
       }
     });
   }
