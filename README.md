@@ -55,3 +55,10 @@ console/recursos, overflow, menu/Escape, temas, abas e FAQ, navegação sem JS,
 script bloqueado e redução de movimento. Isso não é medição de produção.
 Os artefatos completos de testes e screenshots são entregues pelo coordenador;
 Lighthouse 12.8.2 foi executado contra servidor local, com perfil desktop e mobile. As métricas desse laboratório (sem cache/compressão de produção e em sandbox de CPU compartilhada) não representam o domínio publicado. Publicação e aceite do cliente só serão declarados com suas evidências.
+
+## Teclado e enhancement
+
+- O skip-link leva o foco ao `main` (`tabindex="-1"`), sem acrescentá-lo à ordem normal de Tab.
+- O painel ativo dos exemplos aceita foco (`tabindex="0"`); painéis ocultos saem da navegação por teclado.
+- O menu mobile é um disclosure **não modal**. Não prende o foco; o Tab segue a ordem do documento. Escape fecha e devolve foco ao controle. Não é um diálogo ou drawer modal.
+- Os espaçamentos e a fonte display, inclusive na página 404, usam aliases do site já definidos em `style.css`; os tokens oficiais continuam intactos.

@@ -67,7 +67,7 @@
   </nav>
 </header>
 
-<main id="conteudo">
+<main id="conteudo" tabindex="-1">
 
   <section class="hero" aria-labelledby="hero-titulo">
     <div class="container hero-grade">
@@ -112,7 +112,7 @@
       <p class="rotulo-secao reveal">Duas frentes</p>
       <h2 id="frentes-titulo" class="reveal">Onde a informação trava, o processo começa</h2>
       <p class="lead reveal">Trabalhamos em duas frentes complementares. A inteligência artificial atravessa as duas frentes como ferramenta, quando faz sentido — não como um produto genérico de vitrine.</p>
-      <div class="bento" style="margin-top:var(--fd-space-6)">
+      <div class="bento" style="margin-top:var(--fd-site-esp-6)">
         <article class="cartao bento-destaque reveal" style="--d:0">
           <svg class="cartao-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
           <h3>Automação de processos</h3>
@@ -143,7 +143,7 @@
           <button class="fluxo-aba" role="tab" id="aba-vendas" aria-selected="false" aria-controls="painel-vendas" tabindex="-1" type="button">Vendas e financeiro</button>
         </div>
 
-        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-pedidos" aria-labelledby="aba-pedidos">
+        <div class="fluxo-painel-conteudo" role="tabpanel" tabindex="0" id="painel-pedidos" aria-labelledby="aba-pedidos">
           <h3 class="fluxo-titulo-estatico">Pedidos</h3>
           <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
             <path class="trilho" d="M 60 60 H 660"/>
@@ -161,7 +161,7 @@
           </ol>
         </div>
 
-        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-tarefas" aria-labelledby="aba-tarefas">
+        <div class="fluxo-painel-conteudo" role="tabpanel" tabindex="0" id="painel-tarefas" aria-labelledby="aba-tarefas">
           <h3 class="fluxo-titulo-estatico">Tarefas do time</h3>
           <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
             <path class="trilho" d="M 60 60 H 660"/>
@@ -179,7 +179,7 @@
           </ol>
         </div>
 
-        <div class="fluxo-painel-conteudo" role="tabpanel" id="painel-vendas" aria-labelledby="aba-vendas">
+        <div class="fluxo-painel-conteudo" role="tabpanel" tabindex="0" id="painel-vendas" aria-labelledby="aba-vendas">
           <h3 class="fluxo-titulo-estatico">Vendas e financeiro</h3>
           <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
             <path class="trilho" d="M 60 60 H 660"/>
@@ -238,7 +238,7 @@
       <p class="rotulo-secao reveal">Como trabalhamos</p>
       <h2 id="proc-titulo" class="reveal">Três fases, sem caixa-preta</h2>
       <p class="lead reveal">Cada fase termina com algo que você vê e aprova antes da próxima começar.</p>
-      <div class="fases" style="margin-top:var(--fd-space-6)">
+      <div class="fases" style="margin-top:var(--fd-site-esp-6)">
         <article class="fase reveal" style="--d:0">
           <span class="fase-num" aria-hidden="true">01</span>
           <div>
