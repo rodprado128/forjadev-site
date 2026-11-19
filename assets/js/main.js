@@ -1,125 +1,110 @@
-/* ============================================================
-   ForjaDev — main.js
-   Comportamento de interface: menu, navegacao ativa, brilho de
-   brasa nos botoes e ano do rodape. Sem dependencia externa.
-   O FAQ nao aparece aqui: virou <details>/<summary> nativo, que
-   ja e acessivel por teclado sem uma linha de JavaScript.
-   ============================================================ */
+/* ForjaDev · app mínimo: tema, menu, abas de fluxo, fallbacks de animação.
+   Sem backend: nenhum envio de formulário é simulado. */
 (function () {
-  'use strict';
+  "use strict";
+  var doc = document, root = doc.documentElement;
 
-  var BREAK_MENU = 1000;
-
-  /* ---------------------------------------------------------
-     1. MENU MOBILE
-     --------------------------------------------------------- */
-  function menu() {
-    var botao = document.querySelector('.nav__toggle');
-    var nav = document.getElementById('navPrincipal');
-    if (!botao || !nav) return;
-
-    function fechar() {
-      botao.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('is-aberto');
-      document.body.style.removeProperty('overflow');
-    }
-    function abrir() {
-      botao.setAttribute('aria-expanded', 'true');
-      nav.classList.add('is-aberto');
-      document.body.style.overflow = 'hidden';
-    }
-
-    botao.addEventListener('click', function () {
-      if (botao.getAttribute('aria-expanded') === 'true') fechar(); else abrir();
-    });
-
-    nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) fechar();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && botao.getAttribute('aria-expanded') === 'true') {
-        fechar();
-        botao.focus();
-      }
-    });
-
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > BREAK_MENU) fechar();
-    }, { passive: true });
+  /* Tema: claro padrão; escuro opcional persistente, à prova de storage bloqueado */
+  function temaSalvo() { try { return localStorage.getItem("fd-theme"); } catch (e) { return null; } }
+  function aplicarTema(t) {
+    if (t === "dark") { root.setAttribute("data-theme", "dark"); }
+    else { root.removeAttribute("data-theme"); t = "light"; }
+    var meta = doc.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", t === "dark" ? "#10131A" : "#FFFFFF");
   }
+  var tema = temaSalvo();
+  if (!tema) tema = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  aplicarTema(tema);
 
-  /* ---------------------------------------------------------
-     2. LINK ATIVO NA NAVEGACAO
-     --------------------------------------------------------- */
-  function navAtiva() {
-    var links = Array.prototype.slice.call(document.querySelectorAll('.nav__link[href^="#"]'));
-    if (!links.length || !('IntersectionObserver' in window)) return;
-
-    var mapa = {};
-    var secoes = [];
-    links.forEach(function (a) {
-      var id = a.getAttribute('href').slice(1);
-      var sec = id && document.getElementById(id);
-      if (sec) { mapa[id] = a; secoes.push(sec); }
-    });
-    if (!secoes.length) return;
-
-    var visiveis = new Set();
-    var obs = new IntersectionObserver(function (ents) {
-      ents.forEach(function (ent) {
-        if (ent.isIntersecting) visiveis.add(ent.target.id);
-        else visiveis.delete(ent.target.id);
+  /* Fallback de reveals quando não há animation-timeline */
+  var temTimeline = window.CSS && CSS.supports && CSS.supports("animation-timeline", "view()");
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!temTimeline) root.classList.add("no-viewtl");
+  var temIO = "IntersectionObserver" in window;
+  if (!temTimeline && !reduced && temIO) {
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("fd-in"); io.unobserve(en.target); }
       });
-      var atual = null;
-      for (var i = 0; i < secoes.length; i++) {
-        if (visiveis.has(secoes[i].id)) { atual = secoes[i].id; break; }
+    }, { threshold: 0.15 });
+    doc.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  } else if (!temTimeline && (reduced || !temIO)) {
+    doc.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("fd-in"); });
+  }
+
+  /* Ponto do fluxo: 1200ms, uma vez, quando o diagrama entra em cena */
+  if (temIO && !reduced) {
+    var dio = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("fd-roda"); dio.unobserve(en.target); }
+      });
+    }, { threshold: 0.4 });
+    doc.querySelectorAll(".fluxo-diagrama").forEach(function (el) { dio.observe(el); });
+  } else {
+    doc.querySelectorAll(".fluxo-diagrama").forEach(function (el) { el.classList.add("fd-roda"); });
+  }
+
+  /* Menu mobile: clique, teclado e Escape */
+  var btn = doc.querySelector(".menu-btn"), menu = doc.getElementById("menu-principal");
+  function menuAberto() { return menu.classList.contains("fd-aberto"); }
+  function abrirMenu(a) {
+    menu.classList.toggle("fd-aberto", a);
+    btn.setAttribute("aria-expanded", a ? "true" : "false");
+    btn.querySelector(".sr-only").textContent = a ? "Fechar menu" : "Abrir menu";
+  }
+  if (btn && menu) {
+    btn.addEventListener("click", function () { abrirMenu(!menuAberto()); });
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) abrirMenu(false); });
+    doc.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menuAberto()) { abrirMenu(false); btn.focus(); }
+    });
+    doc.addEventListener("click", function (e) {
+      if (menuAberto() && !e.target.closest(".topo")) abrirMenu(false);
+    });
+  }
+
+  /* Tema: alternância com persistência tolerante a falhas */
+  var temaBtn = doc.querySelector(".tema-btn");
+  if (temaBtn) {
+    temaBtn.addEventListener("click", function () {
+      var novo = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      aplicarTema(novo);
+      try { localStorage.setItem("fd-theme", novo); } catch (e) { /* segue sem persistir */ }
+    });
+  }
+
+  /* Abas de fluxo: estado acessível + teclado, rótulos no diagrama */
+  var abas = [].slice.call(doc.querySelectorAll(".fluxo-aba"));
+  var noRotulos = { "aba-pedidos": ["Entrada", "Conferência", "Registro", "Resposta"], "aba-tarefas": ["Entrada", "Organização", "Aviso", "Registro"], "aba-vendas": ["Captação", "Follow-up", "Faturamento", "Gestão"] };
+  function selecionar(aba) {
+    abas.forEach(function (b) {
+      var on = b === aba;
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
+      var painel = doc.getElementById(b.getAttribute("aria-controls"));
+      if (painel) painel.hidden = !on;
+      if (on) {
+        var di = painel.querySelector(".fluxo-diagrama");
+        var nos = di.querySelectorAll(".no-txt");
+        (noRotulos[b.id] || []).forEach(function (txt, i) { if (nos[i]) nos[i].textContent = txt; });
+        di.classList.remove("fd-roda");
+        void di.getBoundingClientRect();
+        di.classList.add("fd-roda");
       }
-      links.forEach(function (a) { a.classList.remove('is-ativo'); a.removeAttribute('aria-current'); });
-      if (atual && mapa[atual]) {
-        mapa[atual].classList.add('is-ativo');
-        mapa[atual].setAttribute('aria-current', 'true');
-      }
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-
-    secoes.forEach(function (s) { obs.observe(s); });
+    });
   }
+  abas.forEach(function (b, i) {
+    b.addEventListener("click", function () { selecionar(b); });
+    b.addEventListener("keydown", function (e) {
+      var d = { ArrowRight: 1, ArrowLeft: -1, Home: "h", End: "e" }[e.key];
+      if (d === undefined) return;
+      e.preventDefault();
+      var n = d === "h" ? 0 : d === "e" ? abas.length - 1 : (i + d + abas.length) % abas.length;
+      selecionar(abas[n]); abas[n].focus();
+    });
+  });
 
-  /* ---------------------------------------------------------
-     3. BRILHO DE BRASA — o gradiente segue o ponteiro no botao
-     --------------------------------------------------------- */
-  function brasa() {
-    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    document.addEventListener('pointermove', function (e) {
-      var btn = e.target.closest && e.target.closest('.btn');
-      if (!btn) return;
-      var r = btn.getBoundingClientRect();
-      btn.style.setProperty('--mx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
-      btn.style.setProperty('--my', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
-    }, { passive: true });
-  }
-
-  /* ---------------------------------------------------------
-     4. ANO CORRENTE NO RODAPE
-     --------------------------------------------------------- */
-  function ano() {
-    var el = document.getElementById('ano');
-    if (el) el.textContent = String(new Date().getFullYear());
-  }
-
-  /* ---------------------------------------------------------
-     5. ANCORAS — respeita movimento reduzido
-     --------------------------------------------------------- */
-  function ancoras() {
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    document.documentElement.style.scrollBehavior = 'auto';
-  }
-
-  function iniciar() { menu(); navAtiva(); brasa(); ano(); ancoras(); }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', iniciar);
-  } else { iniciar(); }
+  /* Ano do rodapé */
+  var ano = doc.getElementById("ano");
+  if (ano) ano.textContent = String(new Date().getFullYear());
 })();
