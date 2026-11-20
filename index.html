@@ -1,1038 +1,390 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ForjaDev — Software House em Maringá/PR | Código próprio, sem lock-in</title>
-<meta name="description" content="Software house em Maringá/PR. Sistemas e produtos digitais em código próprio: escopo fechado por fase, homologação antes do deploy, repositório e infraestrutura no seu nome.">
-<meta name="author" content="Rodrigo Prado — ForjaDev">
-<meta name="theme-color" content="#141A20">
-<meta name="color-scheme" content="dark light">
-<link rel="canonical" href="https://forjadev.app.br/">
-
-<!-- SEO local — Maringá, Paraná -->
+<title>ForjaDev — Processos que andam sozinhos. | Automação e integração de sistemas</title>
+<meta name="description" content="A ForjaDev automatiza processos e integra sistemas de pequenas empresas com faturamento alto, cujo time ainda transporta informação à mão. Diagnóstico, implementação e verificação em fases. Maringá/PR, atendimento online em todo o Brasil.">
 <meta name="geo.region" content="BR-PR">
 <meta name="geo.placename" content="Maringá">
 <meta name="geo.position" content="-23.425269;-51.938340">
 <meta name="ICBM" content="-23.425269, -51.938340">
-
-<!-- Open Graph -->
+<link rel="canonical" href="https://forjadev.app.br/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="ForjaDev">
 <meta property="og:url" content="https://forjadev.app.br/">
-<meta property="og:title" content="ForjaDev — Software House em Maringá/PR | Código próprio, sem lock-in">
-<meta property="og:description" content="Sistemas e produtos digitais em código próprio. Escopo e preço fechados por fase, homologação antes do deploy e o repositório, a infraestrutura e os dados no nome do cliente.">
+<meta property="og:title" content="ForjaDev — Processos que andam sozinhos.">
+<meta property="og:description" content="Automação de processos e integração de sistemas para empresas que ainda transportam informação à mão. Diagnóstico via WhatsApp.">
 <meta property="og:image" content="https://forjadev.app.br/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="ForjaDev — software house. O código, o repositório e a infraestrutura ficam no seu nome.">
-
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ForjaDev — Software House em Maringá/PR">
-<meta name="twitter:description" content="Sistemas e produtos digitais em código próprio. Escopo fechado por fase, homologação antes do deploy, repositório e infraestrutura no seu nome.">
+<meta name="twitter:title" content="ForjaDev — Processos que andam sozinhos.">
+<meta name="twitter:description" content="Automação e integração de sistemas. Diagnóstico, implementação e verificação em fases.">
 <meta name="twitter:image" content="https://forjadev.app.br/assets/img/og-image.jpg">
-<meta name="twitter:image:alt" content="ForjaDev — software house em Maringá/PR.">
-
-<!-- Ícones — favicon na versão de 2 faíscas -->
-<link rel="icon" href="/assets/img/forjadev-favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/assets/img/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="icon" href="/assets/img/icon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/assets/img/icon-48x48.png" sizes="48x48" type="image/png">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-
-<!-- Fontes auto-hospedadas: sem terceiro no caminho critico.
-     Pre-carrega so as faces que definem o layout acima da dobra. -->
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black-400-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-400-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-700-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/barlow-condensed-600-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
-
-<!-- CSS crítico: tokens da marca + tudo que aparece acima da dobra -->
-<style>
-@font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:98.71%;font-weight:400}@font-face{font-family:'Archivo Fallback';src:local('Roboto');size-adjust:106.06%;font-weight:400}@font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:99.60%;font-weight:700}@font-face{font-family:'Archivo Fallback';src:local('Roboto');size-adjust:105.86%;font-weight:700}@font-face{font-family:'Archivo Black Fallback';src:local('Arial Black');size-adjust:99.99%}@font-face{font-family:'Archivo Black Fallback';src:local('Arial');size-adjust:119.00%}@font-face{font-family:'Barlow Condensed Fallback';src:local('Arial Narrow');size-adjust:94.40%}@font-face{font-family:'Barlow Condensed Fallback';src:local('Arial');size-adjust:71.65%}@font-face{font-family:'JetBrains Mono Fallback';src:local('Consolas');size-adjust:109.13%}@font-face{font-family:'JetBrains Mono Fallback';src:local('Menlo');size-adjust:125.14%}@font-face{font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/archivo-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Archivo';font-style:normal;font-weight:400;font-display:optional;src:url('/assets/fonts/archivo-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/archivo-700-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:optional;src:url('/assets/fonts/archivo-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/archivo-black-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:optional;src:url('/assets/fonts/archivo-black-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/barlow-condensed-600-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:optional;src:url('/assets/fonts/barlow-condensed-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/jetbrains-mono-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url('/assets/fonts/jetbrains-mono-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
-:root{--fd-aco:#141A20;--fd-aco-frio:#2C353F;--fd-laranja:#FF6A00;--fd-brasa:#C94300;--fd-faisca:#FFB020;--fd-cinza:#5F6A76;--fd-bigorna:#F4F5F6;--fd-branco:#FFF;--fd-sucesso:#15803D;--fd-erro:#C81E1E;--fd-cinza-claro:#C6CBD1;--fd-brasa-texto:#B03A00;--fd-aco-elevado:#1C242D;--fd-font-display:'Archivo Black','Archivo Black Fallback',system-ui,sans-serif;--fd-font-texto:'Archivo','Archivo Fallback',system-ui,sans-serif;--fd-font-label:'Barlow Condensed','Barlow Condensed Fallback',system-ui,sans-serif;--fd-font-code:'JetBrains Mono','JetBrains Mono Fallback',ui-monospace,'SF Mono',Consolas,monospace;--fd-size-body:1rem;--fd-size-body-lg:1.125rem;--fd-size-code:.875rem;--fd-size-label:.8125rem;--fd-lh-tight:1.15;--fd-lh-base:1.55;--fd-chanfro-lg:16px;--fd-chanfro-sm:8px;--fd-chanfro-hover:22px;--fd-r-pill:999px;--fd-filete-claro:rgba(20,26,32,.10);--fd-filete-escuro:rgba(255,255,255,.08);--forja-dur-instantaneo:120ms;--forja-dur-rapido:200ms;--forja-dur-padrao:320ms;--forja-dur-cena:560ms;--forja-ease-impacto:cubic-bezier(.16,1,.3,1);--forja-stagger:60ms;--fd-wrap:1200px;--fd-gutter:clamp(1.25rem,4vw,2.5rem);--fd-header-h:76px;--fd-header-h-scroll:60px}
-*,*::before,*::after{box-sizing:border-box}*{margin:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--fd-header-h-scroll) + 16px)}
-body{font-family:var(--fd-font-texto);font-size:var(--fd-size-body);line-height:var(--fd-lh-base);color:var(--fd-aco-frio);background:var(--fd-bigorna);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img,svg,picture{display:block;max-width:100%}img{height:auto}a{color:inherit}ul,ol{list-style:none;padding:0}
-h1,h2{font-family:var(--fd-font-display);font-weight:400;line-height:var(--fd-lh-tight);color:var(--fd-aco)}
-:focus-visible{outline:2px solid var(--fd-laranja);outline-offset:2px;border-radius:2px}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.pular-para-conteudo{position:fixed;top:0;left:0;z-index:200;transform:translateY(-120%);background:var(--fd-aco);color:#fff;font-weight:700;padding:12px 20px;text-decoration:none}.pular-para-conteudo:focus{transform:translateY(0)}
-.wrap{width:100%;max-width:var(--fd-wrap);margin-inline:auto;padding-inline:var(--fd-gutter)}
-.rotulo{font-family:var(--fd-font-label);font-weight:600;text-transform:uppercase;letter-spacing:.02em;font-size:var(--fd-size-label);line-height:1.3}
-.progresso{position:fixed;top:0;left:0;right:0;height:3px;z-index:120;background:var(--fd-laranja);transform:scaleX(0);transform-origin:0 50%}
-.header{position:fixed;top:0;left:0;right:0;z-index:110;height:var(--fd-header-h);pointer-events:none}
-.header__fundo{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(180deg,rgba(20,26,32,.92) 0%,rgba(20,26,32,.55) 55%,rgba(20,26,32,0) 100%);clip-path:inset(0 0 0 0);transition:clip-path var(--forja-dur-rapido) var(--forja-ease-impacto)}
-.header__fundo::before{content:"";position:absolute;inset:0;background:rgba(20,26,32,.96);opacity:0;transition:opacity var(--forja-dur-rapido) var(--forja-ease-impacto)}
-.header__wrap{position:relative;pointer-events:auto;display:flex;align-items:center;gap:1.5rem;height:var(--fd-header-h-scroll);margin-top:8px;transition:transform var(--forja-dur-rapido) var(--forja-ease-impacto)}
-.header__logo{display:flex;align-items:center;flex:none;text-decoration:none}
-.header__logo svg{height:30px;width:auto;display:block;transform-origin:left center}
-.nav{margin-left:auto}.nav__lista{display:flex;align-items:center;gap:clamp(.7rem,1.6vw,1.6rem)}
-.nav__link{position:relative;display:block;padding:.4rem 0;color:rgba(255,255,255,.86);text-decoration:none;font-family:var(--fd-font-label);font-weight:600;text-transform:uppercase;letter-spacing:.02em;font-size:.9375rem}
-.nav__toggle{display:none;flex:none;margin-left:auto;width:44px;height:44px;background:transparent;border:0;cursor:pointer;align-items:center;justify-content:center}
-.nav__toggle span{display:block;width:24px;height:2px;background:#fff;position:relative}
-.nav__toggle span::before,.nav__toggle span::after{content:"";position:absolute;left:0;top:0;width:24px;height:2px;background:#fff}
-.nav__toggle span::before{transform:translateY(-7px)}.nav__toggle span::after{transform:translateY(7px)}
-@media (max-width:1000px){.nav__toggle{display:inline-flex}.nav{position:fixed;inset:var(--fd-header-h) 0 0 0;background:rgba(20,26,32,.985);margin:0;padding:1.25rem var(--fd-gutter) 2.5rem;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px)}.nav__lista{flex-direction:column;align-items:stretch;gap:0}}
-.barra-zap{position:fixed;left:0;right:0;bottom:0;z-index:115;display:none;align-items:center;justify-content:center;gap:.6rem;height:56px;background:var(--fd-brasa);color:#fff;font-weight:700;text-decoration:none}
-@media (max-width:767px){.barra-zap{display:flex}.header__cta{display:none}body{padding-bottom:56px}}
-.btn{--fd-ch:var(--fd-chanfro-sm);position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--fd-font-texto);font-weight:700;font-size:1rem;line-height:1.2;text-decoration:none;text-align:center;padding:.95rem 1.6rem;border:0;cursor:pointer;clip-path:polygon(0 0,calc(100% - var(--fd-ch)) 0,100% var(--fd-ch),100% 100%,0 100%);transition:background-color var(--forja-dur-rapido) var(--forja-ease-impacto),color var(--forja-dur-rapido) var(--forja-ease-impacto),transform var(--forja-dur-rapido) var(--forja-ease-impacto)}
-.btn--primario{background:var(--fd-brasa);color:#fff}
-.btn--contorno{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
-.btn--pequeno{padding:.7rem 1.15rem;font-size:.9375rem}
-.hero{position:relative;display:flex;align-items:center;padding-top:calc(var(--fd-header-h) + clamp(2.5rem,7vw,5rem));padding-bottom:clamp(3rem,7vw,5.5rem);background-color:var(--fd-aco);color:#fff;--txt-2:var(--fd-cinza-claro);overflow:hidden}
-.hero__brilho{position:absolute;z-index:0;pointer-events:none;width:min(70vw,760px);aspect-ratio:1;top:-22%;right:-14%;background:radial-gradient(circle,rgba(255,106,0,.14),transparent 62%)}
-.hero .wrap{position:relative;z-index:2}
-.hero__bloco{max-width:64ch}
-.hero__eyebrow{display:inline-flex;align-items:center;gap:.55rem;color:var(--fd-laranja);margin-bottom:1.1rem}
-.hero__eyebrow::before{content:"";width:8px;height:8px;flex:none;background:var(--fd-laranja);transform:rotate(-18deg)}
-.hero__titulo{font-size:clamp(2rem,4.8vw,3.5rem);color:#fff;letter-spacing:-.01em;max-width:20ch}
-.hero__sub{font-size:clamp(1.0625rem,1.9vw,1.1875rem);color:var(--txt-2);margin-top:1.5rem;max-width:56ch}
-.hero__sub strong{color:#fff;font-weight:700}
-.hero__acoes{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.25rem}
-.hero__estado{margin-top:1.75rem}
-.pill-estado{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem .95rem .4rem .85rem;border-radius:var(--fd-r-pill);background:rgba(255,255,255,.06);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
-.pill-estado__ponto{position:relative;flex:none;width:6px;height:6px;border-radius:50%;background:#22C55E}
-.pill-estado__ponto::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:#22C55E;animation:forja-halo 2.4s var(--forja-ease-impacto) infinite}
-@keyframes forja-halo{0%{transform:scale(.5);opacity:.75}70%{transform:scale(2.4);opacity:0}100%{transform:scale(2.4);opacity:0}}
-@keyframes forja-assentar{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.js-movimento .hero__bloco > *{animation:forja-assentar var(--forja-dur-cena) var(--forja-ease-impacto) both}
-.js-movimento .hero__bloco > :nth-child(1){animation-delay:0ms}
-.js-movimento .hero__bloco > :nth-child(2){animation-delay:60ms}
-.js-movimento .hero__bloco > :nth-child(3){animation-delay:120ms}
-.js-movimento .hero__bloco > :nth-child(4){animation-delay:180ms}
-.js-movimento .hero__bloco > :nth-child(n+5){animation-delay:240ms}
-.prova{position:relative;background-color:var(--fd-aco);color:#fff;padding-block:clamp(2rem,4vw,3rem);border-top:1px solid var(--fd-filete-escuro);overflow:hidden}
-.prova .wrap{position:relative;z-index:1}
-.prova__grade{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--fd-filete-escuro)}
-@media (min-width:880px){.prova__grade{grid-template-columns:repeat(4,1fr)}}
-.contador{background:var(--fd-aco);padding:clamp(1.15rem,2.2vw,1.6rem) clamp(1rem,2vw,1.5rem)}
-.contador__valor{font-family:var(--fd-font-display);font-size:clamp(1.75rem,4vw,2.5rem);color:#fff;line-height:1;display:flex;align-items:baseline;gap:.08em}
-.contador__valor .sufixo,.contador__valor .prefixo{font-size:.55em;color:var(--fd-laranja)}
-.contador__rotulo{color:var(--fd-cinza-claro);margin-top:.6rem;display:block;max-width:26ch}
-.secao__textura{position:absolute;inset:-12% 0 -12% 0;pointer-events:none;z-index:0}
-.secao__textura--aco{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0px,rgba(255,255,255,.022) 1px,transparent 1px,transparent 8px)}
-.secao__textura--grid{background-image:radial-gradient(circle,rgba(20,26,32,.08) 1px,transparent 1px);background-size:16px 16px}
-.js-movimento .reveal,.js-movimento [data-reveal-filhos] > *{opacity:0}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pill-estado__ponto::after{display:none}}
-</style>
-
-<!-- Confirma suporte antes de permitir qualquer estado inicial invisivel.
-     Sem JS, ou com movimento reduzido, a pagina nasce no estado final. -->
-<script>
-(function(){try{
-  if('IntersectionObserver' in window &&
-     !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.documentElement.className += ' js-movimento';
-  }
-}catch(e){}})();
-</script>
-
-<link rel="preload" as="style" href="/assets/css/tokens.css" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" as="style" href="/assets/css/style.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="/assets/css/tokens.css">
-  <link rel="stylesheet" href="/assets/css/style.css">
-</noscript>
-
-<script defer src="/assets/js/main.js"></script>
-<script defer src="/assets/js/animations.js"></script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": ["Organization", "LocalBusiness"],
-      "@id": "https://forjadev.app.br/#negocio",
-      "name": "ForjaDev",
-      "alternateName": "ForjaDev — Software House",
-      "description": "Software house em Maringá – PR. Desenvolvimento de sistemas, plataformas e produtos digitais em código próprio (HTML, CSS e JavaScript escritos do zero), sem construtor visual, sem plugin pago e sem plataforma intermediária. Escopo e preço fechados por fase, homologação antes de cada deploy e entrega do repositório, da infraestrutura e dos dados no nome do cliente.",
-      "url": "https://forjadev.app.br/",
-      "telephone": "+5544991192295",
-      "email": "rodrigo@forjadev.app.br",
-      "currenciesAccepted": "BRL",
-      "image": "https://forjadev.app.br/assets/img/og-image.jpg",
-      "logo": "https://forjadev.app.br/assets/img/icon-512x512.png",
-      "slogan": "Forjado para operar.",
-      "knowsLanguage": ["pt-BR", "en", "es"],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Maringá",
-        "addressRegion": "PR",
-        "addressCountry": "BR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": -23.425269,
-        "longitude": -51.938340
-      },
-      "areaServed": [
-        { "@type": "Country", "name": "Brasil" },
-        { "@type": "State", "name": "Paraná" },
-        { "@type": "City", "name": "Maringá", "containedInPlace": { "@type": "State", "name": "Paraná" } }
-      ],
-      "founder": { "@id": "https://forjadev.app.br/#rodrigo" },
-      "employee": { "@id": "https://forjadev.app.br/#rodrigo" },
-      "hasOfferCatalog": { "@id": "https://forjadev.app.br/#solucoes" },
-      "sameAs": [
-        "https://www.linkedin.com/in/rodrigoprado128/",
-        "https://github.com/rodprado128"
-      ]
-    },
-    {
-      "@type": "Person",
-      "@id": "https://forjadev.app.br/#rodrigo",
-      "name": "Rodrigo Prado",
-      "jobTitle": "Desenvolvedor web",
-      "description": "Desenvolvedor web em Maringá – PR. Escreve HTML, CSS e JavaScript próprios, integra APIs, webhooks, planilhas e CRMs, e cuida de performance, SEO técnico e publicação.",
-      "url": "https://forjadev.app.br/#quem-faz",
-      "image": "https://forjadev.app.br/assets/img/rodrigo-prado.jpg",
-      "email": "rodrigo@forjadev.app.br",
-      "worksFor": { "@id": "https://forjadev.app.br/#negocio" },
-      "knowsAbout": [
-        "Desenvolvimento de software",
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Integração de APIs",
-        "Webhooks",
-        "Automação de fluxos",
-        "SEO técnico",
-        "Performance web",
-        "Acessibilidade WCAG"
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/in/rodrigoprado128/",
-        "https://github.com/rodprado128"
-      ]
-    },
-    {
-      "@type": "OfferCatalog",
-      "@id": "https://forjadev.app.br/#solucoes",
-      "name": "Soluções ForjaDev 2026.2",
-      "url": "https://forjadev.app.br/#solucoes",
-      "provider": { "@id": "https://forjadev.app.br/#negocio" },
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "name": "LP-01 — Landing Page Essencial",
-          "availability": "https://schema.org/InStock",
-          "description": "Página única, até 6 seções. Formulário que cai no e-mail do cliente, botão de WhatsApp em destaque, publicação, configuração e relatório de performance inclusos. Escopo e preço fechados antes do início.",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Landing Page Essencial",
-            "serviceType": "Desenvolvimento de landing page em código próprio",
-            "provider": { "@id": "https://forjadev.app.br/#negocio" }
-          }
-        },
-        {
-          "@type": "Offer",
-          "name": "LP-02 — Landing Page Avançada",
-          "availability": "https://schema.org/InStock",
-          "description": "Até 12 seções, camada de movimento e microinterações, bloco de dúvidas e depoimentos, integração do formulário com planilha, e-mail ou webhook. Escopo e preço fechados antes do início.",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Landing Page Avançada",
-            "serviceType": "Desenvolvimento de landing page de conversão em código próprio",
-            "provider": { "@id": "https://forjadev.app.br/#negocio" }
-          }
-        },
-        {
-          "@type": "Offer",
-          "name": "ST-01 — Site Institucional",
-          "availability": "https://schema.org/InStock",
-          "description": "Até 5 páginas, navegação que funciona no celular, estrutura semântica pronta para indexação e página de contato com mapa e formulário integrado. Escopo e preço fechados antes do início.",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Site Institucional",
-            "serviceType": "Desenvolvimento de site institucional em código próprio",
-            "provider": { "@id": "https://forjadev.app.br/#negocio" }
-          }
-        },
-        {
-          "@type": "Offer",
-          "name": "CT-01 — Catálogo / Vitrine",
-          "availability": "https://schema.org/InStock",
-          "description": "Até 40 itens com busca e filtro, página de detalhe por produto, orçamento direto no WhatsApp e base preparada para evoluir para loja sem reescrita. Escopo e preço fechados antes do início.",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Catálogo / Vitrine",
-            "serviceType": "Desenvolvimento de catálogo online em código próprio",
-            "provider": { "@id": "https://forjadev.app.br/#negocio" }
-          }
-        }
-      ]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://forjadev.app.br/#site",
-      "url": "https://forjadev.app.br/",
-      "name": "ForjaDev",
-      "description": "Software house em Maringá – PR. Sistemas, plataformas e produtos digitais em código próprio, sem lock-in de plataforma.",
-      "inLanguage": "pt-BR",
-      "publisher": { "@id": "https://forjadev.app.br/#negocio" }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://forjadev.app.br/#duvidas",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Quanto custa?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "O preço é fechado por fase, depois de entender o escopo: páginas ou telas, integrações, regras de negócio e conteúdo. Você aprova o valor de cada ciclo antes de ele começar, sem cobrança extra no meio do caminho. Manda uma mensagem no WhatsApp e a gente fecha o escopo na conversa."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Em quanto tempo fica pronto?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Landing page em 3 dias úteis, site institucional em 5 e catálogo em 8. O prazo começa a contar depois que textos, imagens e acessos chegam completos. Projeto com regra própria ou integração tem prazo definido por fase, no escopo."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "O código é meu mesmo?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "É. O código, o repositório e a infraestrutura ficam no seu nome, com os acessos entregues no deploy. Pode hospedar onde quiser e contratar quem quiser para continuar."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Vou pagar mensalidade?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Para o projeto, não. Não há plataforma intermediária, então o custo não cresce por usuário nem por registro. Domínio e hospedagem você contrata direto no fornecedor que preferir, e o valor fica com ele, não conosco."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quem responde quando quebra?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Está escrito antes da assinatura: 15 dias de suporte para correção de erro sem custo, com rollback declarado para todo deploy. Alteração de conteúdo ou de escopo depois disso é orçada à parte."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Vocês escrevem os textos e fazem as fotos?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Não. Textos, imagens e identidade visual são fornecidos por você. Se precisar, a gente indica quem faça."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Vocês atendem fora de Maringá?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim. Todo o processo é online, do escopo ao deploy."
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
+<meta name="theme-color" content="#F6F7F9">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/img/favicon-16x16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>try{var fdTema=localStorage.getItem("fd-tema");if(fdTema==="claro"||fdTema==="escuro")document.documentElement.setAttribute("data-tema",fdTema);}catch(e){/* Preferência do sistema sem depender do armazenamento. */}</script>
 </head>
 <body>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-<a class="pular-para-conteudo" href="#conteudo">Pular para o conteúdo</a>
-
-<div class="progresso" aria-hidden="true"></div>
-
-<!-- Biblioteca de simbolos: a assinatura e o icone entram uma vez so
-     e sao reusados por <use>. Nenhum request a mais. -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="fd-logo" viewBox="0 0 1083.86 200">
-    <path d="M0.00 49.89 L7.36 36.47 L119.60 0.00 L133.44 6.53 L147.02 48.31 L139.66 61.73 L27.42 98.20 L13.57 91.67 Z" fill="#FFFFFF"/>
-    <path d="M64.66 81.27 L99.58 69.93 L135.45 178.22 L133.69 191.90 L108.75 200.00 L99.29 189.98 Z" fill="#FFFFFF"/>
-    <path d="M165.44 71.83 L184.28 79.44 L204.55 29.29 L185.70 21.68 Z" fill="#FF6A00"/>
-    <path d="M202.15 54.78 L221.00 62.40 L237.21 22.27 L218.36 14.66 Z" fill="#FF6A00"/>
-    <path d="M238.87 37.74 L257.71 45.35 L270.00 14.95 L251.15 7.34 Z" fill="#FF6A00"/>
-    <path d="M334.04 44.00H424.55V70.86H370.02V90.07H416.90V115.79H370.02V156.00H334.04Z M529.72 113.02Q529.72 135.00 516.77 146.48Q503.83 157.95 481.20 157.95Q458.58 157.95 445.72 146.56Q432.86 135.16 432.86 113.02Q432.86 90.88 445.72 79.49Q458.58 68.09 481.20 68.09Q503.83 68.09 516.77 79.57Q529.72 91.05 529.72 113.02ZM465.25 108.47V117.74Q465.25 135.98 481.20 135.98Q497.32 135.98 497.32 117.74V108.47Q497.32 90.07 481.20 90.07Q465.25 90.07 465.25 108.47Z M603.62 69.88V97.07H593.20Q583.11 97.07 578.63 102.28Q574.16 107.49 574.16 117.74V156.00H541.76V70.05H568.30L570.41 83.07Q573.34 75.58 579.69 71.76Q586.04 67.93 594.02 67.93Q597.76 67.93 600.69 68.83Q603.62 69.72 603.62 69.88Z M611.60 59.95V37.98H644.00V59.95ZM614.20 190.19Q609.97 190.19 603.79 189.37Q597.60 188.56 594.02 187.26V167.88H602.48Q611.60 167.88 611.60 157.47V70.05H644.00V160.72Q644.00 176.35 636.91 183.27Q629.83 190.19 614.20 190.19Z M748.02 96.09V129.63Q748.02 132.40 749.32 134.19Q750.62 135.98 753.23 135.98H759.09V154.70Q758.60 155.02 756.57 155.76Q754.53 156.49 750.79 157.22Q747.04 157.95 742.16 157.95Q732.72 157.95 726.61 155.10Q720.51 152.26 718.23 147.21Q712.04 152.09 704.39 155.02Q696.74 157.95 686.48 157.95Q656.20 157.95 656.20 133.86Q656.20 121.33 662.96 114.73Q669.72 108.14 682.41 105.70Q695.11 103.26 715.62 103.26V99.02Q715.62 93.98 712.12 91.37Q708.62 88.77 703.09 88.77Q698.04 88.77 694.38 90.56Q690.72 92.35 690.72 96.26V96.91H658.81Q658.65 96.09 658.65 94.63Q658.65 82.42 670.29 75.26Q681.93 68.09 703.58 68.09Q723.27 68.09 735.65 74.69Q748.02 81.28 748.02 96.09ZM688.60 129.63Q688.60 137.77 699.67 137.77Q706.02 137.77 710.82 134.35Q715.62 130.93 715.62 125.88V118.56Q701.79 118.56 695.19 121.57Q688.60 124.58 688.60 129.63Z M875.65 100.00Q875.65 156.00 816.88 156.00H768.37V44.00H816.88Q875.65 44.00 875.65 100.00ZM804.34 129.14H816.23Q838.86 129.14 838.86 104.88V95.12Q838.86 70.86 816.23 70.86H804.34Z M982.11 113.02V118.56H917.65Q917.65 127.84 921.80 132.56Q925.95 137.28 934.90 137.28Q943.04 137.28 946.87 133.86Q950.69 130.44 950.69 124.74H982.11Q982.11 140.37 970.23 149.16Q958.34 157.95 935.55 157.95Q911.62 157.95 898.44 146.80Q885.25 135.65 885.25 113.02Q885.25 90.88 898.11 79.49Q910.97 68.09 933.60 68.09Q957.20 68.09 969.66 79.16Q982.11 90.23 982.11 113.02ZM917.81 103.26H949.39Q949.39 96.58 945.57 92.67Q941.74 88.77 934.90 88.77Q919.60 88.77 917.81 103.26Z M1016.95 156.00 984.39 70.05H1019.23L1035.02 123.60H1036.16L1051.95 70.05H1083.86L1050.97 156.00Z" fill="#FFFFFF"/>
-  </symbol>
-  <symbol id="fd-zap" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.19-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.65-1.23-1.46-1.38-1.71-.14-.24-.01-.37.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42l-.47-.01c-.16 0-.43.06-.65.31-.23.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.16 1.73 2.65 4.2 3.71.59.26 1.04.41 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/>
-  </symbol>
-</svg>
-
-<!-- ============ HEADER ============ -->
-<header class="header">
-  <div class="header__fundo" aria-hidden="true"></div>
-  <div class="wrap header__wrap">
-    <a class="header__logo" href="#topo" aria-label="ForjaDev — início">
-      <svg viewBox="0 0 1083.86 200" width="163" height="30" role="img" aria-label="ForjaDev"><use href="#fd-logo"/></svg>
+<header class="topo">
+  <nav class="topo-nav" aria-label="Navegação principal">
+    <a class="marca" href="#conteudo" aria-label="ForjaDev — início">
+      <svg class="logo-horizontal" viewBox="467.25494 380.30161 202.95520 56.57135" role="img" aria-hidden="true" focusable="false"><path fill="var(--fd-logo-tinta)" fill-rule="nonzero" d="M 479.17654 400.71149 L 485.52896 397.26749 C 488.56393 395.62256 491.72284 394.26675 495.00565 393.20010 L 502.07086 390.90448 C 503.92639 390.30161 505.15558 390.92792 505.75848 392.78342 L 507.70627 398.77814 C 508.30917 400.63364 507.68286 401.86285 505.82733 402.46573 L 498.76215 404.76135 C 495.47931 405.82803 492.13434 406.63910 488.72726 407.19464 L 481.66968 408.34451 C 480.04050 408.60956 478.97086 407.95703 478.46072 406.38699 L 477.76508 404.24603 C 477.25494 402.67596 477.72543 401.49780 479.17654 400.71149"/><path fill="var(--fd-logo-tinta)" fill-rule="nonzero" d="M 493.90781 401.84134 C 494.34787 401.69833 494.79852 401.64502 495.25983 401.68130 C 495.72110 401.71762 496.15787 401.84079 496.57016 402.05087 C 496.98242 402.26093 497.33881 402.54187 497.63931 402.89374 C 497.93982 403.24557 498.16156 403.64154 498.30457 404.08160 L 504.21753 422.27988 C 504.36053 422.71991 504.41388 423.17059 504.37756 423.63187 C 504.34125 424.09317 504.21808 424.52994 504.00800 424.94220 C 503.79794 425.35449 503.51697 425.71088 503.16513 426.01138 C 502.81329 426.31189 502.41733 426.53363 501.97729 426.67664 C 501.53723 426.81961 501.08655 426.87296 500.62524 426.83664 C 500.16397 426.80032 499.72720 426.67715 499.31494 426.46710 C 498.90265 426.25702 498.54626 425.97607 498.24576 425.62421 C 497.94525 425.27237 497.72351 424.87643 497.58051 424.43637 L 491.66754 406.23810 C 491.52457 405.79803 491.47122 405.34735 491.50754 404.88608 C 491.54382 404.42480 491.66702 403.98801 491.87708 403.57574 C 492.08713 403.16345 492.36810 402.80707 492.71994 402.50656 C 493.07178 402.20605 493.46774 401.98431 493.90781 401.84134"/><path fill="var(--fd-logo-acento)" fill-rule="nonzero" d="M 514.25092 396.25577 C 514.52765 396.36761 514.77252 396.52814 514.98541 396.73737 C 515.19836 396.94659 515.36316 397.18863 515.47980 397.46341 C 515.59644 397.73819 515.65607 398.02484 515.65863 398.32336 C 515.66125 398.62186 515.60663 398.90952 515.49481 399.18631 L 512.96490 405.44800 C 512.85309 405.72479 512.69257 405.96964 512.48334 406.18256 C 512.27411 406.39548 512.03210 406.56024 511.75729 406.67691 C 511.48251 406.79355 511.19586 406.85315 510.89734 406.85577 C 510.59885 406.85837 510.31119 406.80377 510.03439 406.69193 C 509.75763 406.58011 509.51276 406.41959 509.29984 406.21033 C 509.08691 406.00110 508.92215 405.75909 508.80551 405.48431 C 508.68884 405.20950 508.62924 404.92285 508.62662 404.62436 C 508.62402 404.32584 508.67865 404.03818 508.79047 403.76141 L 511.32034 397.49969 C 511.43219 397.22293 511.59271 396.97809 511.80197 396.76517 C 512.01117 396.55225 512.25323 396.38745 512.52802 396.27081 C 512.80280 396.15417 513.08942 396.09454 513.38794 396.09195 C 513.68646 396.08932 513.97412 396.14395 514.25092 396.25577"/><path fill="var(--fd-logo-acento)" fill-rule="nonzero" d="M 521.03290 393.69757 C 521.30969 393.80942 521.55457 393.96994 521.76746 394.17917 C 521.98041 394.38843 522.14514 394.63043 522.26184 394.90521 C 522.37848 395.17999 522.43805 395.46667 522.44067 395.76517 C 522.44330 396.06369 522.38867 396.35132 522.27686 396.62811 L 520.59027 400.80258 C 520.47845 401.07935 520.31787 401.32422 520.10864 401.53714 C 519.89941 401.75006 519.65741 401.91483 519.38263 402.03149 C 519.10785 402.14813 518.82117 402.20773 518.52264 402.21033 C 518.22418 402.21295 517.93652 402.15833 517.65973 402.04651 C 517.38293 401.93469 517.13812 401.77417 516.92517 401.56491 C 516.71228 401.35568 516.54749 401.11365 516.43085 400.83887 C 516.31421 400.56409 516.25458 400.27744 516.25195 399.97894 C 516.24933 399.68042 516.30396 399.39276 516.41577 399.11600 L 518.10242 394.94153 C 518.21423 394.66473 518.37476 394.41989 518.58398 394.20697 C 518.79321 393.99405 519.03522 393.82925 519.31000 393.71262 C 519.58484 393.59598 519.87146 393.53635 520.16998 393.53375 C 520.46851 393.53113 520.75610 393.58575 521.03290 393.69757"/><path fill="var(--fd-logo-acento)" fill-rule="nonzero" d="M 527.36475 391.36444 C 527.64154 391.47629 527.88635 391.63681 528.09930 391.84604 C 528.31219 392.05530 528.47699 392.29730 528.59363 392.57208 C 528.71027 392.84686 528.76990 393.13354 528.77252 393.43204 C 528.77515 393.73056 528.72052 394.01819 528.60870 394.29498 L 527.76538 396.38220 C 527.65356 396.65900 527.49304 396.90384 527.28381 397.11676 C 527.07452 397.32968 526.83252 397.49448 526.55774 397.61111 C 526.28296 397.72775 525.99628 397.78738 525.69781 397.78998 C 525.39929 397.79260 525.11163 397.73798 524.83484 397.62616 C 524.55804 397.51431 524.31323 397.35379 524.10028 397.14453 C 523.88739 396.93530 523.72260 396.69330 523.60596 396.41852 C 523.48932 396.14371 523.42969 395.85706 523.42706 395.55856 C 523.42450 395.26004 523.47906 394.97241 523.59094 394.69562 L 524.43420 392.60840 C 524.54602 392.33160 524.70660 392.08676 524.91583 391.87384 C 525.12506 391.66092 525.36707 391.49612 525.64185 391.37949 C 525.91663 391.26285 526.20331 391.20322 526.50183 391.20062 C 526.80029 391.19803 527.08795 391.25262 527.36475 391.36444"/><path fill="var(--fd-logo-tinta)" fill-rule="nonzero" d="M 536.87939 399.21094 L 551.76703 399.21094 L 551.76703 403.62943 L 542.79742 403.62943 L 542.79742 406.78879 L 550.50885 406.78879 L 550.50885 411.01935 L 542.79742 411.01935 L 542.79742 417.63281 L 536.87939 417.63281 L 536.87939 399.21094 M 569.06427 410.56433 C 569.06427 412.97391 568.35474 414.80783 566.93561 416.06604 C 565.51654 417.32486 563.56622 417.95428 561.08484 417.95428 C 558.60400 417.95428 556.65833 417.32947 555.24786 416.07983 C 553.83795 414.83023 553.13300 412.99173 553.13300 410.56433 C 553.13300 408.13632 553.83795 406.29752 555.24786 405.04791 C 556.65833 403.79828 558.60400 403.17349 561.08484 403.17349 C 563.56622 403.17349 565.51654 403.80289 566.93561 405.06174 C 568.35474 406.31995 569.06427 408.15414 569.06427 410.56433 M 558.46063 409.81458 L 558.46063 411.34082 C 558.46063 413.33960 559.33539 414.33899 561.08484 414.33899 C 562.85211 414.33899 563.73572 413.33960 563.73572 411.34082 L 563.73572 409.81458 C 563.73572 407.79736 562.85211 406.78879 561.08484 406.78879 C 559.33539 406.78879 558.46063 407.79736 558.46063 409.81458 M 581.22083 403.46823 L 581.22083 407.94016 L 579.50671 407.94016 C 578.40015 407.94016 577.60126 408.22568 577.10999 408.79675 C 576.61938 409.36783 576.37408 410.21585 576.37408 411.34082 L 576.37408 417.63281 L 571.04553 417.63281 L 571.04553 403.49493 L 575.41058 403.49493 L 575.75787 405.63742 C 576.07959 404.81641 576.58838 404.19589 577.28412 403.77588 C 577.98047 403.35648 578.76611 403.14676 579.64117 403.14676 C 580.05139 403.14676 580.41705 403.19589 580.73822 403.29416 C 581.06000 403.39240 581.22083 403.45044 581.22083 403.46823 M 582.53247 401.83514 L 582.53247 398.21985 L 587.86102 398.21985 L 587.86102 401.83514 L 582.53247 401.83514 M 582.96082 423.25607 C 582.49658 423.25607 581.92548 423.21127 581.24756 423.12161 C 580.56903 423.03256 580.03357 422.91650 579.64117 422.77344 L 579.64117 419.58737 L 581.03296 419.58737 C 582.03265 419.58737 582.53247 419.01630 582.53247 417.87415 L 582.53247 403.49493 L 587.86102 403.49493 L 587.86102 418.40930 C 587.86102 420.12314 587.47260 421.35925 586.69580 422.11761 C 585.91968 422.87659 584.67462 423.25607 582.96082 423.25607 M 604.97125 407.77896 L 604.97125 413.29538 C 604.97125 413.59872 605.04248 413.84866 605.18494 414.04517 C 605.32800 414.24103 605.54236 414.33899 605.82788 414.33899 L 606.79132 414.33899 L 606.79132 417.41818 C 606.73792 417.45444 606.59973 417.51245 606.37683 417.59229 C 606.15332 417.67273 605.83649 417.75317 605.42627 417.83362 C 605.01544 417.91406 604.54236 417.95428 604.00684 417.95428 C 602.97156 417.95428 602.11926 417.79800 601.44989 417.48544 C 600.78058 417.17288 600.32098 416.73996 600.07104 416.18671 C 599.39252 416.72217 598.63385 417.15076 597.79498 417.47253 C 596.95618 417.79370 595.97430 417.95428 594.84937 417.95428 C 591.52911 417.95428 589.86902 416.63342 589.86902 413.99173 C 589.86902 412.61685 590.23956 411.56802 590.98077 410.84528 C 591.72131 410.12192 592.78766 409.62634 594.17969 409.35861 C 595.57239 409.09088 597.39343 408.95703 599.64270 408.95703 L 599.64270 408.26160 C 599.64270 407.70773 599.45081 407.28799 599.06702 407.00247 C 598.68323 406.71692 598.18768 406.57416 597.58038 406.57416 C 597.02710 406.57416 596.54968 406.67242 596.14807 406.86890 C 595.74652 407.06540 595.54572 407.37766 595.54572 407.80566 L 595.54572 407.91342 L 590.29730 407.91342 C 590.27948 407.82379 590.27057 407.69882 590.27057 407.53854 C 590.27057 406.19928 590.90894 405.13696 592.18555 404.35156 C 593.46155 403.56616 595.28687 403.17349 597.66144 403.17349 C 599.82111 403.17349 601.57916 403.53516 602.93567 404.25854 C 604.29272 404.98129 604.97125 406.15475 604.97125 407.77896 M 595.19751 413.29538 C 595.19751 414.18762 595.80450 414.63373 597.01855 414.63373 C 597.71490 414.63373 598.32617 414.44644 598.85242 414.07187 C 599.37927 413.69666 599.64270 413.23245 599.64270 412.67917 L 599.64270 411.47437 C 598.12537 411.47437 597.00500 411.63956 596.28168 411.96994 C 595.55890 412.30029 595.19751 412.74213 595.19751 413.29538 M 625.96295 408.42188 C 625.96295 414.56250 622.74097 417.63281 616.29700 417.63281 L 608.31757 417.63281 L 608.31757 399.21094 L 616.29700 399.21094 C 622.74097 399.21094 625.96295 402.28125 625.96295 408.42188 M 614.23560 413.21432 L 616.19019 413.21432 C 618.67163 413.21432 619.91229 411.88458 619.91229 409.22507 L 619.91229 407.61868 C 619.91229 404.95917 618.67163 403.62943 616.19019 403.62943 L 614.23560 403.62943 L 614.23560 413.21432 M 643.47479 410.56433 L 643.47479 411.47437 L 632.87122 411.47437 C 632.87122 412.49188 633.09900 413.25946 633.55463 413.77710 C 634.00964 414.29477 634.72809 414.55359 635.70996 414.55359 C 636.60223 414.55359 637.25806 414.36630 637.67743 413.99173 C 638.09686 413.61655 638.30658 413.11670 638.30658 412.49219 L 643.47479 412.49219 C 643.47479 414.20541 642.82330 415.54407 641.52026 416.50815 C 640.21722 417.47223 638.31604 417.95428 635.81683 417.95428 C 633.19293 417.95428 631.15796 417.34299 629.71185 416.12036 C 628.26569 414.89716 627.54266 413.04514 627.54266 410.56433 C 627.54266 408.13632 628.24792 406.29752 629.65839 405.04791 C 631.06830 403.79828 633.01392 403.17349 635.49536 403.17349 C 638.08362 403.17349 640.06061 403.78049 641.42627 404.99448 C 642.79199 406.20850 643.47479 408.06509 643.47479 410.56433 M 632.89789 408.95703 L 638.09283 408.95703 C 638.09283 408.22568 637.88318 407.64569 637.46375 407.21707 C 637.04437 406.78848 636.45978 406.57416 635.70996 406.57416 C 634.03174 406.57416 633.09442 407.36844 632.89789 408.95703 M 649.20496 417.63281 L 643.84967 403.49493 L 649.57983 403.49493 L 652.17731 412.30429 L 652.36426 412.30429 L 654.96179 403.49493 L 660.21014 403.49493 L 654.80060 417.63281 L 649.20496 417.63281"/></svg>
+      <span class="sr-only">ForjaDev — início</span>
     </a>
-
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="navPrincipal" aria-label="Abrir menu de navegação">
-      <span></span>
-    </button>
-
-    <nav class="nav" id="navPrincipal" aria-label="Navegação principal">
-      <ul class="nav__lista">
-        <li><a class="nav__link" href="#solucoes">Soluções</a></li>
-        <li><a class="nav__link" href="#como-funciona">Como funciona</a></li>
-        <li><a class="nav__link" href="#institucional">Institucional</a></li>
-        <li><a class="nav__link" href="#agencias">Agências</a></li>
-        <li><a class="nav__link" href="#duvidas">Dúvidas</a></li>
-        <li><a class="nav__link" href="#contato">Contato</a></li>
-        <li class="nav__cta-mobile">
-          <a class="btn btn--primario btn--bloco" rel="noopener" target="_blank"
-             href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20um%20or%C3%A7amento."
-             aria-label="Falar no WhatsApp da ForjaDev — 44 99119-2295 (abre em nova aba)">Falar no WhatsApp</a>
-        </li>
-      </ul>
-    </nav>
-
-    <a class="btn btn--primario btn--pequeno header__cta" rel="noopener" target="_blank"
-       href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20um%20or%C3%A7amento."
-       aria-label="Falar no WhatsApp da ForjaDev — 44 99119-2295 (abre em nova aba)">Falar no WhatsApp</a>
-  </div>
+    <details class="nav-disclosure" id="nav-disclosure" open>
+    <summary class="menu-btn" aria-expanded="false" aria-controls="menu-principal">
+      <svg class="ic-menu" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span class="sr-only">Abrir menu</span>
+    </summary>
+    <ul class="menu" id="menu-principal">
+      <li><a href="#frentes">Frentes</a></li>
+      <li><a href="#fluxo">Fluxos</a></li>
+      <li><a href="#processo">Processo</a></li>
+      <li><a href="#socios">Sócios</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li>
+        <button class="tema-btn" type="button" aria-label="Alternar tema claro e escuro">
+          <svg class="ic-sol" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="ic-lua" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </li>
+      <li><a class="btn btn-acento btn-sm" href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20agendar%20um%20diagn%C3%B3stico." target="_blank" rel="noopener">Agendar diagnóstico</a></li>
+    </ul>
+    </details>
+  </nav>
 </header>
 
-<main id="conteudo">
+<main id="conteudo" tabindex="-1">
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="topo" aria-labelledby="heroTitulo">
-    <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
-    <div class="hero__brilho" aria-hidden="true"></div>
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="container hero-grade">
+      <div class="hero-conteudo">
+      <p class="rotulo-secao reveal">ForjaDev · Automação e integração · Maringá/PR</p>
+      <h1 id="hero-titulo" class="hero-titulo" aria-label="Processos que andam sozinhos.">
+        <span class="kinetic"><span style="--i:0">Processos</span></span>
+        <span class="kinetic"><span style="--i:1">que andam</span></span>
+        <span class="kinetic"><span style="--i:2">sozinhos.</span></span>
+      </h1>
+      <p class="hero-sub reveal">Automatizamos processos e integramos sistemas de pequenas empresas com faturamento alto — cujo time ainda transporta informação à mão.</p>
+      <div class="hero-acoes reveal">
+        <a class="btn btn-acento" href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20agendar%20um%20diagn%C3%B3stico." target="_blank" rel="noopener">
+          <svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+          Agendar diagnóstico
+        </a>
+        <a class="btn btn-fantasma" href="#fluxo">Ver exemplos de fluxo</a>
+      </div>
+      <p class="hero-nota reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>
+        Conte qual etapa ainda depende de copiar e colar.
+      </p>
+      </div>
+      <div class="hero-visual" role="group" aria-label="Exemplo ilustrativo: uma entrada percorre sistemas conectados, com regras e registro">
+        <div class="hero-visual-cabecalho"><span class="hero-visual-rotulo">Fluxo ilustrativo</span><span class="hero-visual-sinal" aria-hidden="true"></span></div>
+        <p class="hero-visual-titulo">Uma entrada.<br>Sistemas conectados.</p>
+        <div class="hero-visual-caminho" aria-hidden="true">
+          <div class="hero-no"><span class="hero-no-numero">01</span><span>Entrada</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg></div>
+          <div class="hero-conector"><span></span></div>
+          <div class="hero-no hero-no-central"><span class="hero-no-numero">02</span><span>Regras do negócio</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6M18 3v3a6 6 0 0 1-6 6"/><circle cx="6" cy="3" r="2"/><circle cx="18" cy="3" r="2"/><circle cx="18" cy="21" r="2"/></svg></div>
+          <div class="hero-conector"><span></span></div>
+          <div class="hero-no"><span class="hero-no-numero">03</span><span>Registro e resposta</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 4h14v16H5zM8 9h8M8 13h5M8 17h7"/></svg></div>
+        </div>
+        <div class="hero-sistemas"><span>Salesforce</span><span>ClickUp</span><span>Sankhya</span><span>Omie</span><span>WhatsApp</span></div>
+        <p class="hero-visual-nota">O desenho real é definido no diagnóstico.</p>
+      </div>
+    </div>
+  </section>
 
-    <div class="wrap">
-      <div class="hero__bloco">
-        <p class="rotulo hero__eyebrow">Software house · Maringá/PR</p>
-        <h1 class="hero__titulo" id="heroTitulo">
-          O código, o repositório e a infraestrutura ficam no seu nome.
-        </h1>
-        <p class="hero__sub">
-          A ForjaDev é uma <strong>software house</strong>. Construímos em código próprio,
-          com escopo e preço fechados por fase e homologação antes de cada deploy.
-          Sem mensalidade de plataforma, sem lock-in, sem caixa-preta.
+  <section id="frentes" class="secao secao-alt" aria-labelledby="frentes-titulo">
+    <div class="container">
+      <p class="rotulo-secao reveal">Duas frentes</p>
+      <h2 id="frentes-titulo" class="reveal">Onde a informação trava, o processo começa</h2>
+      <p class="lead reveal">Trabalhamos em duas frentes complementares. A inteligência artificial atravessa as duas frentes como ferramenta, quando faz sentido — não como um produto genérico de vitrine.</p>
+      <div class="bento" style="margin-top:var(--fd-site-esp-6)">
+        <article class="cartao bento-destaque reveal" style="--d:0">
+          <svg class="cartao-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+          <h3>Automação de processos</h3>
+          <p>Tarefas repetitivas e conferências manuais viram processos que rodam no fundo: o sistema transporta, avisa e registra — e o time volta a olhar para o que só gente resolve.</p>
+        </article>
+        <article class="cartao reveal" style="--d:1">
+          <svg class="cartao-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><path d="M12 2v6M12 18v4M4.9 4.9l3.6 3.6M15.5 15.5l3.6 3.6M2 12h6M18 12h4"/><circle cx="12" cy="12" r="3"/></svg>
+          <h3>Integração de sistemas</h3>
+          <p>Fazemos sistemas que não se conversam trocarem dados com regras claras: venda, financeiro e operação falando a mesma língua.</p>
+        </article>
+        <article class="bento-nota reveal" style="--d:2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 8v4l2.5 2.5"/><path d="M17 3h4v4"/><path d="M21 3l-6 6"/></svg>
+          <p>Sistemas como Salesforce, ClickUp, Sankhya, Omie e WhatsApp aparecem com frequência nessas operações. O diagnóstico define o desenho real do seu caso.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="fluxo" class="secao" aria-labelledby="fluxo-titulo">
+    <div class="container">
+      <p class="rotulo-secao reveal">Exemplos de fluxo</p>
+      <h2 id="fluxo-titulo" class="reveal">Um fluxo, da ponta ao registro</h2>
+      <p class="lead reveal">Escolha um exemplo para ver como a informação passa a circular sozinha.</p>
+      <div class="fluxo-painel reveal">
+        <div class="fluxo-abas" role="tablist" aria-label="Exemplos de fluxo">
+          <button class="fluxo-aba" role="tab" id="aba-pedidos" aria-selected="true" aria-controls="painel-pedidos" type="button">Pedidos</button>
+          <button class="fluxo-aba" role="tab" id="aba-tarefas" aria-selected="false" aria-controls="painel-tarefas" tabindex="-1" type="button">Tarefas do time</button>
+          <button class="fluxo-aba" role="tab" id="aba-vendas" aria-selected="false" aria-controls="painel-vendas" tabindex="-1" type="button">Vendas e financeiro</button>
+        </div>
+
+        <div class="fluxo-painel-conteudo" role="tabpanel" tabindex="0" id="painel-pedidos" aria-labelledby="aba-pedidos">
+          <h3 class="fluxo-titulo-estatico">Pedidos</h3>
+          <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
+            <path class="trilho" d="M 60 60 H 660"/>
+            <circle class="no" cx="60" cy="60" r="34"/><text class="no-txt" x="60" y="65" text-anchor="middle">Entrada</text>
+            <circle class="no" cx="260" cy="60" r="34"/><text class="no-txt" x="260" y="65" text-anchor="middle">Conferência</text>
+            <circle class="no" cx="460" cy="60" r="34"/><text class="no-txt" x="460" y="65" text-anchor="middle">Registro</text>
+            <circle class="no" cx="660" cy="60" r="34"/><text class="no-txt" x="660" y="65" text-anchor="middle">Resposta</text>
+            <circle class="ponto ponto-path" r="7"/>
+          </svg>
+          <ol class="fluxo-trilha">
+            <li><strong>WhatsApp do cliente</strong><span>o pedido chega pela ponta que o time já usa</span></li>
+            <li><strong>Conferência automática</strong><span>regras de negócio validam o que veio</span></li>
+            <li><strong>Registro no Omie</strong><span>o pedido entra no sistema sem digitação</span></li>
+            <li><strong>Confirmação ao cliente</strong><span>resposta sai do fluxo, não do garimpo</span></li>
+          </ol>
+        </div>
+
+        <div class="fluxo-painel-conteudo" role="tabpanel" tabindex="0" id="painel-tarefas" aria-labelledby="aba-tarefas">
+          <h3 class="fluxo-titulo-estatico">Tarefas do time</h3>
+          <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
+            <path class="trilho" d="M 60 60 H 660"/>
+            <circle class="no" cx="60" cy="60" r="34"/><text class="no-txt" x="60" y="65" text-anchor="middle">Entrada</text>
+            <circle class="no" cx="260" cy="60" r="34"/><text class="no-txt" x="260" y="65" text-anchor="middle">Organização</text>
+            <circle class="no" cx="460" cy="60" r="34"/><text class="no-txt" x="460" y="65" text-anchor="middle">Aviso</text>
+            <circle class="no" cx="660" cy="60" r="34"/><text class="no-txt" x="660" y="65" text-anchor="middle">Registro</text>
+            <circle class="ponto ponto-path" r="7"/>
+          </svg>
+          <ol class="fluxo-trilha">
+            <li><strong>Formulário interno</strong><span>a solicitação nasce padronizada</span></li>
+            <li><strong>Tarefa no ClickUp</strong><span>criada e distribuída sem planilha</span></li>
+            <li><strong>Aviso no WhatsApp</strong><span>o responsável sabe na hora</span></li>
+            <li><strong>Apontamento no Sankhya</strong><span>a execução vira registro na gestão</span></li>
+          </ol>
+        </div>
+
+        <div class="fluxo-painel-conteudo" role="tabpanel" tabindex="0" id="painel-vendas" aria-labelledby="aba-vendas">
+          <h3 class="fluxo-titulo-estatico">Vendas e financeiro</h3>
+          <svg class="fluxo-diagrama" viewBox="0 0 720 120" aria-hidden="true" focusable="false">
+            <path class="trilho" d="M 60 60 H 660"/>
+            <circle class="no" cx="60" cy="60" r="34"/><text class="no-txt" x="60" y="65" text-anchor="middle">Captação</text>
+            <circle class="no" cx="260" cy="60" r="34"/><text class="no-txt" x="260" y="65" text-anchor="middle">Follow-up</text>
+            <circle class="no" cx="460" cy="60" r="34"/><text class="no-txt" x="460" y="65" text-anchor="middle">Faturamento</text>
+            <circle class="no" cx="660" cy="60" r="34"/><text class="no-txt" x="660" y="65" text-anchor="middle">Gestão</text>
+            <circle class="ponto ponto-path" r="7"/>
+          </svg>
+          <ol class="fluxo-trilha">
+            <li><strong>Lead no Salesforce</strong><span>a oportunidade entra categorizada</span></li>
+            <li><strong>Follow-up no ClickUp</strong><span>nenhuma conversa fica sem dono</span></li>
+            <li><strong>Nota no Omie</strong><span>fechou, fatura sem retrabalho</span></li>
+            <li><strong>Atualização no Sankhya</strong><span>o financeiro enxerga tudo junto</span></li>
+          </ol>
+        </div>
+
+        <p class="painel-nota">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          Fluxos ilustrativos, para explicar o tipo de problema que resolvemos. O desenho real nasce no diagnóstico do seu processo.
         </p>
-
-        <div class="hero__acoes">
-          <a class="btn btn--primario" rel="noopener" target="_blank"
-             href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20um%20or%C3%A7amento."
-             aria-label="Falar no WhatsApp da ForjaDev — 44 99119-2295 (abre em nova aba)">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#fd-zap"/></svg>
-            Falar no WhatsApp
-          </a>
-          <a class="btn btn--contorno" href="#solucoes">Ver soluções</a>
-        </div>
-
-        <p class="rotulo pill-estado hero__estado">
-          <span class="pill-estado__ponto" aria-hidden="true"></span>
-          Agenda aberta · próximo ciclo de implantação
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- ============ BARRA DE PROVA ============ -->
-  <section class="prova" aria-labelledby="provaTitulo">
-    <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
-    <div class="wrap">
-      <h2 class="sr-only" id="provaTitulo">A barra técnica de entrega</h2>
-      <ul class="prova__grade" data-contador-grupo>
-        <li class="contador">
-          <p class="contador__valor"><span data-contador="95">95</span><span class="sufixo">+</span></p>
-          <span class="rotulo contador__rotulo">Lighthouse mobile, medido no ambiente publicado</span>
-        </li>
-        <li class="contador">
-          <p class="contador__valor"><span class="prefixo">&lt;</span><span data-contador="1.8" data-casas="1">1.8</span><span class="sufixo">s</span></p>
-          <span class="rotulo contador__rotulo">LCP — abre antes de o usuário desistir</span>
-        </li>
-        <li class="contador">
-          <p class="contador__valor"><span class="prefixo">R$</span><span data-contador="0">0</span></p>
-          <span class="rotulo contador__rotulo">De mensalidade de plataforma para continuar no ar</span>
-        </li>
-        <li class="contador">
-          <p class="contador__valor"><span data-contador="100">100</span><span class="sufixo">%</span></p>
-          <span class="rotulo contador__rotulo">Do repositório e da infra no nome do cliente</span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============ 01 · SOLUÇÕES ============ -->
-  <section class="secao secao--clara" id="solucoes" aria-labelledby="solucoesTitulo">
-    <div class="secao__textura secao__textura--grid" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="secao__cabecalho reveal">
-        <p class="rotulo secao__indice"><b>01</b> · Soluções</p>
-        <h2 class="secao__titulo" id="solucoesTitulo">Quatro peças de aquisição com escopo fechado.</h2>
-        <p class="secao__lead">Cada uma resolve um problema específico de entrada. O que está dentro e o que está fora é definido antes de o ciclo começar.</p>
-      </div>
-
-      <div class="solucoes" data-reveal-filhos>
-
-        <article class="pacote peca peca--hover superficie-clara" aria-labelledby="lp01">
-          <div class="pacote__topo">
-            <span class="badge badge--codigo">LP-01</span>
-          </div>
-          <h3 class="pacote__nome" id="lp01">Landing Page Essencial</h3>
-
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Para quem é</span>
-            <p>Operação que investe em mídia paga e precisa que o clique vire conversa registrada.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">O que resolve</span>
-            <p>O clique pago deixa de morrer numa página lenta ou confusa. Página única, uma decisão por tela, contato entregue no canal que sua equipe já usa.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Você recebe</span>
-            <ul class="pacote__recebe">
-              <li>Página única, até 6 seções.</li>
-              <li>Formulário que cai no seu e-mail.</li>
-              <li>Botão de WhatsApp em destaque.</li>
-              <li>Publicação, configuração e relatório de performance inclusos.</li>
-            </ul>
-          </div>
-
-          <div class="pacote__rodape">
-            <a class="btn btn--primario btn--bloco" rel="noopener" target="_blank"
-               href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site.%20Quero%20um%20or%C3%A7amento%20de%20Landing%20Page%20Essencial."
-               aria-label="Quero uma landing page — falar no WhatsApp (abre em nova aba)">Quero uma landing page</a>
-          </div>
-        </article>
-
-        <article class="pacote peca peca--hover superficie-clara" aria-labelledby="lp02">
-          <div class="pacote__topo">
-            <span class="badge badge--codigo">LP-02</span>
-          </div>
-          <h3 class="pacote__nome" id="lp02">Landing Page Avançada</h3>
-
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Para quem é</span>
-            <p>Oferta de ticket mais alto, com objeção real antes do contato e ciclo de decisão compartilhado.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">O que resolve</span>
-            <p>A objeção é endereçada na página, na ordem certa — prova, dúvida frequente e depoimento —, em vez de virar silêncio depois do clique.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Você recebe</span>
-            <ul class="pacote__recebe">
-              <li>Até 12 seções.</li>
-              <li>Camada de movimento e microinterações.</li>
-              <li>Bloco de dúvidas e depoimentos.</li>
-              <li>Integração do formulário com planilha, e-mail ou webhook.</li>
-            </ul>
-          </div>
-
-          <div class="pacote__rodape">
-            <a class="btn btn--primario btn--bloco" rel="noopener" target="_blank"
-               href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site.%20Quero%20um%20or%C3%A7amento%20de%20Landing%20Page%20Avan%C3%A7ada."
-               aria-label="Quero uma landing avançada — falar no WhatsApp (abre em nova aba)">Quero uma landing avançada</a>
-          </div>
-        </article>
-
-        <article class="pacote peca peca--hover superficie-clara" aria-labelledby="st01">
-          <div class="pacote__topo">
-            <span class="badge badge--codigo">ST-01</span>
-          </div>
-          <h3 class="pacote__nome" id="st01">Site Institucional</h3>
-
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Para quem é</span>
-            <p>Empresa em operação que é avaliada antes da primeira conversa — por cliente, por fornecedor e por candidato.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">O que resolve</span>
-            <p>Quem procura sua empresa encontra, entende o escopo do que você faz e chega ao canal certo. Estrutura semântica e SEO na entrega base, sem pacote extra.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Você recebe</span>
-            <ul class="pacote__recebe">
-              <li>Até 5 páginas.</li>
-              <li>Navegação que funciona no celular.</li>
-              <li>Estrutura pronta para indexação.</li>
-              <li>Página de contato com mapa e formulário integrado.</li>
-            </ul>
-          </div>
-
-          <div class="pacote__rodape">
-            <a class="btn btn--primario btn--bloco" rel="noopener" target="_blank"
-               href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site.%20Quero%20um%20or%C3%A7amento%20de%20Site%20Institucional."
-               aria-label="Quero um site institucional — falar no WhatsApp (abre em nova aba)">Quero um site institucional</a>
-          </div>
-        </article>
-
-        <article class="pacote peca peca--hover superficie-clara" aria-labelledby="ct01">
-          <div class="pacote__topo">
-            <span class="badge badge--codigo">CT-01</span>
-          </div>
-          <h3 class="pacote__nome" id="ct01">Catálogo / Vitrine</h3>
-
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Para quem é</span>
-            <p>Operação com catálogo extenso que fecha venda por atendimento, não por checkout.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">O que resolve</span>
-            <p>O cliente busca, filtra, encontra o item e abre a conversa já com a referência do produto. Sua equipe para de repassar tabela em PDF.</p>
-          </div>
-          <div class="pacote__campo">
-            <span class="rotulo pacote__rotulo">Você recebe</span>
-            <ul class="pacote__recebe">
-              <li>Até 40 itens com busca e filtro.</li>
-              <li>Página de detalhe por produto.</li>
-              <li>Orçamento direto no WhatsApp.</li>
-              <li>Base preparada para evoluir para loja sem reescrita.</li>
-            </ul>
-          </div>
-
-          <div class="pacote__rodape">
-            <a class="btn btn--primario btn--bloco" rel="noopener" target="_blank"
-               href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site.%20Quero%20um%20or%C3%A7amento%20de%20Cat%C3%A1logo%2FVitrine."
-               aria-label="Quero um catálogo — falar no WhatsApp (abre em nova aba)">Quero um catálogo</a>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="faixa-aco peca reveal">
-        <div>
-          <h3>Sistema, plataforma ou produto digital?</h3>
-          <p>Regra própria de negócio, integração com o que já roda na sua operação, volume ou controle de acesso. Escopo, prazo, responsabilidade e preço são fechados por fase, depois de entender a operação — nada entra em produção sem homologação.</p>
-        </div>
-        <a class="btn btn--primario" rel="noopener" target="_blank"
-           href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site.%20Tenho%20um%20projeto%20maior%20e%20quero%20fechar%20escopo."
-           aria-label="Falar sobre um projeto sob medida no WhatsApp (abre em nova aba)">Falar sobre um projeto sob medida</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 02 · CONTINUIDADE E CUSTO DE SAÍDA ============ -->
-  <section class="secao secao--escura" id="continuidade" aria-labelledby="continuidadeTitulo">
-    <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
-    <div class="wrap">
-      <hr class="divisor divisor--curto divisor--anima" aria-hidden="true">
-      <div class="secao__cabecalho reveal">
-        <p class="rotulo secao__indice"><b>02</b> · Continuidade e custo de saída</p>
-        <h2 class="secao__titulo" id="continuidadeTitulo">O que acontece com o seu sistema daqui a dois anos.</h2>
-      </div>
-
-      <div class="confronto" data-reveal-filhos>
-        <div class="coluna peca peca--plano">
-          <h3 class="coluna__titulo">Plataforma com mensalidade</h3>
-          <ul class="coluna__lista">
-            <li>Você paga todo mês, para sempre.</li>
-            <li>Parou de pagar, o sistema sai do ar.</li>
-            <li>O que você tem é licença de uso, não o produto.</li>
-            <li>Trocar de fornecedor significa refazer e renegociar acesso.</li>
+  <section id="antes-depois" class="secao secao-alt" aria-labelledby="ad-titulo">
+    <div class="container">
+      <p class="rotulo-secao reveal">Antes e depois</p>
+      <h2 id="ad-titulo" class="reveal">A diferença de um processo que anda</h2>
+      <div class="compara">
+        <article class="compara-col compara-antes reveal" style="--d:0">
+          <h3>Antes</h3>
+          <ul>
+            <li>Informação transportada à mão entre sistemas e planilhas</li>
+            <li>Conferência repetida do mesmo dado em telas diferentes</li>
+            <li>Retrabalho quando o volume cresce — e o erro junto</li>
+            <li>O processo depende de alguém lembrar de executá-lo</li>
           </ul>
-        </div>
-        <div class="coluna coluna--forja peca">
-          <h3 class="coluna__titulo">ForjaDev</h3>
-          <ul class="coluna__lista">
-            <li>Escopo e preço fechados por fase, aprovados antes de cada ciclo.</li>
-            <li>Repositório, infraestrutura e dados no seu nome.</li>
-            <li>Nada depende de licença de terceiro para continuar no ar.</li>
-            <li>Trocar de fornecedor é troca de time, não migração.</li>
+        </article>
+        <div class="seta-fluxo reveal" style="--d:1" aria-hidden="true">→</div>
+        <article class="compara-col compara-depois reveal" style="--d:2">
+          <h3>Depois</h3>
+          <ul>
+            <li>Sistemas integrados, com regras de negócio explícitas</li>
+            <li>Registro único, de ponta a ponta do processo</li>
+            <li>O time acompanha exceções, não digita rotina</li>
+            <li>O processo anda sozinho — e deixa rastro para auditoria</li>
           </ul>
-        </div>
-      </div>
-
-      <p class="confronto__fecho reveal">Trocar de fornecedor não deveria custar um projeto novo.</p>
-    </div>
-  </section>
-
-  <!-- ============ 03 · COMO FUNCIONA ============ -->
-  <section class="secao secao--clara" id="como-funciona" aria-labelledby="fluxoTitulo">
-    <div class="secao__textura secao__textura--grid" aria-hidden="true"></div>
-    <div class="wrap">
-      <hr class="divisor divisor--curto divisor--anima" aria-hidden="true">
-      <div class="secao__cabecalho reveal">
-        <p class="rotulo secao__indice"><b>03</b> · Como funciona</p>
-        <h2 class="secao__titulo" id="fluxoTitulo">Quatro etapas, com responsabilidade declarada em cada uma.</h2>
-      </div>
-
-      <ol class="etapas" data-reveal-filhos>
-        <li class="etapa">
-          <p class="etapa__num" aria-hidden="true">01</p>
-          <h3 class="etapa__titulo"><span class="sr-only">Etapa 1: </span>Escopo</h3>
-          <p class="etapa__texto">Fechamos o que entra, o que não entra e quem responde por cada parte. O que está fora tem o mesmo destaque do que está dentro. A fase só começa com escopo e preço aprovados.</p>
-        </li>
-        <li class="etapa">
-          <p class="etapa__num" aria-hidden="true">02</p>
-          <h3 class="etapa__titulo"><span class="sr-only">Etapa 2: </span>Desenvolvimento</h3>
-          <p class="etapa__texto">Código próprio, construído do menor breakpoint para cima, com revisão interna antes de qualquer link enviado.</p>
-        </li>
-        <li class="etapa">
-          <p class="etapa__num" aria-hidden="true">03</p>
-          <h3 class="etapa__titulo"><span class="sr-only">Etapa 3: </span>Homologação</h3>
-          <p class="etapa__texto">Você recebe o ambiente de validação, confere e pede até 2 rodadas de ajuste. <strong>Nada entra em produção sem sua aprovação.</strong></p>
-        </li>
-        <li class="etapa">
-          <p class="etapa__num" aria-hidden="true">04</p>
-          <h3 class="etapa__titulo"><span class="sr-only">Etapa 4: </span>Deploy</h3>
-          <p class="etapa__texto">Publicação com rollback declarado, relatório de performance medido no ambiente publicado e entrega do repositório e dos acessos no seu nome.</p>
-        </li>
-      </ol>
-
-      <div class="painel-nota peca reveal">
-        <p class="rotulo painel-nota__rotulo">Acompanhamento online</p>
-        <h3>Cada projeto tem um painel próprio no ClickUp.</h3>
-        <p>Você abre a demanda, vê o status de cada etapa, anexa arquivo e consulta o histórico quando quiser. Acesso liberado no início, sem custo adicional.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ============ 04 · INSTITUCIONAL ============ -->
-  <section class="secao secao--escura" id="institucional" aria-labelledby="institucionalTitulo">
-    <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
-    <div class="wrap">
-      <hr class="divisor divisor--curto divisor--anima" aria-hidden="true">
-      <div class="secao__cabecalho reveal">
-        <p class="rotulo secao__indice"><b>04</b> · Institucional</p>
-        <h2 class="secao__titulo" id="institucionalTitulo">A gente não desenha site. A gente constrói software.</h2>
-      </div>
-
-      <div class="institucional__texto reveal">
-        <p>Agência de web design monta o projeto num construtor visual, entrega o layout e repassa a mensalidade da plataforma para você pagar todo mês. Software house escreve o código, testa, mede, homologa e entrega o repositório e a infraestrutura no nome do cliente.</p>
-        <p>A ForjaDev é uma <strong>software house</strong>. Construímos sistemas, plataformas e produtos digitais em código próprio — HTML, CSS e JavaScript escritos do zero, sem construtor visual, sem plugin pago e sem dependência de plataforma intermediária. Toda entrega passa por homologação antes do deploy, medição de performance no ambiente publicado e handoff do repositório e dos acessos.</p>
-        <p>Isso muda duas coisas práticas na sua operação: o custo não cresce por usuário nem por registro, e o projeto não fica preso a nenhum fornecedor. Nem a nós.</p>
-      </div>
-
-      <div class="tabela-wrap reveal">
-        <table class="tabela">
-          <caption>Comparação entre uma agência de web design e a ForjaDev, software house, em oito critérios de contratação.</caption>
-          <thead>
-            <tr>
-              <th scope="col">Critério</th>
-              <th scope="col">Agência de web design</th>
-              <th scope="col">ForjaDev · software house</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Como é construído</th>
-              <td data-rotulo="Agência de web design">Construtor visual e tema pronto</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Código próprio, escrito do zero</td>
-            </tr>
-            <tr>
-              <th scope="row">De quem é o produto</th>
-              <td data-rotulo="Agência de web design">Licença de uso na plataforma</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Repositório e infraestrutura no seu nome</td>
-            </tr>
-            <tr>
-              <th scope="row">Custo para ficar no ar</th>
-              <td data-rotulo="Agência de web design">Mensalidade da plataforma</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Nenhuma — não cresce por usuário nem por registro</td>
-            </tr>
-            <tr>
-              <th scope="row">Entrada em produção</th>
-              <td data-rotulo="Agência de web design">Publica e avisa depois</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Homologação antes do deploy, com rollback declarado</td>
-            </tr>
-            <tr>
-              <th scope="row">Performance</th>
-              <td data-rotulo="Agência de web design">O que o template permitir</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Cláusula verificável, com relatório na entrega</td>
-            </tr>
-            <tr>
-              <th scope="row">Acessibilidade</th>
-              <td data-rotulo="Agência de web design">Adequação posterior, se houver</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">WCAG 2.1 AA na entrega base</td>
-            </tr>
-            <tr>
-              <th scope="row">Trocar de fornecedor</th>
-              <td data-rotulo="Agência de web design">Refazer do zero</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Leva o código, o repositório e a infra</td>
-            </tr>
-            <tr>
-              <th scope="row">Acompanhamento</th>
-              <td data-rotulo="Agência de web design">E-mail e “te retorno depois”</td>
-              <td class="col--forja" data-rotulo="ForjaDev · software house">Painel com status por etapa</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="terminal institucional__terminal reveal" data-digitar>
-        <div class="terminal__header" aria-hidden="true">
-          <i class="dot--erro"></i><i class="dot--alerta"></i><i class="dot--sucesso"></i>
-          <span class="terminal__titulo">entrega</span>
-        </div>
-        <div class="terminal__body">
-          <span class="terminal__linha"><span class="prompt">$</span> forjadev --entrega</span>
-          <span class="terminal__linha">codigo proprio ....... sem construtor, sem plugin pago, sem plataforma</span>
-          <span class="terminal__linha">propriedade .......... repositorio, infra e dados no nome do cliente</span>
-          <span class="terminal__linha">ciclo ................ escopo e preco por fase · homologacao antes do deploy</span>
-          <span class="terminal__linha">lighthouse ........... &gt;= 95 mobile · lcp &lt; 1.8s · cls &lt; 0.02</span>
-          <span class="terminal__linha">suporte .............. rollback declarado · 15 dias apos a entrega</span>
-          <span class="terminal__linha comentario"># medido no ambiente publicado, 4G simulado, aparelho de entrada</span>
-        </div>
+  <section id="processo" class="secao" aria-labelledby="proc-titulo">
+    <div class="container container-estreito">
+      <p class="rotulo-secao reveal">Como trabalhamos</p>
+      <h2 id="proc-titulo" class="reveal">Três fases, sem caixa-preta</h2>
+      <p class="lead reveal">Cada fase termina com algo que você vê e aprova antes da próxima começar.</p>
+      <div class="fases" style="margin-top:var(--fd-site-esp-6)">
+        <article class="fase reveal" style="--d:0">
+          <span class="fase-num" aria-hidden="true">01</span>
+          <div>
+            <h3>Diagnóstico</h3>
+            <p>Sentamos com quem executa: mapeamos onde a informação trava, o que se repete e quais sistemas precisam conversar. Sai daqui o desenho do fluxo e o combinado da fase seguinte.</p>
+          </div>
+        </article>
+        <article class="fase reveal" style="--d:1">
+          <span class="fase-num" aria-hidden="true">02</span>
+          <div>
+            <h3>Implementação</h3>
+            <p>Construímos as integrações e automações combinadas, com código próprio e acompanhamento do seu time durante o caminho.</p>
+          </div>
+        </article>
+        <article class="fase reveal" style="--d:2">
+          <span class="fase-num" aria-hidden="true">03</span>
+          <div>
+            <h3>Verificação</h3>
+            <p>Validamos o fluxo e as regras com seu time em ambiente de teste, usando dados autorizados. O processo fica documentado para a operação e a evolução depois da entrega.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ============ QUEM FAZ ============ -->
-  <section class="secao secao--clara" id="quem-faz" aria-labelledby="bioTitulo">
-    <div class="secao__textura secao__textura--grid" data-parallax="0.04" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="secao__cabecalho reveal">
-        <p class="rotulo secao__eyebrow">Quem faz</p>
-        <h2 class="secao__titulo" id="bioTitulo">Sem intermediário entre o que você pede e quem constrói.</h2>
-      </div>
-
-      <div class="bio">
-        <div class="bio__midia reveal">
-          <div class="bio__foto">
+  <section id="socios" class="secao secao-alt" aria-labelledby="socios-titulo">
+    <div class="container">
+      <p class="rotulo-secao reveal">Quem está por trás</p>
+      <h2 id="socios-titulo" class="reveal">Sócios fundadores</h2>
+      <div class="socios-grade">
+        <article class="socio-cartao reveal" style="--d:0">
           <picture>
-            <source srcset="/assets/img/rodrigo-prado.webp" type="image/webp">
-            <img src="/assets/img/rodrigo-prado.jpg" width="640" height="800" loading="lazy" decoding="async"
-                 alt="Rodrigo Prado, desenvolvedor web responsável pela ForjaDev, em retrato de estúdio em preto e branco.">
+            <source srcset="assets/img/socio-rodrigo.webp" type="image/webp">
+            <img src="assets/img/socio-rodrigo.jpg" alt="Retrato de Rodrigo Prado, sócio-fundador da ForjaDev, área de tecnologia e integrações" width="900" height="1200" loading="lazy" decoding="async">
           </picture>
+          <div class="socio-corpo">
+            <h3>Rodrigo Prado</h3>
+            <p class="socio-papel">Sócio-fundador · Tecnologia e integrações</p>
+            <p>Une visão técnica e entendimento da operação para conectar sistemas e automatizar processos. Na ForjaDev, seu foco é transformar regras de negócio em integrações claras, confiáveis e fáceis de evoluir.</p>
           </div>
-          <p class="bio__legenda">
-            <span class="badge">Maringá – PR</span>
-            <span class="badge">Desenvolvimento web</span>
-          </p>
-        </div>
-
-        <div class="bio__texto reveal">
-          <h3 class="bio__nome">Rodrigo Prado</h3>
-          <span class="rotulo bio__cargo">Desenvolvedor web · ForjaDev</span>
-
-          <p>O código do seu site é escrito à mão. HTML, CSS e JavaScript, do zero, sem construtor visual e sem tema comprado — o que entra na página é linha que dá para abrir e explicar.</p>
-
-          <p>Antes de virar página, boa parte do trabalho é fluxo: formulário que cai na planilha certa, contato que entra no CRM sem alguém copiar e colar, webhook que dispara o aviso na hora. Integração com API, planilha e CRM, configurada para rodar sozinha.</p>
-
-          <p>E o site tem que abrir rápido e ser achado. Performance, SEO técnico e publicação fazem parte da entrega: a ForjaDev sobe o site, configura o domínio e deixa funcionando.</p>
-
-          <div class="terminal bio__stack">
-            <div class="terminal__header" aria-hidden="true">
-              <i class="dot--erro"></i><i class="dot--alerta"></i><i class="dot--sucesso"></i>
-              <span class="terminal__titulo">stack</span>
-            </div>
-            <div class="terminal__body">
-              <span class="terminal__linha"><span class="prompt">$</span> forjadev --stack</span>
-              <span class="terminal__linha">linguagem .... html5 · css3 · javascript (es6+)</span>
-              <span class="terminal__linha">integracao ... api rest · webhook · json</span>
-              <span class="terminal__linha">dados ........ google sheets · rd station · hubspot · pipedrive</span>
-              <span class="terminal__linha">entrega ...... git · deploy · dns · https</span>
-              <span class="terminal__linha">medicao ...... lighthouse · core web vitals · ga4</span>
-              <span class="terminal__linha comentario"># sem framework, sem construtor, sem plugin pago</span>
-            </div>
+        </article>
+        <article class="socio-cartao reveal" style="--d:1">
+          <picture>
+            <source srcset="assets/img/socio-bruno.webp" type="image/webp">
+            <img src="assets/img/socio-bruno.jpg" alt="Retrato de Bruno Torres, sócio-fundador da ForjaDev, área de negócios e relacionamento" width="578" height="770" loading="lazy" decoding="async">
+          </picture>
+          <div class="socio-corpo">
+            <h3>Bruno Torres</h3>
+            <p class="socio-papel">Sócio-fundador · Negócios e relacionamento</p>
+            <p>Conecta as necessidades de cada empresa às possibilidades da tecnologia. Na ForjaDev, seu foco é entender a operação, construir o escopo com o cliente e manter uma conversa clara do diagnóstico à entrega.</p>
           </div>
-
-          <div class="bio__links">
-            <a class="link-social" href="https://www.linkedin.com/in/rodrigoprado128/" target="_blank" rel="noopener" aria-label="Perfil de Rodrigo Prado no LinkedIn (abre em nova aba)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4V9Z"/></svg>
-              LinkedIn
-            </a>
-            <a class="link-social" href="https://github.com/rodprado128" target="_blank" rel="noopener" aria-label="Perfil de Rodrigo Prado no GitHub (abre em nova aba)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49l-.01-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5.01 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9l-.01 2.82c0 .27.18.6.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ============ 05 · AGÊNCIAS ============ -->
-  <section class="secao secao--escura" id="agencias" aria-labelledby="agenciasTitulo">
-    <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
-    <div class="wrap">
-      <hr class="divisor divisor--curto divisor--anima" aria-hidden="true">
-      <div class="secao__cabecalho reveal">
-        <p class="rotulo secao__indice"><b>05</b> · Agências</p>
-        <h2 class="secao__titulo" id="agenciasTitulo">Você é agência? A gente produz no seu nome.</h2>
-      </div>
-
-      <div class="agencias">
-        <div class="reveal">
-          <p class="secao__lead">Produção white label para agência parceira: a entrega sai com a sua marca, no seu prazo, com a nossa barra técnica.</p>
-          <p class="secao__acao">
-            <a class="btn btn--primario" rel="noopener" target="_blank"
-               href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Sou%20de%20uma%20ag%C3%AAncia%20e%20quero%20falar%20sobre%20produ%C3%A7%C3%A3o%20white%20label."
-               aria-label="Falar sobre white label no WhatsApp (abre em nova aba)">Falar sobre white label</a>
-          </p>
-        </div>
-
-        <ul class="agencias__lista reveal">
-          <li><strong>Marca oculta</strong> Nenhuma assinatura, crédito ou link nosso no código, no rodapé ou no preview. Nenhuma tecnologia proprietária mencionada ao seu cliente.</li>
-          <li><strong>Interlocução única</strong> Falamos com o seu time, nunca com o cliente final.</li>
-          <li><strong>Sem mínimo, sem exclusividade</strong> Um projeto no mês ou quinze, sem contrato de volume.</li>
-          <li><strong>Previsibilidade de fornecedor</strong> Entrada na fila confirmada no escopo, homologação antes do deploy e preço fechado por fase para você calcular margem antes de vender.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 06 · DÚVIDAS ============ -->
-  <section class="secao secao--clara" id="duvidas" aria-labelledby="duvidasTitulo">
-    <div class="secao__textura secao__textura--grid" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="secao__cabecalho secao__cabecalho--centro reveal">
-        <p class="rotulo secao__indice"><b>06</b> · Dúvidas</p>
-        <h2 class="secao__titulo" id="duvidasTitulo">O que perguntam antes de fechar o escopo.</h2>
-      </div>
-
-      <div class="faq" data-reveal-filhos>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            Quanto custa?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">O preço é fechado por fase, depois de entender o escopo: páginas ou telas, integrações, regras de negócio e conteúdo. Você aprova o valor de cada ciclo antes de ele começar, sem cobrança extra no meio do caminho. Manda uma mensagem no WhatsApp e a gente fecha o escopo na conversa.</p>
+  <section id="faq" class="secao" aria-labelledby="faq-titulo">
+    <div class="container container-estreito">
+      <p class="rotulo-secao reveal">Perguntas frequentes</p>
+      <h2 id="faq-titulo" class="reveal">Antes de conversar</h2>
+      <div class="faq">
+        <details class="reveal" style="--d:0">
+          <summary>Vocês vendem uma solução de IA pronta?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p>Não. Não vendemos IA genérica nem "robô pronto". A IA entra como ferramenta dentro das frentes de automação e integração, quando resolve um problema concreto do seu processo.</p>
         </details>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            Em quanto tempo fica pronto?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">Landing page em 3 dias úteis, site institucional em 5 e catálogo em 8. O prazo começa a contar depois que textos, imagens e acessos chegam completos. Projeto com regra própria ou integração tem prazo definido por fase, no escopo.</p>
+        <details class="reveal" style="--d:1">
+          <summary>Com quais sistemas vocês trabalham?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p>Integramos sistemas como Salesforce, ClickUp, Sankhya, Omie e WhatsApp, conforme os acessos e recursos disponíveis em cada ferramenta. A lista não é um selo de parceria: o diagnóstico define o desenho real do seu caso.</p>
         </details>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            O código é meu mesmo?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">É. O código, o repositório e a infraestrutura ficam no seu nome, com os acessos entregues no deploy. Pode hospedar onde quiser e contratar quem quiser para continuar.</p>
+        <details class="reveal" style="--d:2">
+          <summary>Nossa equipe ainda usa planilha. Faz sentido?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p>É exatamente o nosso público: empresas com faturamento alto cujo time ainda transporta informação à mão. O diagnóstico mostra o que vale automatizar primeiro.</p>
         </details>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            Vou pagar mensalidade?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">Para o projeto, não. Não há plataforma intermediária, então o custo não cresce por usuário nem por registro. Domínio e hospedagem você contrata direto no fornecedor que preferir, e o valor fica com ele, não conosco.</p>
+        <details class="reveal" style="--d:3">
+          <summary>Como começa um projeto?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p>Agendando um diagnóstico pelo WhatsApp. A gente entende a operação, desenha o fluxo e combina a implementação em fases — cada uma com o que você vê e aprova no fim.</p>
         </details>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            Quem responde quando quebra?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">Está escrito antes da assinatura: 15 dias de suporte para correção de erro sem custo, com rollback declarado para todo deploy. Alteração de conteúdo ou de escopo depois disso é orçada à parte.</p>
+        <details class="reveal" style="--d:4">
+          <summary>Vocês atendem fora de Maringá?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p>Sim. Somos de Maringá/PR e atendemos empresas de todo o Brasil, com processo online do diagnóstico à entrega.</p>
         </details>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            Vocês escrevem os textos e fazem as fotos?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">Não. Textos, imagens e identidade visual são fornecidos por você. Se precisar, a gente indica quem faça.</p>
-        </details>
-
-        <details class="faq__item peca peca--hover">
-          <summary>
-            Vocês atendem fora de Maringá?
-            <span class="faq__icone" aria-hidden="true"></span>
-          </summary>
-          <p class="faq__resposta">Sim. Todo o processo é online, do escopo ao deploy.</p>
-        </details>
-
       </div>
     </div>
   </section>
 
-  <!-- ============ CTA FINAL ============ -->
-  <section class="secao cta-final" id="contato" aria-labelledby="ctaTitulo">
-    <div class="secao__textura secao__textura--aco" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="cta-final__caixa cantoneiras reveal">
-        <hr class="divisor divisor--curto" aria-hidden="true">
-        <h2 id="ctaTitulo">Agenda de implantação aberta para o próximo ciclo.</h2>
-        <p>Escopo, prazo, responsabilidade e preço definidos antes da assinatura.</p>
-
-        <div class="cta-final__acoes">
-          <a class="btn btn--aco" rel="noopener" target="_blank"
-             href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20um%20or%C3%A7amento."
-             aria-label="Falar no WhatsApp da ForjaDev — 44 99119-2295 (abre em nova aba)">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#fd-zap"/></svg>
-            Falar no WhatsApp <span aria-hidden="true">→</span> (44) 99119-2295
-          </a>
-        </div>
-      </div>
+  <section id="contato" class="secao secao-cta secao-alt" aria-labelledby="cta-titulo">
+    <div class="container container-estreito cta-interno">
+      <p class="rotulo-secao reveal" style="margin-inline:auto">Contato</p>
+      <h2 id="cta-titulo" class="reveal">Vamos olhar o seu processo junto</h2>
+      <p class="lead reveal">Chame a gente no WhatsApp, conte onde a informação trava e agende um diagnóstico.</p>
+      <a class="btn btn-acento btn-grande reveal" href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20agendar%20um%20diagn%C3%B3stico." target="_blank" rel="noopener">Agendar diagnóstico</a>
+      <p class="cta-alt reveal">Prefere e-mail? <a href="mailto:rodrigo@forjadev.app.br">rodrigo@forjadev.app.br</a></p>
     </div>
   </section>
 
 </main>
 
-<!-- ============ RODAPÉ ============ -->
-<footer class="rodape" aria-labelledby="rodapeTitulo">
-  <h2 class="sr-only" id="rodapeTitulo">Contato e informações da ForjaDev</h2>
-  <div class="wrap">
-    <div class="rodape__grade">
-
-      <div>
-        <div class="rodape__logo">
-          <svg viewBox="0 0 1083.86 200" width="173" height="32" role="img" aria-label="ForjaDev"><use href="#fd-logo"/></svg>
-        </div>
-        <p class="rodape__assinatura">Forjado para operar.</p>
-        <p class="rodape__frase">Software house em Maringá – PR. Sistemas, plataformas e produtos digitais em código próprio, para o Brasil todo.</p>
-        <div class="rodape__social">
-          <a href="https://www.linkedin.com/in/rodrigoprado128/" target="_blank" rel="noopener" aria-label="LinkedIn de Rodrigo Prado (abre em nova aba)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4V9Z"/></svg>
-          </a>
-          <a href="https://github.com/rodprado128" target="_blank" rel="noopener" aria-label="GitHub de Rodrigo Prado (abre em nova aba)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49l-.01-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5.01 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9l-.01 2.82c0 .27.18.6.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <nav aria-labelledby="rodapeNav">
-        <h2 id="rodapeNav">Navegação</h2>
-        <ul>
-          <li><a href="#solucoes">Soluções</a></li>
-          <li><a href="#como-funciona">Como funciona</a></li>
-          <li><a href="#institucional">Institucional</a></li>
-          <li><a href="#agencias">Agências</a></li>
-          <li><a href="#duvidas">Dúvidas</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
-
-      <div>
-        <h2 id="rodapeContato">Contato</h2>
-        <ul aria-labelledby="rodapeContato">
-          <li><a href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="WhatsApp (44) 99119-2295 da ForjaDev (abre em nova aba)">(44) 99119-2295</a></li>
-          <li><a href="mailto:rodrigo@forjadev.app.br">rodrigo@forjadev.app.br</a></li>
-          <li><a href="https://forjadev.app.br">forjadev.app.br</a></li>
-          <li><a href="https://www.linkedin.com/in/rodrigoprado128/" target="_blank" rel="noopener">in/rodrigoprado128</a></li>
-          <li><address>Maringá – PR, Brasil</address></li>
-        </ul>
-      </div>
-
+<footer class="rodape">
+  <div class="container rodape-grade">
+    <div>
+      <p class="marca rodape-marca">Forja<em>Dev</em></p>
+      <p class="tagline">Processos que andam sozinhos.</p>
+      <p class="rodape-local">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display:inline;vertical-align:-3px;width:16px;height:16px" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Maringá – PR, Brasil · atendimento online em todo o país
+      </p>
     </div>
-
-    <div class="rodape__base">
-      <p>© <span id="ano">2026</span> ForjaDev · Rodrigo Prado. Todos os direitos reservados.</p>
-      <p class="rodape__versao">forjadev · site 2026.2 · sistema visual 2026.1.1 · Maringá/PR</p>
-      <a class="rodape__topo" href="#topo" aria-label="Voltar ao topo da página">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 19V6M5.5 12.5 12 6l6.5 6.5"/></svg>
-        Voltar ao topo
-      </a>
+    <nav aria-label="Navegação do rodapé">
+      <h3>Navegação</h3>
+      <ul>
+        <li><a href="#frentes">Frentes</a></li>
+        <li><a href="#fluxo">Exemplos de fluxo</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#socios">Sócios fundadores</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h3>Contato</h3>
+      <ul class="rodape-contato">
+        <li><a href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20agendar%20um%20diagn%C3%B3stico." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+          (44) 99119-2295 · WhatsApp</a></li>
+        <li><a href="mailto:rodrigo@forjadev.app.br">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          rodrigo@forjadev.app.br</a></li>
+        <li><a href="https://www.linkedin.com/in/rodrigoprado128/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-13h4v2a6 6 0 0 1 2-2Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn</a></li>
+        <li><a href="https://github.com/rodprado128" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          GitHub</a></li>
+      </ul>
     </div>
+  </div>
+  <div class="container rodape-base">
+    <p>© <span id="ano">2026</span> ForjaDev. Todos os direitos reservados.</p>
+    <a href="https://github.com/rodprado128/forjadev-site" target="_blank" rel="noopener">Código-fonte do site</a>
   </div>
 </footer>
 
-<!-- Barra fixa de WhatsApp — so no celular, sempre visivel -->
-<a class="barra-zap" rel="noopener" target="_blank"
-   href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20um%20or%C3%A7amento."
-   aria-label="Falar no WhatsApp da ForjaDev — 44 99119-2295 (abre em nova aba)">
-  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><use href="#fd-zap"/></svg>
-  Falar no WhatsApp
+<a class="barra-zap" href="https://wa.me/5544991192295?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ForjaDev%20e%20quero%20agendar%20um%20diagn%C3%B3stico." target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+  Agendar diagnóstico
 </a>
 
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>

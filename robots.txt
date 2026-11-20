@@ -1,4 +1,3 @@
-# ForjaDev — https://forjadev.app.br
 User-agent: *
 Allow: /
 

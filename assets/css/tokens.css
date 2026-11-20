@@ -1,317 +1,189 @@
-/* ForjaDev — design tokens 2026.1.1
-   Cole no topo do seu boilerplate.
-   Fontes: Archivo + Archivo Black + Barlow Condensed + JetBrains Mono (Google Fonts). */
-/* ============================================================
-   FONTES — auto-hospedadas em /assets/fonts (woff2, subset latin).
-   Trocado o @import do Google Fonts por arquivos locais porque:
-   1) o @import bloqueia a renderizacao em cascata;
-   2) o ida-e-volta ate fonts.googleapis.com + fonts.gstatic.com
-      atrasava a primeira pintura em ~1s no 4G simulado;
-   3) a troca tardia da fonte reflowava o H1 (86px -> 130px) e
-      gerava CLS de 0,23 — reprovando o alvo de Lighthouse 90+.
-   Mesmas familias, mesmas versoes, font-display:swap mantido.
-   Licenca SIL OFL 1.1 — ver assets/fonts/OFL.txt
-   ============================================================ */
+/* ForjaDev 2027.2 · gerado por system.py. Não editar à mão. */
+/* Camada 1 (--fd-g-*): valores brutos, nunca usados direto em componente. */
+/* Camada 2 (--fd-*): papel de uso. Componentes leem só esta camada. */
+:root {
+  --fd-g-grafite-0: #FFFFFF;
+  --fd-g-grafite-50: #F6F7F9;
+  --fd-g-grafite-100: #EBEDF0;
+  --fd-g-grafite-200: #D8DBE0;
+  --fd-g-grafite-300: #BDC1C9;
+  --fd-g-grafite-400: #999FA9;
+  --fd-g-grafite-500: #767C87;
+  --fd-g-grafite-600: #585E68;
+  --fd-g-grafite-700: #3F444D;
+  --fd-g-grafite-800: #2A2E35;
+  --fd-g-grafite-900: #191C22;
+  --fd-g-grafite-950: #0D0F14;
+  --fd-g-ultramar-50: #F2F5FF;
+  --fd-g-ultramar-100: #E1E7FF;
+  --fd-g-ultramar-200: #C3CFFE;
+  --fd-g-ultramar-300: #A1B2FE;
+  --fd-g-ultramar-400: #7689FE;
+  --fd-g-ultramar-500: #4C4BFF;
+  --fd-g-ultramar-600: #3E38DA;
+  --fd-g-ultramar-700: #302BB0;
+  --fd-g-ultramar-800: #232382;
+  --fd-g-ultramar-900: #171958;
+  --fd-g-verde-700: #04764C;
+  --fd-g-verde-400: #30DE97;
+  --fd-g-ambar-700: #995B03;
+  --fd-g-ambar-400: #FFB334;
+  --fd-g-rubi-700: #BE2132;
+  --fd-g-rubi-400: #F66C6D;
+  --fd-g-dados-1: #4C4BFF; /* ultramar */
+  --fd-g-dados-2: #09BBDA; /* ciano */
+  --fd-g-dados-3: #DB3E98; /* magenta */
+  --fd-g-dados-4: #A6E146; /* lima */
+  --fd-g-dados-5: #914DE6; /* violeta */
+  --fd-g-fonte: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fd-g-fonte-display: 'Archivo Black', 'Archivo', system-ui, sans-serif;
+  --fd-g-esp-1: 4px;
+  --fd-g-esp-2: 8px;
+  --fd-g-esp-3: 12px;
+  --fd-g-esp-4: 16px;
+  --fd-g-esp-5: 24px;
+  --fd-g-esp-6: 32px;
+  --fd-g-esp-7: 48px;
+  --fd-g-esp-8: 64px;
+  --fd-g-esp-9: 96px;
+  --fd-g-esp-10: 128px;
+  --fd-g-esp-11: 160px;
+  --fd-g-dur-instante: 120ms;
+  --fd-g-dur-rapido: 220ms;
+  --fd-g-dur-padrao: 400ms;
+  --fd-g-dur-cena: 700ms;
+  --fd-g-dur-fluxo: 1200ms;
+  --fd-g-curva-saida: cubic-bezier(0.16, 1, 0.3, 1);
+  --fd-g-curva-mola: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --fd-g-curva-entrada: cubic-bezier(0.4, 0, 1, 1);
 
-/* Archivo 400 — latin-ext */
-@font-face{
-  font-family:'Archivo';
-  font-style:normal;
-  font-weight:400;
-  font-display:swap;
-  src:url('/assets/fonts/archivo-400-latin-ext.woff2') format('woff2');
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Archivo 400 — latin */
-@font-face{
-  font-family:'Archivo';
-  font-style:normal;
-  font-weight:400;
-  font-display:optional;
-  src:url('/assets/fonts/archivo-400-latin.woff2') format('woff2');
-  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Archivo 700 — latin-ext */
-@font-face{
-  font-family:'Archivo';
-  font-style:normal;
-  font-weight:700;
-  font-display:swap;
-  src:url('/assets/fonts/archivo-700-latin-ext.woff2') format('woff2');
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Archivo 700 — latin */
-@font-face{
-  font-family:'Archivo';
-  font-style:normal;
-  font-weight:700;
-  font-display:optional;
-  src:url('/assets/fonts/archivo-700-latin.woff2') format('woff2');
-  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Archivo Black 400 — latin-ext */
-@font-face{
-  font-family:'Archivo Black';
-  font-style:normal;
-  font-weight:400;
-  font-display:swap;
-  src:url('/assets/fonts/archivo-black-400-latin-ext.woff2') format('woff2');
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Archivo Black 400 — latin */
-@font-face{
-  font-family:'Archivo Black';
-  font-style:normal;
-  font-weight:400;
-  font-display:optional;
-  src:url('/assets/fonts/archivo-black-400-latin.woff2') format('woff2');
-  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Barlow Condensed 600 — latin-ext */
-@font-face{
-  font-family:'Barlow Condensed';
-  font-style:normal;
-  font-weight:600;
-  font-display:swap;
-  src:url('/assets/fonts/barlow-condensed-600-latin-ext.woff2') format('woff2');
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Barlow Condensed 600 — latin */
-@font-face{
-  font-family:'Barlow Condensed';
-  font-style:normal;
-  font-weight:600;
-  font-display:optional;
-  src:url('/assets/fonts/barlow-condensed-600-latin.woff2') format('woff2');
-  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* JetBrains Mono 400 — latin-ext */
-@font-face{
-  font-family:'JetBrains Mono';
-  font-style:normal;
-  font-weight:400;
-  font-display:swap;
-  src:url('/assets/fonts/jetbrains-mono-400-latin-ext.woff2') format('woff2');
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* JetBrains Mono 400 — latin */
-@font-face{
-  font-family:'JetBrains Mono';
-  font-style:normal;
-  font-weight:400;
-  font-display:optional;
-  src:url('/assets/fonts/jetbrains-mono-400-latin.woff2') format('woff2');
-  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+  /* semânticos que não mudam com o tema */
+  --fd-tipo-display-xl: 400 88px/1.0 var(--fd-g-fonte-display); --fd-tipo-display-xl-largura: 100%; --fd-tipo-display-xl-espacamento: -0.03em;
+  --fd-tipo-display: 400 64px/1.0 var(--fd-g-fonte-display); --fd-tipo-display-largura: 100%; --fd-tipo-display-espacamento: -0.025em;
+  --fd-tipo-titulo-1: 800 48px/1.05 var(--fd-g-fonte); --fd-tipo-titulo-1-largura: 75%; --fd-tipo-titulo-1-espacamento: -0.015em;
+  --fd-tipo-titulo-2: 800 36px/1.1 var(--fd-g-fonte); --fd-tipo-titulo-2-largura: 75%; --fd-tipo-titulo-2-espacamento: -0.01em;
+  --fd-tipo-titulo-3: 700 28px/1.15 var(--fd-g-fonte); --fd-tipo-titulo-3-largura: 80%; --fd-tipo-titulo-3-espacamento: -0.005em;
+  --fd-tipo-subtitulo: 600 20px/1.35 var(--fd-g-fonte); --fd-tipo-subtitulo-largura: 100%; --fd-tipo-subtitulo-espacamento: 0em;
+  --fd-tipo-texto: 400 16px/1.6 var(--fd-g-fonte); --fd-tipo-texto-largura: 100%; --fd-tipo-texto-espacamento: 0em;
+  --fd-tipo-texto-p: 400 14px/1.5 var(--fd-g-fonte); --fd-tipo-texto-p-largura: 100%; --fd-tipo-texto-p-espacamento: 0em;
+  --fd-tipo-rotulo: 600 12px/1.3 var(--fd-g-fonte); --fd-tipo-rotulo-largura: 75%; --fd-tipo-rotulo-espacamento: 0.06em;
+  --fd-raio-controle: 12px;
+  --fd-raio-cartao: 20px;
+  --fd-raio-painel: 28px;
+  --fd-raio-pill: 999px;
+  --fd-camada-base: 0;
+  --fd-camada-flutuante: 10;
+  --fd-camada-navegacao: 100;
+  --fd-camada-sobreposicao: 200;
+  --fd-camada-aviso: 300;
+  --fd-secao: var(--fd-g-esp-10);
+  --fd-secao-celular: var(--fd-g-esp-8);
+  --fd-mov-rapido: var(--fd-g-dur-rapido) var(--fd-g-curva-saida);
+  --fd-mov-padrao: var(--fd-g-dur-padrao) var(--fd-g-curva-saida);
+  --fd-mov-cena: var(--fd-g-dur-cena) var(--fd-g-curva-saida);
+  --fd-mov-resposta: var(--fd-g-dur-rapido) var(--fd-g-curva-mola);
+  --fd-vidro-desfoque: blur(24px) saturate(180%);
+  --fd-grad-fluxo: linear-gradient(135deg, var(--fd-g-ultramar-500), var(--fd-g-dados-2));
+  --fd-grad-aurora: linear-gradient(135deg, var(--fd-g-ultramar-500), var(--fd-g-dados-5));
+  --fd-anel-foco: 0 0 0 3px color-mix(in srgb, var(--fd-foco) 35%, transparent);
 
-/* ---- Fallbacks com metrica casada (largura medida no Chrome) ----
-   Cada familia lista o candidato local mais proximo primeiro. Se ele nao
-   existir no sistema, o navegador cai para a face seguinte e, no limite,
-   para system-ui sem ajuste — o mesmo comportamento de antes. */
-@font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:98.71%;font-weight:400}
-@font-face{font-family:'Archivo Fallback';src:local('Roboto');size-adjust:106.06%;font-weight:400}
-@font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:99.60%;font-weight:700}
-@font-face{font-family:'Archivo Fallback';src:local('Roboto');size-adjust:105.86%;font-weight:700}
-@font-face{font-family:'Archivo Black Fallback';src:local('Arial Black');size-adjust:99.99%}
-@font-face{font-family:'Archivo Black Fallback';src:local('Arial');size-adjust:119.00%}
-@font-face{font-family:'Barlow Condensed Fallback';src:local('Arial Narrow');size-adjust:94.40%}
-@font-face{font-family:'Barlow Condensed Fallback';src:local('Arial');size-adjust:71.65%}
-@font-face{font-family:'JetBrains Mono Fallback';src:local('Consolas');size-adjust:109.13%}
-@font-face{font-family:'JetBrains Mono Fallback';src:local('Menlo');size-adjust:125.14%}
-
-:root{
-  /* cor */
-  --fd-aco:#141A20;
-  --fd-aco-frio:#2C353F;
-  --fd-laranja:#FF6A00;   /* superficie e destaque — NUNCA texto sobre claro */
-  --fd-brasa:#C94300;     /* fundo de botao com texto branco (4.9:1) */
-  --fd-faisca:#FFB020;
-  --fd-cinza:#5F6A76;
-  --fd-bigorna:#F4F5F6;
-  --fd-branco:#FFFFFF;
-  --fd-sucesso:#15803D;
-  --fd-erro:#C81E1E;
-
-  /* tipografia */
-  --fd-font-display:'Archivo Black','Archivo Black Fallback',system-ui,sans-serif;
-  --fd-font-texto:'Archivo','Archivo Fallback',system-ui,sans-serif;
-  --fd-font-label:'Barlow Condensed','Barlow Condensed Fallback',system-ui,sans-serif;
-  --fd-font-code:'JetBrains Mono','JetBrains Mono Fallback',ui-monospace,'SF Mono',Consolas,monospace;
-
-  --fd-size-display:3.5rem;  /* 56 */
-  --fd-size-h1:2.5rem;       /* 40 */
-  --fd-size-h2:1.75rem;      /* 28 */
-  --fd-size-h3:1.375rem;     /* 22 */
-  --fd-size-body-lg:1.125rem;/* 18 */
-  --fd-size-body:1rem;       /* 16 */
-  --fd-size-small:0.875rem;  /* 14 */
-  --fd-size-code:0.875rem;   /* 14 */
-  --fd-size-label:0.8125rem; /* 13 */
-
-  --fd-lh-tight:1.15;
-  --fd-lh-base:1.55;
-
-  /* espacamento — escala 4px */
-  --fd-s1:.25rem; --fd-s2:.5rem;  --fd-s3:.75rem; --fd-s4:1rem;
-  --fd-s6:1.5rem; --fd-s8:2rem;   --fd-s12:3rem;  --fd-s16:4rem;
-
-  /* chanfro sistemico — forma padrao de canto em peca de destaque */
-  --fd-chanfro-lg:16px;   /* card, bloco de destaque, terminal */
-  --fd-chanfro-sm:8px;    /* botao, bloco retangular menor */
-
-  /* raio — uso restrito: pill, badge e superficie secundaria */
-  --fd-r-sm:4px; --fd-r-md:8px; --fd-r-lg:16px; --fd-r-pill:999px;
-
-  /* elevacao */
-  --fd-elev-repouso:0 1px 2px rgba(20,26,32,.06),0 8px 24px rgba(20,26,32,.08);
-  --fd-elev-hover:0 4px 28px rgba(20,26,32,.14);
-  --fd-elev-destaque:0 8px 40px rgba(255,106,0,.18),0 2px 8px rgba(20,26,32,.12);
-  --fd-shadow:var(--fd-elev-repouso);  /* alias legado */
-
-  /* gradientes oficiais — nunca sobre o logo */
-  --fd-grad-brasa:linear-gradient(135deg,#C94300 0%,#FF6A00 100%);
-  --fd-grad-aco:linear-gradient(180deg,#141A20 0%,#2C353F 100%);
-
-  /* aliases usados nos trechos do brand guide */
-  --forja-chanfro-lg:var(--fd-chanfro-lg);
-  --forja-chanfro-sm:var(--fd-chanfro-sm);
-  --forja-font-code:var(--fd-font-code);
-  --forja-elevacao-repouso:var(--fd-elev-repouso);
-  --forja-elevacao-hover:var(--fd-elev-hover);
-  --forja-elevacao-destaque:var(--fd-elev-destaque);
+  /* tema claro (padrão) */
+  --fd-fundo: var(--fd-g-grafite-50);
+  --fd-superficie: var(--fd-g-grafite-0);
+  --fd-superficie-2: var(--fd-g-grafite-100);
+  --fd-superficie-hover: var(--fd-g-grafite-100);
+  --fd-texto: var(--fd-g-grafite-900);
+  --fd-texto-suave: var(--fd-g-grafite-600);
+  --fd-texto-desabilitado: var(--fd-g-grafite-400);
+  --fd-borda: var(--fd-g-grafite-200);
+  --fd-borda-forte: var(--fd-g-grafite-300);
+  --fd-acao: var(--fd-g-ultramar-500);
+  --fd-acao-hover: var(--fd-g-ultramar-600);
+  --fd-acao-pressionado: var(--fd-g-ultramar-700);
+  --fd-acao-texto: var(--fd-g-grafite-0);
+  --fd-acao-suave: var(--fd-g-ultramar-50);
+  --fd-acao-suave-texto: var(--fd-g-ultramar-700);
+  --fd-link: var(--fd-g-ultramar-600);
+  --fd-foco: var(--fd-g-ultramar-500);
+  --fd-sucesso: var(--fd-g-verde-700);
+  --fd-alerta: var(--fd-g-ambar-700);
+  --fd-erro: var(--fd-g-rubi-700);
+  --fd-vidro: rgba(255, 255, 255, .62);
+  --fd-vidro-borda: rgba(255, 255, 255, .72);
+  --fd-vidro-brilho: inset 0 1px 0 rgba(255, 255, 255, .85);
+  --fd-elevacao-1: 0 1px 2px rgba(13, 15, 20, .06), 0 2px 8px rgba(13, 15, 20, .04);
+  --fd-elevacao-2: 0 1px 2px rgba(13, 15, 20, .06), 0 12px 32px rgba(13, 15, 20, .08);
+  --fd-elevacao-3: 0 2px 6px rgba(13, 15, 20, .08), 0 24px 64px rgba(13, 15, 20, .14);
 }
 
-/* ---------- tipografia ---------- */
-.fd-label{font-family:var(--fd-font-label);font-weight:600;text-transform:uppercase;letter-spacing:.02em;font-size:var(--fd-size-label)}
-.fd-code{font-family:var(--fd-font-code);font-size:var(--fd-size-code)}
-
-/* ---------- chanfro sistemico ---------- */
-.fd-chanfro-lg{clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%)}
-.fd-chanfro-sm{clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-sm)) 0,100% var(--fd-chanfro-sm),100% 100%,0 100%)}
-
-/* ---------- botoes ---------- */
-.fd-btn{font-family:var(--fd-font-texto);font-weight:700;background:var(--fd-brasa);color:#fff;border:0;padding:var(--fd-s3) var(--fd-s6);cursor:pointer;
-        clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-sm)) 0,100% var(--fd-chanfro-sm),100% 100%,0 100%)}
-.fd-btn:hover{background:#B03A00}
-.fd-btn--alt{background:var(--fd-laranja);color:var(--fd-aco)}  /* 6.1:1 */
-
-/* ---------- card ---------- */
-.fd-card{background:var(--fd-branco);padding:var(--fd-s6);box-shadow:var(--fd-elev-repouso);transition:box-shadow .2s ease,transform .2s ease;
-         clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%)}
-.fd-card:hover{box-shadow:var(--fd-elev-hover);transform:translateY(-2px)}
-.fd-card--destaque{box-shadow:var(--fd-elev-destaque)}
-/* superficie secundaria e lista densa — o chanfro poluiria a leitura */
-.fd-card--simples{clip-path:none;border-radius:var(--fd-r-md)}
-
-/* ---------- preco ---------- */
-.fd-preco{font-family:var(--fd-font-display);color:var(--fd-aco);background:var(--fd-laranja);padding:var(--fd-s2) var(--fd-s4);display:inline-block;
-          clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-sm)) 0,100% var(--fd-chanfro-sm),100% 100%,0 100%)}
-
-/* ---------- badge / pill: mantem o raio, nao recebe chanfro ---------- */
-.fd-badge{background:rgba(255,106,0,.12);color:var(--fd-brasa);font-family:var(--fd-font-label);font-weight:600;text-transform:uppercase;letter-spacing:.02em;
-          font-size:var(--fd-size-label);border-radius:var(--fd-r-pill);padding:4px 12px;display:inline-block}
-.fd-badge--escuro{background:var(--fd-faisca);color:var(--fd-aco)}  /* 9.58:1 sobre aco */
-
-/* ---------- bloco de codigo / terminal ---------- */
-.fd-terminal{background:var(--fd-aco);overflow:hidden;font-family:var(--fd-font-code);
-             clip-path:polygon(0 0,calc(100% - var(--fd-chanfro-lg)) 0,100% var(--fd-chanfro-lg),100% 100%,0 100%)}
-.fd-terminal__header{background:var(--fd-aco-frio);padding:var(--fd-s2) var(--fd-s3);display:flex;gap:6px}
-.fd-terminal__header i{width:8px;height:8px;border-radius:50%;display:block}
-.fd-terminal__header .fd-dot--erro{background:var(--fd-erro)}
-.fd-terminal__header .fd-dot--alerta{background:var(--fd-faisca)}
-.fd-terminal__header .fd-dot--sucesso{background:var(--fd-sucesso)}
-.fd-terminal__body{padding:var(--fd-s4);color:var(--fd-bigorna);font-size:var(--fd-size-code);line-height:1.6}
-.fd-terminal__body .fd-prompt{color:var(--fd-laranja);font-weight:400}
-
-/* ---------- texturas — so em fundo de secao, capa ou CTA ---------- */
-.fd-textura-aco{background-color:var(--fd-aco);
-  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 8px)}
-.fd-textura-grid{background-color:var(--fd-bigorna);
-  background-image:radial-gradient(circle,rgba(20,26,32,.08) 1px,transparent 1px);background-size:16px 16px}
-
-/* ---------- divisor tecnico ---------- */
-.fd-divisor{height:2px;border:0;background:repeating-linear-gradient(90deg,#FF6A00 0px,#FF6A00 6px,transparent 6px,transparent 12px)}
-
-/* ---------- conjunto de icones ---------- */
-/* SVG de 24x24, traco 2px, currentColor no corpo e laranja no acento */
-.fd-icone{width:24px;height:24px;display:inline-block;vertical-align:middle;color:var(--fd-aco)}
-
-/* ============================================================
-   EXTENSAO PARA O SITE — 2026
-   Nao substitui nenhum token acima; apenas acrescenta o que o
-   meio digital exige e o material impresso nao previa.
-   ============================================================ */
-:root{
-  /* Texto secundario em SECAO ESCURA.
-     #5F6A76 (Cinza Lima) reprova sobre #141A20 — razao 2.06:1.
-     Este cinza claro entrega 11.1:1 sobre Aco e e o unico
-     autorizado para texto secundario em fundo escuro. */
-  --fd-cinza-claro:#C6CBD1;
-
-  /* Brasa escurecida para TEXTO pequeno sobre fundo claro.
-     Brasa puro (#C94300) entrega 4.87:1 sobre branco, mas so 4.49:1 sobre
-     Bigorna (#F4F5F6) — 0,01 abaixo do AA. Este tom entrega 5.54:1 sobre
-     Bigorna e ja e o hover oficial de botao do brand guide.
-     Fundo de botao continua sendo Brasa puro. */
-  --fd-brasa-texto:#B03A00;
-
-  /* Superficie elevada dentro de secao escura */
-  --fd-aco-elevado:#1C242D;
-
-  /* Movimento — nunca linear, 150ms a 300ms */
-  --fd-ease:cubic-bezier(.22,.61,.36,1);
-  --fd-ease-out:cubic-bezier(.16,1,.3,1);
-  --fd-dur-rapida:150ms;
-  --fd-dur-media:220ms;
-  --fd-dur-lenta:300ms;
-
-  /* Chanfro animavel — o hover desloca o corte, nao arredonda */
-  --fd-chanfro-hover:22px;
-
-  /* Ritmo vertical de secao — denso, industrial, nao arejado */
-  --fd-secao-y:clamp(4rem,8.5vw,7rem);
-  --fd-wrap:1200px;
-  --fd-gutter:clamp(1.25rem,4vw,2.5rem);
-
-  /* Altura do header (usada por scroll-padding e pelo hero) */
-  --fd-header-h:76px;
-  --fd-header-h-scroll:60px;
+/* tema escuro: explícito */
+[data-tema="escuro"] {
+  --fd-fundo: var(--fd-g-grafite-950);
+  --fd-superficie: var(--fd-g-grafite-900);
+  --fd-superficie-2: var(--fd-g-grafite-800);
+  --fd-superficie-hover: var(--fd-g-grafite-800);
+  --fd-texto: var(--fd-g-grafite-100);
+  --fd-texto-suave: var(--fd-g-grafite-400);
+  --fd-texto-desabilitado: var(--fd-g-grafite-600);
+  --fd-borda: var(--fd-g-grafite-800);
+  --fd-borda-forte: var(--fd-g-grafite-700);
+  --fd-acao: var(--fd-g-ultramar-400);
+  --fd-acao-hover: var(--fd-g-ultramar-300);
+  --fd-acao-pressionado: var(--fd-g-ultramar-200);
+  --fd-acao-texto: var(--fd-g-grafite-950);
+  --fd-acao-suave: var(--fd-g-ultramar-900);
+  --fd-acao-suave-texto: var(--fd-g-ultramar-200);
+  --fd-link: var(--fd-g-ultramar-300);
+  --fd-foco: var(--fd-g-ultramar-300);
+  --fd-sucesso: var(--fd-g-verde-400);
+  --fd-alerta: var(--fd-g-ambar-400);
+  --fd-erro: var(--fd-g-rubi-400);
+  --fd-vidro: rgba(25, 28, 34, .58);
+  --fd-vidro-borda: rgba(255, 255, 255, .12);
+  --fd-vidro-brilho: inset 0 1px 0 rgba(255, 255, 255, .10);
+  --fd-elevacao-1: 0 1px 2px rgba(0, 0, 0, .40);
+  --fd-elevacao-2: 0 1px 2px rgba(0, 0, 0, .40), 0 16px 40px rgba(0, 0, 0, .35);
+  --fd-elevacao-3: 0 2px 6px rgba(0, 0, 0, .45), 0 28px 72px rgba(0, 0, 0, .50);
 }
 
-/* Chanfro animavel: registrar o custom property permite transicao suave do
-   clip-path. Navegador sem suporte ignora a at-rule e o corte apenas salta. */
-@property --fd-ch{ syntax:'<length>'; inherits:false; initial-value:8px; }
+/* tema escuro: automático, quando a página não define tema */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --fd-fundo: var(--fd-g-grafite-950);
+    --fd-superficie: var(--fd-g-grafite-900);
+    --fd-superficie-2: var(--fd-g-grafite-800);
+    --fd-superficie-hover: var(--fd-g-grafite-800);
+    --fd-texto: var(--fd-g-grafite-100);
+    --fd-texto-suave: var(--fd-g-grafite-400);
+    --fd-texto-desabilitado: var(--fd-g-grafite-600);
+    --fd-borda: var(--fd-g-grafite-800);
+    --fd-borda-forte: var(--fd-g-grafite-700);
+    --fd-acao: var(--fd-g-ultramar-400);
+    --fd-acao-hover: var(--fd-g-ultramar-300);
+    --fd-acao-pressionado: var(--fd-g-ultramar-200);
+    --fd-acao-texto: var(--fd-g-grafite-950);
+    --fd-acao-suave: var(--fd-g-ultramar-900);
+    --fd-acao-suave-texto: var(--fd-g-ultramar-200);
+    --fd-link: var(--fd-g-ultramar-300);
+    --fd-foco: var(--fd-g-ultramar-300);
+    --fd-sucesso: var(--fd-g-verde-400);
+    --fd-alerta: var(--fd-g-ambar-400);
+    --fd-erro: var(--fd-g-rubi-400);
+    --fd-vidro: rgba(25, 28, 34, .58);
+    --fd-vidro-borda: rgba(255, 255, 255, .12);
+    --fd-vidro-brilho: inset 0 1px 0 rgba(255, 255, 255, .10);
+    --fd-elevacao-1: 0 1px 2px rgba(0, 0, 0, .40);
+    --fd-elevacao-2: 0 1px 2px rgba(0, 0, 0, .40), 0 16px 40px rgba(0, 0, 0, .35);
+    --fd-elevacao-3: 0 2px 6px rgba(0, 0, 0, .45), 0 28px 72px rgba(0, 0, 0, .50);
+  }
+}
 
-/* ============================================================
-   MOVIMENTO — tokens nomeados da Camada de Movimento (2026.1.1)
-   --forja-* sao os nomes canonicos do brand guide. Os --fd-*
-   acima continuam valendo como atalho interno do site.
-   ============================================================ */
-:root{
-  /* duracao */
-  --forja-dur-instantaneo:120ms;  /* feedback de toque, mudanca de cor */
-  --forja-dur-rapido:200ms;       /* hover, foco */
-  --forja-dur-padrao:320ms;       /* card, painel, acordeao */
-  --forja-dur-cena:560ms;         /* entrada de secao, revelacao de heroi */
+/* sem suporte a desfoque: vidro vira superfície sólida */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root, [data-tema="escuro"] { --fd-vidro: var(--fd-superficie); }
+}
 
-  /* curva */
-  --forja-ease-impacto:cubic-bezier(.16,1,.3,1);     /* padrao do sistema */
-  --forja-ease-saida:cubic-bezier(.4,0,1,1);
-  --forja-ease-entrada:cubic-bezier(0,0,.2,1);
-  --forja-ease-faisca:cubic-bezier(.34,1.56,.64,1);  /* overshoot curto — so micro-elemento */
-
-  /* cadencia */
-  --forja-stagger:60ms;   /* atraso entre irmaos em lista/grid */
-  --forja-stagger-max:6;  /* a partir do 7o item, entram todos juntos */
-
-  /* detalhe tecnico */
-  --fd-filete-claro:rgba(20,26,32,.10);
-  --fd-filete-escuro:rgba(255,255,255,.08);
-  --forja-filete-claro:var(--fd-filete-claro);
-  --forja-filete-escuro:var(--fd-filete-escuro);
-  --forja-foco:2px solid var(--fd-laranja);
-
-  /* ritmo vertical — 72px a 120px em desktop, 48px a 72px em mobile.
-     Acima de 160px a pagina comeca a ler como catalogo de luxo. */
-  --fd-secao-y:clamp(3rem,7vw,7.5rem);
+/* quem pediu menos movimento no sistema operacional recebe o estado final */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
