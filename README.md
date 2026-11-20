@@ -44,3 +44,4 @@ Depois abra http://localhost:5173.
 ## Formulário de diagnóstico
 
 - Os leads do formulário de diagnóstico vão para a planilha "ForjaDev · Leads do site" (Google Sheets, na conta Google de quem administra o site) por um Apps Script publicado como app da web. O código de referência está em `integracoes/leads-google-sheets.gs`; a URL do app fica no `action` do formulário em `index.html`.
+- A cada lead, o script avisa por e-mail (o dono do script e os destinos em `EMAIL_AVISO`) e pelo Telegram (bot próprio). O token do bot, a conversa do Telegram e os e-mails ficam em Configurações do projeto > Propriedades do script no Apps Script, nunca no código. Para testar sem gravar lead, rode `testarAvisos` no editor.
