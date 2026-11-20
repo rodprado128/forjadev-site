@@ -1,42 +1,52 @@
-/* ForjaDev 2027.2 · gerado por system.py. Não editar à mão. */
-/* Camada 1 (--fd-g-*): valores brutos, nunca usados direto em componente. */
-/* Camada 2 (--fd-*): papel de uso. Componentes leem só esta camada. */
+/* ForjaDev 2027.3 · sistema "Mapa de linhas".
+   Cada sistema do cliente é uma estação, cada integração é uma linha.
+   Camada 1 (--fd-g-*): valores brutos, nunca usados direto em componente.
+   Camada 2 (--fd-*): papel de uso. Componentes leem só esta camada. */
 :root {
-  --fd-g-grafite-0: #FFFFFF;
-  --fd-g-grafite-50: #F6F7F9;
-  --fd-g-grafite-100: #EBEDF0;
-  --fd-g-grafite-200: #D8DBE0;
-  --fd-g-grafite-300: #BDC1C9;
-  --fd-g-grafite-400: #999FA9;
-  --fd-g-grafite-500: #767C87;
-  --fd-g-grafite-600: #585E68;
-  --fd-g-grafite-700: #3F444D;
-  --fd-g-grafite-800: #2A2E35;
-  --fd-g-grafite-900: #191C22;
-  --fd-g-grafite-950: #0D0F14;
-  --fd-g-ultramar-50: #F2F5FF;
-  --fd-g-ultramar-100: #E1E7FF;
-  --fd-g-ultramar-200: #C3CFFE;
-  --fd-g-ultramar-300: #A1B2FE;
-  --fd-g-ultramar-400: #7689FE;
-  --fd-g-ultramar-500: #4C4BFF;
-  --fd-g-ultramar-600: #3E38DA;
-  --fd-g-ultramar-700: #302BB0;
-  --fd-g-ultramar-800: #232382;
-  --fd-g-ultramar-900: #171958;
-  --fd-g-verde-700: #04764C;
-  --fd-g-verde-400: #30DE97;
-  --fd-g-ambar-700: #995B03;
-  --fd-g-ambar-400: #FFB334;
-  --fd-g-rubi-700: #BE2132;
-  --fd-g-rubi-400: #F66C6D;
-  --fd-g-dados-1: #4C4BFF; /* ultramar */
-  --fd-g-dados-2: #09BBDA; /* ciano */
-  --fd-g-dados-3: #DB3E98; /* magenta */
-  --fd-g-dados-4: #A6E146; /* lima */
-  --fd-g-dados-5: #914DE6; /* violeta */
-  --fd-g-fonte: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --fd-g-fonte-display: 'Archivo Black', 'Archivo', system-ui, sans-serif;
+  /* Tinta e placa */
+  --fd-g-branco: #FFFFFF;
+  --fd-g-placa-50: #F4F4F2;
+  --fd-g-placa-100: #E8E8E5;
+  --fd-g-placa-200: #D3D3CF;
+  --fd-g-placa-300: #B5B5B0;
+  --fd-g-placa-500: #74746F;
+  --fd-g-placa-600: #575753;
+  --fd-g-placa-700: #3D3D3A;
+  --fd-g-placa-800: #2A2A28;
+  --fd-g-placa-900: #1C1C1C;
+  --fd-g-tinta: #141414;
+
+  /* Linhas: uma cor chapada por sistema */
+  --fd-g-linha-azul: #0059A6;      /* Salesforce */
+  --fd-g-linha-verde: #00855E;     /* WhatsApp */
+  --fd-g-linha-vermelha: #DA2A21;  /* Sankhya */
+  --fd-g-linha-amarela: #F2B900;   /* Omie */
+  --fd-g-linha-turquesa: #00879A;  /* ClickUp */
+  /* versões para placa escura */
+  --fd-g-linha-azul-e: #4D9BE8;
+  --fd-g-linha-verde-e: #2FB487;
+  --fd-g-linha-vermelha-e: #FF6A5C;
+  --fd-g-linha-amarela-e: #FFCB2E;
+  --fd-g-linha-turquesa-e: #2EC0D2;
+
+  /* Estado */
+  --fd-g-ok: #00754F;
+  --fd-g-ok-e: #3CC796;
+  --fd-g-atencao: #8A5A00;
+  --fd-g-atencao-e: #FFCB2E;
+  --fd-g-falha: #B81F17;
+  --fd-g-falha-e: #FF7B6F;
+
+  /* Paleta de dados = cores de linha (mesma ordem que cerebro.js espera) */
+  --fd-g-dados-1: var(--fd-g-linha-verde);     /* WhatsApp */
+  --fd-g-dados-2: var(--fd-g-linha-azul);      /* Salesforce */
+  --fd-g-dados-3: var(--fd-g-linha-vermelha);  /* Sankhya */
+  --fd-g-dados-4: var(--fd-g-linha-amarela);   /* Omie */
+  --fd-g-dados-5: var(--fd-g-linha-turquesa);  /* ClickUp */
+
+  --fd-g-fonte: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fd-g-fonte-display: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
   --fd-g-esp-1: 4px;
   --fd-g-esp-2: 8px;
   --fd-g-esp-3: 12px;
@@ -48,142 +58,160 @@
   --fd-g-esp-9: 96px;
   --fd-g-esp-10: 128px;
   --fd-g-esp-11: 160px;
+
   --fd-g-dur-instante: 120ms;
-  --fd-g-dur-rapido: 220ms;
-  --fd-g-dur-padrao: 400ms;
-  --fd-g-dur-cena: 700ms;
-  --fd-g-dur-fluxo: 1200ms;
-  --fd-g-curva-saida: cubic-bezier(0.16, 1, 0.3, 1);
-  --fd-g-curva-mola: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --fd-g-dur-rapido: 180ms;
+  --fd-g-dur-padrao: 320ms;
+  --fd-g-dur-cena: 640ms;
+  --fd-g-curva-saida: cubic-bezier(0.22, 1, 0.36, 1);
   --fd-g-curva-entrada: cubic-bezier(0.4, 0, 1, 1);
 
-  /* semânticos que não mudam com o tema */
-  --fd-tipo-display-xl: 400 88px/1.0 var(--fd-g-fonte-display); --fd-tipo-display-xl-largura: 100%; --fd-tipo-display-xl-espacamento: -0.03em;
-  --fd-tipo-display: 400 64px/1.0 var(--fd-g-fonte-display); --fd-tipo-display-largura: 100%; --fd-tipo-display-espacamento: -0.025em;
-  --fd-tipo-titulo-1: 800 48px/1.05 var(--fd-g-fonte); --fd-tipo-titulo-1-largura: 75%; --fd-tipo-titulo-1-espacamento: -0.015em;
-  --fd-tipo-titulo-2: 800 36px/1.1 var(--fd-g-fonte); --fd-tipo-titulo-2-largura: 75%; --fd-tipo-titulo-2-espacamento: -0.01em;
-  --fd-tipo-titulo-3: 700 28px/1.15 var(--fd-g-fonte); --fd-tipo-titulo-3-largura: 80%; --fd-tipo-titulo-3-espacamento: -0.005em;
-  --fd-tipo-subtitulo: 600 20px/1.35 var(--fd-g-fonte); --fd-tipo-subtitulo-largura: 100%; --fd-tipo-subtitulo-espacamento: 0em;
-  --fd-tipo-texto: 400 16px/1.6 var(--fd-g-fonte); --fd-tipo-texto-largura: 100%; --fd-tipo-texto-espacamento: 0em;
-  --fd-tipo-texto-p: 400 14px/1.5 var(--fd-g-fonte); --fd-tipo-texto-p-largura: 100%; --fd-tipo-texto-p-espacamento: 0em;
-  --fd-tipo-rotulo: 600 12px/1.3 var(--fd-g-fonte); --fd-tipo-rotulo-largura: 75%; --fd-tipo-rotulo-espacamento: 0.06em;
-  --fd-raio-controle: 12px;
-  --fd-raio-cartao: 20px;
-  --fd-raio-painel: 28px;
+  /* Tipografia: uma grotesca de sinalização, passos de peso e tamanho bem marcados */
+  --fd-tipo-display-xl: 800 96px/0.95 var(--fd-g-fonte-display); --fd-tipo-display-xl-espacamento: -0.035em;
+  --fd-tipo-display: 800 72px/0.98 var(--fd-g-fonte-display); --fd-tipo-display-espacamento: -0.03em;
+  --fd-tipo-titulo-1: 800 52px/1.02 var(--fd-g-fonte); --fd-tipo-titulo-1-espacamento: -0.025em;
+  --fd-tipo-titulo-2: 800 38px/1.06 var(--fd-g-fonte); --fd-tipo-titulo-2-espacamento: -0.02em;
+  --fd-tipo-titulo-3: 700 26px/1.15 var(--fd-g-fonte); --fd-tipo-titulo-3-espacamento: -0.01em;
+  --fd-tipo-subtitulo: 600 20px/1.4 var(--fd-g-fonte); --fd-tipo-subtitulo-espacamento: -0.005em;
+  --fd-tipo-texto: 400 17px/1.6 var(--fd-g-fonte); --fd-tipo-texto-espacamento: 0em;
+  --fd-tipo-texto-p: 400 15px/1.5 var(--fd-g-fonte); --fd-tipo-texto-p-espacamento: 0em;
+  --fd-tipo-rotulo: 700 13px/1.3 var(--fd-g-fonte); --fd-tipo-rotulo-espacamento: 0.005em;
+
+  /* Cantos de placa, não de cartão */
+  --fd-raio-controle: 4px;
+  --fd-raio-cartao: 4px;
+  --fd-raio-painel: 6px;
   --fd-raio-pill: 999px;
+
+  /* Traço: espessuras de linha e de contorno de estação */
+  --fd-traco-fino: 1px;
+  --fd-traco: 2px;
+  --fd-traco-estacao: 3px;
+  --fd-traco-linha: 8px;
+
   --fd-camada-base: 0;
   --fd-camada-flutuante: 10;
   --fd-camada-navegacao: 100;
   --fd-camada-sobreposicao: 200;
   --fd-camada-aviso: 300;
+
   --fd-secao: var(--fd-g-esp-10);
   --fd-secao-celular: var(--fd-g-esp-8);
+
   --fd-mov-rapido: var(--fd-g-dur-rapido) var(--fd-g-curva-saida);
   --fd-mov-padrao: var(--fd-g-dur-padrao) var(--fd-g-curva-saida);
   --fd-mov-cena: var(--fd-g-dur-cena) var(--fd-g-curva-saida);
-  --fd-mov-resposta: var(--fd-g-dur-rapido) var(--fd-g-curva-mola);
-  --fd-vidro-desfoque: blur(24px) saturate(180%);
-  --fd-grad-fluxo: linear-gradient(135deg, var(--fd-g-ultramar-500), var(--fd-g-dados-2));
-  --fd-grad-aurora: linear-gradient(135deg, var(--fd-g-ultramar-500), var(--fd-g-dados-5));
-  --fd-anel-foco: 0 0 0 3px color-mix(in srgb, var(--fd-foco) 35%, transparent);
 
-  /* tema claro (padrão) */
-  --fd-fundo: var(--fd-g-grafite-50);
-  --fd-superficie: var(--fd-g-grafite-0);
-  --fd-superficie-2: var(--fd-g-grafite-100);
-  --fd-superficie-hover: var(--fd-g-grafite-100);
-  --fd-texto: var(--fd-g-grafite-900);
-  --fd-texto-suave: var(--fd-g-grafite-600);
-  --fd-texto-desabilitado: var(--fd-g-grafite-400);
-  --fd-borda: var(--fd-g-grafite-200);
-  --fd-borda-forte: var(--fd-g-grafite-300);
-  --fd-acao: var(--fd-g-ultramar-500);
-  --fd-acao-hover: var(--fd-g-ultramar-600);
-  --fd-acao-pressionado: var(--fd-g-ultramar-700);
-  --fd-acao-texto: var(--fd-g-grafite-0);
-  --fd-acao-suave: var(--fd-g-ultramar-50);
-  --fd-acao-suave-texto: var(--fd-g-ultramar-700);
-  --fd-link: var(--fd-g-ultramar-600);
-  --fd-foco: var(--fd-g-ultramar-500);
-  --fd-sucesso: var(--fd-g-verde-700);
-  --fd-alerta: var(--fd-g-ambar-700);
-  --fd-erro: var(--fd-g-rubi-700);
-  --fd-vidro: rgba(255, 255, 255, .62);
-  --fd-vidro-borda: rgba(255, 255, 255, .72);
-  --fd-vidro-brilho: inset 0 1px 0 rgba(255, 255, 255, .85);
-  --fd-elevacao-1: 0 1px 2px rgba(13, 15, 20, .06), 0 2px 8px rgba(13, 15, 20, .04);
-  --fd-elevacao-2: 0 1px 2px rgba(13, 15, 20, .06), 0 12px 32px rgba(13, 15, 20, .08);
-  --fd-elevacao-3: 0 2px 6px rgba(13, 15, 20, .08), 0 24px 64px rgba(13, 15, 20, .14);
+  /* tema claro (padrão): placa branca, tinta preta */
+  --fd-fundo: var(--fd-g-branco);
+  --fd-superficie: var(--fd-g-branco);
+  --fd-superficie-2: var(--fd-g-placa-50);
+  --fd-superficie-hover: var(--fd-g-placa-100);
+  --fd-texto: var(--fd-g-tinta);
+  --fd-texto-suave: var(--fd-g-placa-600);
+  --fd-texto-desabilitado: var(--fd-g-placa-500);
+  --fd-borda: var(--fd-g-placa-200);
+  --fd-borda-forte: var(--fd-g-placa-300);
+  --fd-contorno: var(--fd-g-tinta);
+  --fd-acao: var(--fd-g-tinta);
+  --fd-acao-hover: var(--fd-g-placa-700);
+  --fd-acao-pressionado: var(--fd-g-placa-600);
+  --fd-acao-texto: var(--fd-g-branco);
+  --fd-acao-suave: var(--fd-g-placa-50);
+  --fd-acao-suave-texto: var(--fd-g-tinta);
+  --fd-sinal: var(--fd-g-linha-amarela);
+  --fd-sinal-texto: var(--fd-g-tinta);
+  --fd-faixa: var(--fd-g-tinta);
+  --fd-faixa-texto: var(--fd-g-branco);
+  --fd-link: var(--fd-g-tinta);
+  --fd-foco: var(--fd-g-linha-azul);
+  --fd-sucesso: var(--fd-g-ok);
+  --fd-alerta: var(--fd-g-atencao);
+  --fd-erro: var(--fd-g-falha);
+  --fd-linha-salesforce: var(--fd-g-linha-azul);
+  --fd-linha-whatsapp: var(--fd-g-linha-verde);
+  --fd-linha-sankhya: var(--fd-g-linha-vermelha);
+  --fd-linha-omie: var(--fd-g-linha-amarela);
+  --fd-linha-clickup: var(--fd-g-linha-turquesa);
+  --fd-anel-foco: 0 0 0 2px var(--fd-fundo), 0 0 0 4px var(--fd-foco);
 }
 
-/* tema escuro: explícito */
+/* tema escuro: placa grafite de estação, texto branco */
 [data-tema="escuro"] {
-  --fd-fundo: var(--fd-g-grafite-950);
-  --fd-superficie: var(--fd-g-grafite-900);
-  --fd-superficie-2: var(--fd-g-grafite-800);
-  --fd-superficie-hover: var(--fd-g-grafite-800);
-  --fd-texto: var(--fd-g-grafite-100);
-  --fd-texto-suave: var(--fd-g-grafite-400);
-  --fd-texto-desabilitado: var(--fd-g-grafite-600);
-  --fd-borda: var(--fd-g-grafite-800);
-  --fd-borda-forte: var(--fd-g-grafite-700);
-  --fd-acao: var(--fd-g-ultramar-400);
-  --fd-acao-hover: var(--fd-g-ultramar-300);
-  --fd-acao-pressionado: var(--fd-g-ultramar-200);
-  --fd-acao-texto: var(--fd-g-grafite-950);
-  --fd-acao-suave: var(--fd-g-ultramar-900);
-  --fd-acao-suave-texto: var(--fd-g-ultramar-200);
-  --fd-link: var(--fd-g-ultramar-300);
-  --fd-foco: var(--fd-g-ultramar-300);
-  --fd-sucesso: var(--fd-g-verde-400);
-  --fd-alerta: var(--fd-g-ambar-400);
-  --fd-erro: var(--fd-g-rubi-400);
-  --fd-vidro: rgba(25, 28, 34, .58);
-  --fd-vidro-borda: rgba(255, 255, 255, .12);
-  --fd-vidro-brilho: inset 0 1px 0 rgba(255, 255, 255, .10);
-  --fd-elevacao-1: 0 1px 2px rgba(0, 0, 0, .40);
-  --fd-elevacao-2: 0 1px 2px rgba(0, 0, 0, .40), 0 16px 40px rgba(0, 0, 0, .35);
-  --fd-elevacao-3: 0 2px 6px rgba(0, 0, 0, .45), 0 28px 72px rgba(0, 0, 0, .50);
+  --fd-fundo: var(--fd-g-placa-900);
+  --fd-superficie: var(--fd-g-placa-800);
+  --fd-superficie-2: var(--fd-g-placa-800);
+  --fd-superficie-hover: var(--fd-g-placa-700);
+  --fd-texto: var(--fd-g-branco);
+  --fd-texto-suave: var(--fd-g-placa-300);
+  --fd-texto-desabilitado: var(--fd-g-placa-500);
+  --fd-borda: var(--fd-g-placa-700);
+  --fd-borda-forte: var(--fd-g-placa-600);
+  --fd-contorno: var(--fd-g-branco);
+  --fd-acao: var(--fd-g-branco);
+  --fd-acao-hover: var(--fd-g-placa-100);
+  --fd-acao-pressionado: var(--fd-g-placa-200);
+  --fd-acao-texto: var(--fd-g-tinta);
+  --fd-acao-suave: var(--fd-g-placa-800);
+  --fd-acao-suave-texto: var(--fd-g-branco);
+  --fd-sinal: var(--fd-g-linha-amarela-e);
+  --fd-sinal-texto: var(--fd-g-tinta);
+  --fd-faixa: var(--fd-g-tinta);
+  --fd-faixa-texto: var(--fd-g-branco);
+  --fd-link: var(--fd-g-branco);
+  --fd-foco: var(--fd-g-linha-amarela-e);
+  --fd-sucesso: var(--fd-g-ok-e);
+  --fd-alerta: var(--fd-g-atencao-e);
+  --fd-erro: var(--fd-g-falha-e);
+  --fd-g-dados-1: var(--fd-g-linha-verde-e);
+  --fd-g-dados-2: var(--fd-g-linha-azul-e);
+  --fd-g-dados-3: var(--fd-g-linha-vermelha-e);
+  --fd-g-dados-4: var(--fd-g-linha-amarela-e);
+  --fd-g-dados-5: var(--fd-g-linha-turquesa-e);
+  --fd-linha-salesforce: var(--fd-g-linha-azul-e);
+  --fd-linha-whatsapp: var(--fd-g-linha-verde-e);
+  --fd-linha-sankhya: var(--fd-g-linha-vermelha-e);
+  --fd-linha-omie: var(--fd-g-linha-amarela-e);
+  --fd-linha-clickup: var(--fd-g-linha-turquesa-e);
 }
 
-/* tema escuro: automático, quando a página não define tema */
+/* tema escuro automático, quando a página não define tema */
 @media (prefers-color-scheme: dark) {
   :root:not([data-tema="claro"]) {
-    --fd-fundo: var(--fd-g-grafite-950);
-    --fd-superficie: var(--fd-g-grafite-900);
-    --fd-superficie-2: var(--fd-g-grafite-800);
-    --fd-superficie-hover: var(--fd-g-grafite-800);
-    --fd-texto: var(--fd-g-grafite-100);
-    --fd-texto-suave: var(--fd-g-grafite-400);
-    --fd-texto-desabilitado: var(--fd-g-grafite-600);
-    --fd-borda: var(--fd-g-grafite-800);
-    --fd-borda-forte: var(--fd-g-grafite-700);
-    --fd-acao: var(--fd-g-ultramar-400);
-    --fd-acao-hover: var(--fd-g-ultramar-300);
-    --fd-acao-pressionado: var(--fd-g-ultramar-200);
-    --fd-acao-texto: var(--fd-g-grafite-950);
-    --fd-acao-suave: var(--fd-g-ultramar-900);
-    --fd-acao-suave-texto: var(--fd-g-ultramar-200);
-    --fd-link: var(--fd-g-ultramar-300);
-    --fd-foco: var(--fd-g-ultramar-300);
-    --fd-sucesso: var(--fd-g-verde-400);
-    --fd-alerta: var(--fd-g-ambar-400);
-    --fd-erro: var(--fd-g-rubi-400);
-    --fd-vidro: rgba(25, 28, 34, .58);
-    --fd-vidro-borda: rgba(255, 255, 255, .12);
-    --fd-vidro-brilho: inset 0 1px 0 rgba(255, 255, 255, .10);
-    --fd-elevacao-1: 0 1px 2px rgba(0, 0, 0, .40);
-    --fd-elevacao-2: 0 1px 2px rgba(0, 0, 0, .40), 0 16px 40px rgba(0, 0, 0, .35);
-    --fd-elevacao-3: 0 2px 6px rgba(0, 0, 0, .45), 0 28px 72px rgba(0, 0, 0, .50);
+    --fd-fundo: var(--fd-g-placa-900);
+    --fd-superficie: var(--fd-g-placa-800);
+    --fd-superficie-2: var(--fd-g-placa-800);
+    --fd-superficie-hover: var(--fd-g-placa-700);
+    --fd-texto: var(--fd-g-branco);
+    --fd-texto-suave: var(--fd-g-placa-300);
+    --fd-texto-desabilitado: var(--fd-g-placa-500);
+    --fd-borda: var(--fd-g-placa-700);
+    --fd-borda-forte: var(--fd-g-placa-600);
+    --fd-contorno: var(--fd-g-branco);
+    --fd-acao: var(--fd-g-branco);
+    --fd-acao-hover: var(--fd-g-placa-100);
+    --fd-acao-pressionado: var(--fd-g-placa-200);
+    --fd-acao-texto: var(--fd-g-tinta);
+    --fd-acao-suave: var(--fd-g-placa-800);
+    --fd-acao-suave-texto: var(--fd-g-branco);
+    --fd-sinal: var(--fd-g-linha-amarela-e);
+    --fd-sinal-texto: var(--fd-g-tinta);
+    --fd-faixa: var(--fd-g-tinta);
+    --fd-faixa-texto: var(--fd-g-branco);
+    --fd-link: var(--fd-g-branco);
+    --fd-foco: var(--fd-g-linha-amarela-e);
+    --fd-sucesso: var(--fd-g-ok-e);
+    --fd-alerta: var(--fd-g-atencao-e);
+    --fd-erro: var(--fd-g-falha-e);
+    --fd-g-dados-1: var(--fd-g-linha-verde-e);
+    --fd-g-dados-2: var(--fd-g-linha-azul-e);
+    --fd-g-dados-3: var(--fd-g-linha-vermelha-e);
+    --fd-g-dados-4: var(--fd-g-linha-amarela-e);
+    --fd-g-dados-5: var(--fd-g-linha-turquesa-e);
+    --fd-linha-salesforce: var(--fd-g-linha-azul-e);
+    --fd-linha-whatsapp: var(--fd-g-linha-verde-e);
+    --fd-linha-sankhya: var(--fd-g-linha-vermelha-e);
+    --fd-linha-omie: var(--fd-g-linha-amarela-e);
+    --fd-linha-clickup: var(--fd-g-linha-turquesa-e);
   }
-}
-
-/* sem suporte a desfoque: vidro vira superfície sólida */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  :root, [data-tema="escuro"] { --fd-vidro: var(--fd-superficie); }
-}
-
-/* quem pediu menos movimento no sistema operacional recebe o estado final */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

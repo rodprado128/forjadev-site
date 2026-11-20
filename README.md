@@ -2,7 +2,7 @@
 
 Site institucional da ForjaDev, publicado em https://forjadev.app.br pelo GitHub Pages (branch `main`, pasta raiz).
 
-Segue o sistema de marca ForjaDev 2027.2. As cores, tipos, espaços e movimentos vêm de `assets/css/tokens.css`, gerado pelo `system.py` do brand book. Não edite esse arquivo à mão.
+Segue o sistema de marca ForjaDev 2027.3, "Mapa de linhas": cada sistema do cliente é uma estação, cada integração é uma linha. As cores (tinta, placa branca e uma cor de linha por sistema), a tipografia (Hanken Grotesk), os espaços e os movimentos ficam em `assets/css/tokens.css`.
 
 ## Estrutura
 
@@ -10,7 +10,7 @@ Segue o sistema de marca ForjaDev 2027.2. As cores, tipos, espaços e movimentos
 |---|---|
 | `index.html` | Página única do site |
 | `404.html` | Página de erro |
-| `assets/css/tokens.css` | Variáveis da marca (gerado, não editar) |
+| `assets/css/tokens.css` | Variáveis da marca (Mapa de linhas) |
 | `assets/css/components.css` | Componentes base da marca |
 | `assets/css/site.css` | Estilos do site |
 | `assets/js/site.js` | Tema, menu, palavras que acendem, formulário |
@@ -31,7 +31,7 @@ O cérebro (`<canvas data-cerebro>`) fica fixo atrás de tudo. Cada `<section da
 
 Para criar um capítulo novo: adicione a `<section class="capitulo" data-neuronio="novo-id">` e uma entrada `'novo-id'` em `CAMERAS`.
 
-A versão anterior (antes do cérebro) está no histórico do git, no commit `8bc9736`.
+A versão anterior (antes do cérebro) está no histórico do git, no commit `8bc9736`. A versão visual anterior ao Mapa de linhas (vidro, ultramar e auroras) está no commit `27cbc2f`.
 
 ## Rodar localmente
 

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ForjaDev · Processos que andam sozinhos.</title>
   <meta name="description" content="A ForjaDev automatiza processos e integra sistemas de pequenas empresas. Salesforce, ClickUp, Sankhya, Omie e WhatsApp conversando, sem planilha no meio.">
-  <meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0D0F14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#141414" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)">
 
   <link rel="canonical" href="https://forjadev.app.br/">
   <meta property="og:type" content="website">
@@ -36,7 +36,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Archivo+Black&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..800&display=swap">
 
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -59,7 +59,7 @@
       <symbol id="i-fechar" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
       <symbol id="i-repetir" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
       <symbol id="i-fluxo" viewBox="0 0 24 24"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></symbol>
-      <symbol id="i-brilho" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol>
+      <symbol id="i-ler" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></symbol>
       <symbol id="i-lista" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol>
       <symbol id="i-sino" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
       <symbol id="i-alerta" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
@@ -70,8 +70,9 @@
     </defs>
   </svg>
 
-  <!-- Navegação em vidro, fixa ao rolar -->
-  <nav class="fd-vidro fd-navegacao nav" aria-label="Principal" data-nav>
+  <!-- Navegação: faixa de sinalização fixa no topo -->
+  <nav class="nav fd-faixa" aria-label="Principal" data-nav>
+    <div class="nav-linha">
     <a class="nav-marca" href="#inicio" aria-label="ForjaDev, voltar ao início">
       <svg class="logo" viewBox="0 0 1005.28 200" aria-hidden="true"><g id="logo-desenho"><g transform="translate(-26.75 -68.47) scale(0.6110)"><g transform="rotate(-18 256 256)"><path style="fill: var(--site-logo-corpo)" d="M87.63 150.01L150.76 138.35Q196.00 130.00 242.00 130.00L308.00 130.00Q334.00 130.00 334.00 156.00L334.00 212.00Q334.00 238.00 308.00 238.00L242.00 238.00Q196.00 238.00 150.53 231.01L87.74 221.35Q66.00 218.00 66.00 196.00L66.00 176.00Q66.00 154.00 87.63 150.01Z"/><path style="fill: var(--site-logo-corpo)" d="M209.00 200.00H209.00A31.00 31.00 0 0 1 240.00 231.00V401.00A31.00 31.00 0 0 1 209.00 432.00H209.00A31.00 31.00 0 0 1 178.00 401.00V231.00A31.00 31.00 0 0 1 209.00 200.00Z"/></g><path style="fill: var(--site-logo-faisca)" transform="rotate(22 356 214)" d="M356.00 164.00H356.00A20.00 20.00 0 0 1 376.00 184.00V244.00A20.00 20.00 0 0 1 356.00 264.00H356.00A20.00 20.00 0 0 1 336.00 244.00V184.00A20.00 20.00 0 0 1 356.00 164.00Z"/><path style="fill: var(--site-logo-faisca)" transform="rotate(22 420 182)" d="M420.00 142.00H420.00A20.00 20.00 0 0 1 440.00 162.00V202.00A20.00 20.00 0 0 1 420.00 222.00H420.00A20.00 20.00 0 0 1 400.00 202.00V162.00A20.00 20.00 0 0 1 420.00 142.00Z"/><path style="fill: var(--site-logo-faisca)" transform="rotate(22 480 152)" d="M480.00 122.00H480.00A20.00 20.00 0 0 1 500.00 142.00V162.00A20.00 20.00 0 0 1 480.00 182.00H480.00A20.00 20.00 0 0 1 460.00 162.00V142.00A20.00 20.00 0 0 1 480.00 122.00Z"/></g><g transform="translate(314.29 50.00) scale(0.50000)"><path style="fill: var(--site-logo-corpo)" d="M21.51 0.00H183.14V47.97H85.76V82.27H169.48V128.20H85.76V200.00H21.51Z M370.93 123.26Q370.93 162.50 347.82 182.99Q324.71 203.49 284.30 203.49Q243.90 203.49 220.93 183.14Q197.97 162.79 197.97 123.26Q197.97 83.72 220.93 63.37Q243.90 43.02 284.30 43.02Q324.71 43.02 347.82 63.52Q370.93 84.01 370.93 123.26ZM255.81 115.12V131.69Q255.81 164.24 284.30 164.24Q313.08 164.24 313.08 131.69V115.12Q313.08 82.27 284.30 82.27Q255.81 82.27 255.81 115.12Z M502.91 46.22V94.77H484.30Q466.28 94.77 458.28 104.07Q450.29 113.37 450.29 131.69V200.00H392.44V46.51H439.83L443.60 69.77Q448.84 56.40 460.17 49.56Q471.51 42.73 485.76 42.73Q492.44 42.73 497.67 44.33Q502.91 45.93 502.91 46.22Z M517.15 28.49V-10.76H575.00V28.49ZM521.80 261.05Q514.24 261.05 503.20 259.59Q492.15 258.14 485.76 255.81V221.22H500.87Q517.15 221.22 517.15 202.62V46.51H575.00V208.43Q575.00 236.34 562.35 248.69Q549.71 261.05 521.80 261.05Z M760.76 93.02V152.91Q760.76 157.85 763.08 161.05Q765.41 164.24 770.06 164.24H780.52V197.67Q779.65 198.26 776.02 199.56Q772.38 200.87 765.70 202.18Q759.01 203.49 750.29 203.49Q733.43 203.49 722.53 198.40Q711.63 193.31 707.56 184.30Q696.51 193.02 682.85 198.26Q669.19 203.49 650.87 203.49Q596.80 203.49 596.80 160.47Q596.80 138.08 608.87 126.31Q620.93 114.53 643.60 110.17Q666.28 105.81 702.91 105.81V98.26Q702.91 89.24 696.66 84.59Q690.41 79.94 680.52 79.94Q671.51 79.94 664.97 83.14Q658.43 86.34 658.43 93.31V94.48H601.45Q601.16 93.02 601.16 90.41Q601.16 68.60 621.95 55.81Q642.73 43.02 681.40 43.02Q716.57 43.02 738.66 54.80Q760.76 66.57 760.76 93.02ZM654.65 152.91Q654.65 167.44 674.42 167.44Q685.76 167.44 694.33 161.34Q702.91 155.23 702.91 146.22V133.14Q678.20 133.14 666.42 138.52Q654.65 143.90 654.65 152.91Z M988.66 100.00Q988.66 200.00 883.72 200.00H797.09V0.00H883.72Q988.66 0.00 988.66 100.00ZM861.34 152.03H882.56Q922.97 152.03 922.97 108.72V91.28Q922.97 47.97 882.56 47.97H861.34Z M1178.78 123.26V133.14H1063.66Q1063.66 149.71 1071.08 158.14Q1078.49 166.57 1094.48 166.57Q1109.01 166.57 1115.84 160.47Q1122.67 154.36 1122.67 144.19H1178.78Q1178.78 172.09 1157.56 187.79Q1136.34 203.49 1095.64 203.49Q1052.91 203.49 1029.36 183.58Q1005.81 163.66 1005.81 123.26Q1005.81 83.72 1028.78 63.37Q1051.74 43.02 1092.15 43.02Q1134.30 43.02 1156.54 62.79Q1178.78 82.56 1178.78 123.26ZM1063.95 105.81H1120.35Q1120.35 93.90 1113.52 86.92Q1106.69 79.94 1094.48 79.94Q1067.15 79.94 1063.95 105.81Z M1240.99 200.00 1182.85 46.51H1245.06L1273.26 142.15H1275.29L1303.49 46.51H1360.47L1301.74 200.00Z"/></g></g></svg>
     </a>
@@ -88,19 +89,21 @@
         <svg class="icone icone-sol"><use href="#i-sol"/></svg>
         <svg class="icone icone-lua"><use href="#i-lua"/></svg>
       </button>
-      <a class="fd-botao fd-botao--secundario fd-botao--p nav-cta" href="#contato">Agendar diagnóstico</a>
+      <a class="fd-botao fd-botao--p nav-cta" href="#contato">Agendar diagnóstico</a>
       <button class="nav-icone nav-menu-botao" type="button" aria-expanded="false" aria-controls="menu-celular" data-menu-botao aria-label="Abrir menu">
         <svg class="icone icone-menu"><use href="#i-menu"/></svg>
         <svg class="icone icone-fechar"><use href="#i-fechar"/></svg>
       </button>
     </div>
 
-    <div class="menu-celular fd-vidro" id="menu-celular" data-menu hidden>
+    </div>
+
+    <div class="menu-celular" id="menu-celular" data-menu hidden>
       <a href="#o-que-fazemos">O que fazemos</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#exemplos">Exemplos</a>
       <a href="#socios">Sócios</a>
-      <a class="fd-botao fd-botao--secundario" href="#contato">Agendar diagnóstico</a>
+      <a class="fd-botao" href="#contato">Agendar diagnóstico</a>
     </div>
   </nav>
 
@@ -114,17 +117,16 @@
     <section class="capitulo capitulo--inicio" id="inicio" data-neuronio="inicio" aria-labelledby="hero-titulo">
       <div class="container capitulo-grade">
         <div class="painel painel--livre hero-texto" data-lado="e">
-          <p class="fd-etiqueta fd-etiqueta--acao hero-etiqueta">Automação e integração de sistemas</p>
           <h1 class="hero-titulo" id="hero-titulo" data-cinetico>Processos que andam sozinhos.</h1>
-          <p class="hero-sub">Seu time passa pedido, cliente e nota de um sistema para o outro à mão, todo dia. Nós ligamos esses sistemas e tiramos o trabalho repetitivo do caminho.</p>
+          <p class="hero-sub">Seu time passa pedido, cliente e nota de um sistema para o outro à mão, todo dia. A ForjaDev faz a automação e a integração desses sistemas para o trabalho repetitivo sair do caminho.</p>
           <div class="hero-acoes">
             <a class="fd-botao fd-botao--g" href="#contato">
               <svg class="icone"><use href="#i-calendario"/></svg>
               Agendar diagnóstico
             </a>
-            <a class="fd-botao fd-botao--fantasma fd-botao--g" href="#problema">Entrar na rede</a>
+            <a class="fd-botao fd-botao--fantasma fd-botao--g" href="#como-funciona">Ver como funciona</a>
           </div>
-          <p class="hero-rolar" aria-hidden="true"><span></span>Role para percorrer a rede</p>
+          <p class="hero-rolar" aria-hidden="true"><span></span>Role para seguir a linha</p>
         </div>
       </div>
     </section>
@@ -132,8 +134,8 @@
     <!-- 2 · A situação que o leitor reconhece (neurônio: WhatsApp) -->
     <section class="capitulo" id="problema" data-neuronio="problema" aria-labelledby="problema-rotulo">
       <div class="container capitulo-grade">
-        <div class="painel painel--largo fd-vidro" data-lado="e">
-          <p class="t-rotulo" id="problema-rotulo">Como é hoje</p>
+        <div class="painel painel--largo fd-placa" data-lado="e">
+          <h2 class="oculto" id="problema-rotulo">Como é hoje</h2>
           <p class="problema-texto" data-palavras>O pedido chega pelo WhatsApp. Alguém copia para o ERP, atualiza o CRM, avisa o financeiro e confere se nada ficou para trás. Todo dia, à mão, com chance de erro em cada passo.</p>
           <p class="problema-virada">A ForjaDev liga esses sistemas. A informação entra uma vez e chega sozinha onde precisa.</p>
         </div>
@@ -143,12 +145,11 @@
     <!-- 3 · Todos os sistemas na mesma rede -->
     <section class="capitulo" id="rede" data-neuronio="rede" aria-labelledby="rede-titulo">
       <div class="container capitulo-grade">
-        <div class="painel fd-vidro" data-lado="e">
-          <p class="t-rotulo">Tudo conectado</p>
+        <div class="painel fd-placa" data-lado="e">
           <h2 class="t-titulo-2" id="rede-titulo">Uma rede só para todos os seus sistemas.</h2>
           <p class="secao-intro">Cada ponto é uma informação do seu dia a dia. Quando um pedido entra pelo WhatsApp, o sinal percorre a rede e chega ao Omie, ao Salesforce e ao ClickUp sem ninguém digitar.</p>
           <div class="sistemas" aria-label="Sistemas que ligamos">
-            <p class="t-rotulo">Sistemas que mais ligamos</p>
+            <p class="sistemas-titulo">Sistemas que mais ligamos</p>
             <ul class="sistemas-lista">
               <li class="sistema" style="--cor: var(--fd-g-dados-2)">Salesforce</li>
               <li class="sistema" style="--cor: var(--fd-g-dados-5)">ClickUp</li>
@@ -164,8 +165,7 @@
     <!-- 4 · Frentes: cada uma é um neurônio -->
     <section class="capitulo" id="o-que-fazemos" data-neuronio="o-que-fazemos" aria-labelledby="fazemos-titulo">
       <div class="container capitulo-grade">
-        <div class="painel fd-vidro" data-lado="d">
-          <p class="t-rotulo">O que fazemos</p>
+        <div class="painel fd-placa" data-lado="d">
           <h2 class="t-titulo-2" id="fazemos-titulo">Automação e integração, lado a lado.</h2>
           <p class="secao-intro">Metade do nosso trabalho é fazer tarefas rodarem sozinhas. A outra metade é fazer sistemas trocarem informação. Quase sempre um projeto precisa das duas.</p>
           <ul class="frentes">
@@ -178,7 +178,7 @@
               <div><strong>Integração</strong><p>O pedido entra uma vez e aparece no ERP, no CRM e na ferramenta de projetos. Sem planilha no meio.</p></div>
             </li>
             <li class="frente" data-sub="IA no processo">
-              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-brilho"/></svg></span>
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-ler"/></svg></span>
               <div><strong>IA no processo</strong><p>Ler um pedido que chegou por mensagem, classificar um chamado, preencher um cadastro.</p></div>
             </li>
             <li class="frente" data-sub="Registro">
@@ -201,8 +201,7 @@
     <!-- 5 · Etapas: um sinal anda de uma à próxima -->
     <section class="capitulo" id="como-funciona" data-neuronio="como-funciona" aria-labelledby="como-titulo">
       <div class="container capitulo-grade">
-        <div class="painel fd-vidro" data-lado="e">
-          <p class="t-rotulo">Como funciona</p>
+        <div class="painel fd-placa" data-lado="e">
           <h2 class="t-titulo-2" id="como-titulo">Do diagnóstico ao processo rodando.</h2>
           <p class="secao-intro">Cinco etapas. Em cada uma você sabe o que está sendo feito e o que vem depois.</p>
           <ol class="passos" data-passos>
@@ -234,8 +233,7 @@
     <!-- 6 · Exemplos: cada um é um sinal real entre dois sistemas -->
     <section class="capitulo" id="exemplos" data-neuronio="exemplos" aria-labelledby="exemplos-titulo">
       <div class="container capitulo-grade">
-        <div class="painel fd-vidro" data-lado="d">
-          <p class="t-rotulo">Na prática</p>
+        <div class="painel fd-placa" data-lado="d">
           <h2 class="t-titulo-2" id="exemplos-titulo">O que deixa de ser feito à mão.</h2>
           <ul class="exemplos-lista" data-exemplos>
             <li class="exemplo" data-de="WhatsApp" data-para="Omie">
@@ -266,8 +264,7 @@
     <!-- 7 · Sócios fundadores: um neurônio para cada -->
     <section class="capitulo" id="socios" data-neuronio="socios" aria-labelledby="socios-titulo">
       <div class="container capitulo-grade">
-        <div class="painel painel--largo fd-vidro" data-lado="d">
-          <p class="t-rotulo">Sócios fundadores</p>
+        <div class="painel painel--largo fd-placa" data-lado="d">
           <h2 class="t-titulo-2" id="socios-titulo">Quem conduz o seu projeto.</h2>
           <p class="secao-intro">Um sócio cuida da parte técnica, o outro cuida da conversa com você. Os dois acompanham cada projeto do diagnóstico à entrega.</p>
 
@@ -278,9 +275,8 @@
                   <img src="assets/img/socios/rodrigo-prado.jpg" alt="Rodrigo Prado, de braços cruzados, sorrindo" width="960" height="1200" loading="lazy" decoding="async">
                 </figure>
                 <div>
-                  <span class="fd-etiqueta fd-etiqueta--acao">Tecnologia</span>
                   <h3 class="t-titulo-3">Rodrigo Prado</h3>
-                  <p class="t-rotulo">Sócio fundador</p>
+                  <p class="socio-papel">Sócio fundador, parte técnica</p>
                 </div>
               </div>
               <p>Rodrigo responde pela parte técnica da ForjaDev. Desenha como os sistemas vão trocar informação, constrói as integrações e define como cada automação é testada antes de entrar no ar.</p>
@@ -300,9 +296,8 @@
                   <img src="assets/img/socios/bruno-torres.jpg" alt="Bruno Torres, de camisa polo azul-marinho, sorrindo" width="568" height="710" loading="lazy" decoding="async">
                 </figure>
                 <div>
-                  <span class="fd-etiqueta fd-etiqueta--acao">Comercial</span>
                   <h3 class="t-titulo-3">Bruno Torres</h3>
-                  <p class="t-rotulo">Sócio fundador</p>
+                  <p class="socio-papel">Sócio fundador, parte comercial</p>
                 </div>
               </div>
               <p>Bruno é quem conversa com você primeiro. Antes de falar de sistema, quer entender a operação: como o pedido chega, quem digita, onde trava e quanto tempo isso toma da equipe.</p>
@@ -322,9 +317,8 @@
     <!-- 8 · Contato: todos os sinais convergem aqui -->
     <section class="capitulo" id="contato" data-neuronio="contato" aria-labelledby="contato-titulo">
       <div class="container capitulo-grade">
-        <div class="painel painel--largo fd-vidro contato-grade" data-lado="e">
+        <div class="painel painel--largo fd-placa contato-grade" data-lado="e">
           <div class="contato-texto">
-            <p class="t-rotulo">Diagnóstico</p>
             <h2 class="t-titulo-2" id="contato-titulo">Conte onde o seu processo trava.</h2>
             <p class="secao-intro">Na conversa de diagnóstico mapeamos os sistemas que vocês usam e o que ainda é feito à mão. Você sai com um retrato claro do que dá para automatizar.</p>
             <p class="contato-lista-titulo">Vale levar para a conversa:</p>
@@ -386,9 +380,9 @@
     </section>
   </main>
 
-  <footer class="rodape">
+  <footer class="rodape fd-faixa">
     <div class="container">
-      <p class="rodape-frase" data-surgir>Seus sistemas, <span>conversando.</span></p>
+      <p class="rodape-frase">Seus sistemas, conversando.</p>
       <div class="rodape-grade">
         <div>
           <a class="rodape-marca" href="#inicio" aria-label="ForjaDev, voltar ao início"><svg class="logo" viewBox="0 0 1005.28 200" aria-hidden="true"><use href="#logo-desenho"/></svg></a>

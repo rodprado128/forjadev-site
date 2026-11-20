@@ -1,7 +1,10 @@
-/* ForjaDev 2027.2 · cérebro em tela cheia (canvas 2D, sem dependências).
+/* ForjaDev 2027.3 · cérebro em tela cheia (canvas 2D, sem dependências), desenhado como mapa de linhas.
    O site inteiro vive dentro da rede: cada capítulo ([data-neuronio]) é um neurônio.
-   A rolagem leva a câmera de um neurônio ao próximo enquanto um sinal percorre o caminho entre eles.
-   A luz segue o cursor. Clique ou toque fora dos painéis dispara sinais para os cinco sistemas. */
+   A rolagem leva a câmera de um neurônio ao próximo enquanto um sinal percorre o caminho entre eles,
+   como um trem na linha. Os sinais entre sistemas saem na cor de linha do sistema de origem.
+   Cada exemplo da página é uma linha permanente; a malha do cérebro fica só como fundo e se afasta de leve do cursor.
+   Clique ou toque fora das placas dispara sinais para os cinco sistemas.
+   Traço chapado: sem auroras, halos ou brilho. */
 (function () {
   'use strict';
 
@@ -32,7 +35,7 @@
      giro e inclina: rotação da rede · zoom: aproximação · foco: onde o neurônio fica na tela (fração da largura e da altura)
      fio: liga o neurônio ao painel do capítulo */
   var CAMERAS = {
-    'inicio':        { alvo: [0, 0.05, 0.05],     giro: 1.1, inclina: -0.12, zoom: 0.9,  foco: [0.72, 0.55], fio: false },
+    'inicio':        { alvo: [0, 0.05, 0.05],     giro: 1.1, inclina: -0.12, zoom: 0.64, foco: [0.79, 0.56], fio: false },
     'problema':      { hub: 0,                    giro: 0.35, inclina: -0.05, zoom: 1.8, foco: [0.78, 0.52], fio: true },
     'rede':          { alvo: [0, 0.05, 0],        giro: 1.9, inclina: -0.25, zoom: 0.85, foco: [0.7, 0.55],  fio: false },
     'o-que-fazemos': { alvo: [0.4, 0.3, 0.35],    giro: 2.7, inclina: -0.1,  zoom: 1.8,  foco: [0.28, 0.55], fio: true },
@@ -51,11 +54,6 @@
     prova.style.color = 'var(' + variavel + ')';
     return getComputedStyle(prova).color;
   }
-  function comAlfa(rgb, a) {
-    var m = rgb.match(/[\d.]+/g);
-    if (!m || m.length < 3) return 'rgba(76,75,255,' + a + ')';
-    return 'rgba(' + m[0] + ',' + m[1] + ',' + m[2] + ',' + a + ')';
-  }
   var cor = {};
   function temaEscuro() {
     var t = raiz.getAttribute('data-tema');
@@ -64,12 +62,11 @@
   function lerCores() {
     cor.no = resolver('--fd-texto-suave');
     cor.ligacao = resolver('--fd-borda-forte');
-    cor.acao = resolver('--fd-acao');
-    cor.superficie = resolver('--fd-superficie');
+    cor.contorno = resolver('--fd-contorno');
+    cor.fundo = resolver('--fd-fundo');
+    cor.sinal = resolver('--fd-sinal');
     cor.hubs = SISTEMAS.map(function (s) { return resolver(s.cor); });
     cor.escuro = temaEscuro();
-    cor.luzCentro = comAlfa(cor.acao, cor.escuro ? 0.16 : 0.09);
-    cor.luzFim = comAlfa(cor.acao, 0);
   }
 
   /* ── Gerador pseudoaleatório com semente: a rede é sempre a mesma ── */
@@ -235,6 +232,10 @@
     capitulos.forEach(function (cap, i) {
       var prox = capitulos[i + 1];
       cap.rotaProximo = prox ? caminho(cap.ancora, prox.ancora) : null;
+      // cor de linha do capítulo: a do sistema mais perto da estação dele
+      var an = nos[cap.ancora], menor = Infinity;
+      cap.linha = 0;
+      hubs.forEach(function (h, k) { var d = dist2(nos[h], an.x, an.y, an.z); if (d < menor) { menor = d; cap.linha = k; } });
     });
   }
 
@@ -300,7 +301,9 @@
     if (de === ate) return;
     var rota = caminho(de, ate);
     if (!rota || rota.length < 2) return;
-    sinais.push({ rota: rota, t: -(atraso || 0), velocidade: velocidade || 7 + Math.random() * 3 });
+    // o sinal sai na cor de linha do sistema de origem (ou do destino, quando sai de um neurônio qualquer)
+    var linha = nos[de].hub >= 0 ? nos[de].hub : nos[ate].hub;
+    sinais.push({ rota: rota, t: -(atraso || 0), velocidade: velocidade || 7 + Math.random() * 3, linha: linha });
   }
 
   /* ── Cursor e luz ── */
@@ -357,130 +360,195 @@
     }
   }
 
-  /* ── Desenho ── */
-  var baldes = [[], [], [], []];
-  function desenharTrilha(rota, t, larguraLinha, comprimento) {
-    var passo = Math.floor(t), k = t - passo;
-    ctx.strokeStyle = cor.acao;
-    ctx.lineWidth = larguraLinha;
-    for (var q = Math.max(0, passo - comprimento); q <= passo && q < rota.length - 1; q++) {
-      var n1 = nos[rota[q]], n2 = nos[rota[q + 1]];
-      ctx.globalAlpha = 0.9 * (1 - (passo - q) / (comprimento + 1));
-      ctx.beginPath(); ctx.moveTo(n1.px, n1.py);
-      if (q === passo) ctx.lineTo(n1.px + (n2.px - n1.px) * k, n1.py + (n2.py - n1.py) * k);
-      else ctx.lineTo(n2.px, n2.py);
-      ctx.stroke();
-    }
-    if (passo >= 0 && passo < rota.length - 1) {
-      var na = nos[rota[passo]], nb = nos[rota[passo + 1]];
-      var x = na.px + (nb.px - na.px) * k, y = na.py + (nb.py - na.py) * k;
-      ctx.fillStyle = cor.acao;
-      ctx.globalAlpha = 0.22; ctx.beginPath(); ctx.arc(x, y, larguraLinha * 5.5, 0, 6.2832); ctx.fill();
-      ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(x, y, larguraLinha * 2, 0, 6.2832); ctx.fill();
-    }
+  /* ── Desenho: mapa de linhas ──
+     Cada exemplo da página (data-de → data-para) vira uma linha permanente na cor do sistema de origem.
+     Os trechos são desenhados em ângulos de mapa de metrô (horizontal, vertical ou 45°).
+     A malha do cérebro fica no fundo, fina e uniforme; as estações são discos brancos com contorno grosso. */
+  var linhas = [];
+  function prepararLinhas() {
+    linhas = [];
+    var pares = [], vistos = {};
+    Array.prototype.forEach.call(document.querySelectorAll('[data-de][data-para]'), function (el) {
+      var de = indiceSistema(el.getAttribute('data-de')), para = indiceSistema(el.getAttribute('data-para'));
+      var chave = de + '>' + para;
+      if (de < 0 || para < 0 || vistos[chave]) return;
+      vistos[chave] = true;
+      pares.push([de, para]);
+    });
+    pares.forEach(function (p) {
+      var rota = caminho(hubs[p[0]], hubs[p[1]]);
+      if (!rota || rota.length < 2) return;
+      // poucas paradas por linha: trechos longos leem como mapa, não como malha
+      var paradas = [];
+      var passo = Math.max(1, Math.round(rota.length / 4));
+      for (var k = 0; k < rota.length - 1; k += passo) paradas.push(rota[k]);
+      paradas.push(rota[rota.length - 1]);
+      linhas.push({ de: p[0], paradas: paradas });
+    });
   }
 
-  function posicionarRotulo(el, x, y, folga, alfa, acesa) {
-    var lw = el._largura || 90;
-    var lx = x + folga;
-    if (lx + lw > largura - 12) lx = x - folga - lw;
-    var visivel = alfa > 0.02 && y > 70 && y < altura - 20 && x > -40 && x < largura + 40;
-    el.style.transform = 'translate(' + lx.toFixed(1) + 'px,' + (y - 13).toFixed(1) + 'px)';
-    el.style.opacity = visivel ? alfa.toFixed(2) : '0';
+  // liga dois pontos em ângulos de mapa: reto, diagonal de 45° no meio, reto
+  function trechoMapa(x1, y1, x2, y2) {
+    var dx = x2 - x1, dy = y2 - y1, ax = Math.abs(dx), ay = Math.abs(dy);
+    var sx = dx < 0 ? -1 : 1, sy = dy < 0 ? -1 : 1;
+    if (ax > ay) {
+      var e = (ax - ay) / 2;
+      ctx.lineTo(x1 + sx * e, y1); ctx.lineTo(x2 - sx * e, y2);
+    } else {
+      var f = (ay - ax) / 2;
+      ctx.lineTo(x1, y1 + sy * f); ctx.lineTo(x2, y2 - sy * f);
+    }
+    ctx.lineTo(x2, y2);
+  }
+
+  function espessuraLinha() { return celular.matches ? 6 : 8; }
+
+  // estação de passagem: disco do fundo com contorno de tinta
+  function estacao(x, y, r, contorno, cheia) {
+    ctx.fillStyle = cheia ? cor.contorno : cor.fundo;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+    ctx.lineWidth = contorno; ctx.strokeStyle = cor.contorno;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke();
+  }
+
+  // poucas paradas por rota: trens e linhas usam os mesmos trechos longos, sem zigue-zague
+  function paradasDe(rota) {
+    if (rota._paradas) return rota._paradas;
+    var lista = [], passo = Math.max(1, Math.round(rota.length / 4));
+    for (var k = 0; k < rota.length - 1; k += passo) lista.push(rota[k]);
+    lista.push(rota[rota.length - 1]);
+    rota._paradas = lista;
+    return lista;
+  }
+
+  // trem: trecho chapado atrás do sinal, em ângulos de mapa; a ponta é uma estação
+  // comprimento: quantas paradas de rastro ficam desenhadas atrás da ponta
+  function desenharTrilha(rota, t, larguraLinha, comprimento, corLinha) {
+    if (t < 0 || rota.length < 2) return;
+    var pa = paradasDe(rota);
+    var tS = Math.min(t, rota.length - 1) * (pa.length - 1) / (rota.length - 1);
+    var passo = Math.floor(tS), k = tS - passo;
+    var inicio = Math.max(0, passo - comprimento);
+    var fim = Math.min(passo, pa.length - 2);
+    if (inicio > fim) return;
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = corLinha;
+    ctx.lineWidth = larguraLinha;
+    ctx.beginPath();
+    ctx.moveTo(nos[pa[inicio]].px, nos[pa[inicio]].py);
+    var x = 0, y = 0;
+    for (var q = inicio; q <= fim; q++) {
+      var n1 = nos[pa[q]], n2 = nos[pa[q + 1]];
+      x = q === passo ? n1.px + (n2.px - n1.px) * k : n2.px;
+      y = q === passo ? n1.py + (n2.py - n1.py) * k : n2.py;
+      trechoMapa(n1.px, n1.py, x, y);
+    }
+    ctx.stroke();
+    if (passo < pa.length - 1) estacao(x, y, larguraLinha * 0.5 + 4, 3, false);
+  }
+
+  function raioHub(h) { return Math.max(12, (11 + h.prof * 3) * h.s * (0.85 + cam.zoom * 0.15)); }
+
+  /* Rótulos: cada placa procura um lugar livre em volta da estação, para não encavalar */
+  var ocupados = [];
+  var LUGARES = [[1, 0], [-1, 0], [1, -1], [1, 1], [-1, -1], [-1, 1], [0, -1.6], [0, 1.6]];
+  function posicionarRotulo(el, x, y, folga, visivel, acesa) {
+    var lw = el._largura || 90, lh = 26;
+    var dentro = visivel && y > 80 && y < altura - 20 && x > -40 && x < largura + 40;
     el.classList.toggle('acesa', !!acesa);
+    if (!dentro) { el.style.opacity = '0'; return; }
+    var escolhido = null, primeiro = null;
+    for (var c = 0; c < LUGARES.length; c++) {
+      var L = LUGARES[c];
+      var lx = L[0] > 0 ? x + folga : L[0] < 0 ? x - folga - lw : x - lw / 2;
+      var ly = y - lh / 2 + L[1] * (lh * 0.75 + 2);
+      if (lx < 8 || lx + lw > largura - 8) continue;
+      var r = [lx - 4, ly - 3, lx + lw + 4, ly + lh + 3];
+      if (!primeiro) primeiro = r;
+      var livre = true;
+      for (var o = 0; o < ocupados.length; o++) {
+        var b = ocupados[o];
+        if (r[0] < b[2] && r[2] > b[0] && r[1] < b[3] && r[3] > b[1]) { livre = false; break; }
+      }
+      if (livre) { escolhido = r; break; }
+    }
+    if (!escolhido) {
+      // sem lugar livre: a placa some em vez de cobrir outra
+      el.style.opacity = '0';
+      return;
+    }
+    ocupados.push(escolhido);
+    el.style.transform = 'translate(' + (escolhido[0] + 4).toFixed(1) + 'px,' + (escolhido[1] + 3).toFixed(1) + 'px)';
+    el.style.opacity = '1';
   }
 
   function desenhar(tempo, retangulos) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, largura, altura);
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ocupados.length = 0;
+    // as estações ocupam lugar: nenhuma placa encosta num disco
+    hubs.forEach(function (hh) {
+      var h = nos[hh], r = raioHub(h) + 5;
+      ocupados.push([h.px - r, h.py - r, h.px + r, h.py + r]);
+    });
+    capitulos.forEach(function (cap) {
+      if (cap.peso <= 0.55) return;
+      cap.subNos.forEach(function (j) { var n = nos[j]; ocupados.push([n.px - 10, n.py - 10, n.px + 10, n.py + 10]); });
+    });
 
-    // auroras: três manchas de cor da marca flutuando devagar atrás da rede
-    if (!menosMovimento.matches) {
-      var maior = Math.max(largura, altura);
-      var auroras = [
-        [cor.hubs[0], 0.5 + 0.32 * Math.sin(vivo * 0.071), 0.45 + 0.3 * Math.sin(vivo * 0.053 + 1), 0.55],
-        [cor.hubs[2], 0.5 + 0.36 * Math.sin(vivo * 0.047 + 2), 0.5 + 0.32 * Math.cos(vivo * 0.061), 0.45],
-        [cor.hubs[4], 0.5 + 0.3 * Math.cos(vivo * 0.058 + 4), 0.55 + 0.28 * Math.sin(vivo * 0.039 + 3), 0.5]
-      ];
-      for (var au = 0; au < auroras.length; au++) {
-        var A0 = auroras[au], ax = A0[1] * largura, ay = A0[2] * altura, ar = A0[3] * maior;
-        var g = ctx.createRadialGradient(ax, ay, 0, ax, ay, ar);
-        g.addColorStop(0, comAlfa(A0[0], cor.escuro ? 0.13 : 0.075));
-        g.addColorStop(1, comAlfa(A0[0], 0));
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, largura, altura);
-      }
-    }
-
-    // halo de luz no cursor
-    var halo = ctx.createRadialGradient(luz.x, luz.y, 0, luz.x, luz.y, 320);
-    halo.addColorStop(0, cor.luzCentro);
-    halo.addColorStop(1, cor.luzFim);
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = halo;
-    ctx.fillRect(0, 0, largura, altura);
-
-    // ligações em quatro faixas de profundidade; as iluminadas saem na cor de ação
-    baldes[0].length = baldes[1].length = baldes[2].length = baldes[3].length = 0;
-    var acesas = [];
-    for (var i = 0; i < ligacoes.length; i++) {
-      var a = nos[ligacoes[i][0]], b = nos[ligacoes[i][1]];
-      var v = Math.max((a.f + b.f) / 2, Math.min(a.luz, b.luz));
-      if (v > 0.18) { acesas.push(a, b, v); continue; }
-      var p = (a.prof + b.prof) / 2;
-      baldes[p < 0.35 ? 0 : p < 0.55 ? 1 : p < 0.75 ? 2 : 3].push(a, b);
-    }
+    // malha do cérebro: uma ligação em duas, fina e uniforme, só como fundo do mapa
     ctx.strokeStyle = cor.ligacao;
-    ctx.lineWidth = 0.6;
-    var alfas = [0.12, 0.26, 0.48, 0.75];
-    for (var bk = 0; bk < 4; bk++) {
-      var lista = baldes[bk];
-      if (!lista.length) continue;
-      ctx.globalAlpha = alfas[bk];
+    ctx.lineWidth = 0.75;
+    ctx.globalAlpha = cor.escuro ? 0.22 : 0.3;
+    ctx.beginPath();
+    for (var i = 0; i < ligacoes.length; i++) {
+      if (i % 2) continue;
+      var a = nos[ligacoes[i][0]], b = nos[ligacoes[i][1]];
+      ctx.moveTo(a.px, a.py); ctx.lineTo(b.px, b.py);
+    }
+    ctx.stroke();
+
+    // linhas permanentes: uma por exemplo, na cor chapada do sistema de origem.
+    // A profundidade vem da espessura (as de trás são mais finas) e do contorno do fundo onde uma passa por cima da outra.
+    var esp = espessuraLinha();
+    var ordem = linhas.slice().sort(function (p, q) { return profLinha(p) - profLinha(q); });
+    ctx.globalAlpha = 1;
+    ordem.forEach(function (l) {
+      var w = esp * (0.6 + 0.4 * profLinha(l));
       ctx.beginPath();
-      for (var j = 0; j < lista.length; j += 2) { ctx.moveTo(lista[j].px, lista[j].py); ctx.lineTo(lista[j + 1].px, lista[j + 1].py); }
-      ctx.stroke();
-    }
-    ctx.strokeStyle = cor.acao;
-    ctx.lineWidth = 1.1;
-    for (i = 0; i < acesas.length; i += 3) {
-      ctx.globalAlpha = 0.15 + acesas[i + 2] * 0.75;
-      ctx.beginPath(); ctx.moveTo(acesas[i].px, acesas[i].py); ctx.lineTo(acesas[i + 1].px, acesas[i + 1].py); ctx.stroke();
-    }
-
-    // neurônios: mais claros perto da luz
-    var escalaZoom = 0.7 + cam.zoom * 0.3;
-    for (i = 0; i < nos.length; i++) {
-      var n = nos[i];
-      if (n.hub >= 0) continue;
-      if (n.px < -20 || n.px > largura + 20 || n.py < -20 || n.py > altura + 20) continue;
-      var r = (0.6 + n.prof * 1.3) * n.s * escalaZoom;
-      var brilho = Math.max(n.f, n.luz);
-      if (brilho > 0.3) {
-        ctx.globalAlpha = 0.4 + brilho * 0.6;
-        ctx.fillStyle = cor.acao;
-        r += brilho * 2;
-      } else {
-        ctx.globalAlpha = Math.min(1, (0.18 + n.prof * 0.62) * (0.5 + n.g * 0.8));
-        ctx.fillStyle = cor.no;
+      ctx.moveTo(nos[l.paradas[0]].px, nos[l.paradas[0]].py);
+      for (var m = 1; m < l.paradas.length; m++) {
+        var p1 = nos[l.paradas[m - 1]], p2 = nos[l.paradas[m]];
+        trechoMapa(p1.px, p1.py, p2.px, p2.py);
       }
-      ctx.beginPath(); ctx.arc(n.px, n.py, r, 0, 6.2832); ctx.fill();
-    }
+      ctx.strokeStyle = cor.fundo; ctx.lineWidth = w + 4; ctx.stroke();
+      ctx.strokeStyle = cor.hubs[l.de]; ctx.lineWidth = w; ctx.stroke();
+      // paradas intermediárias: pontos do fundo sobre a linha, como estações simples
+      ctx.fillStyle = cor.fundo;
+      for (m = 1; m < l.paradas.length - 1; m++) {
+        var np = nos[l.paradas[m]];
+        ctx.beginPath(); ctx.arc(np.px, np.py, w * 0.32, 0, 6.2832); ctx.fill();
+      }
+    });
 
-    // sinal da rolagem: anda da âncora atual até a próxima junto com a página
+    // sinal da rolagem: um trem na cor da linha do capítulo de origem
     var i0 = Math.min(capitulos.length - 1, Math.floor(progressoSuave)), fr = progressoSuave - i0;
     var rotaRolagem = capitulos[i0].rotaProximo;
     if (rotaRolagem && fr > 0.02 && fr < 0.98) {
       var tR = fr * (rotaRolagem.length - 1);
-      desenharTrilha(rotaRolagem, tR, 2, 8);
+      desenharTrilha(rotaRolagem, tR, esp + 1, 99, cor.hubs[capitulos[i0].linha]);
       for (var q = Math.max(0, Math.floor(tR) - 8); q <= Math.floor(tR); q++) nos[rotaRolagem[q]].luz = Math.max(nos[rotaRolagem[q]].luz, 0.8);
     }
 
-    // sinais livres
-    for (i = 0; i < sinais.length; i++) if (sinais[i].t >= 0) desenharTrilha(sinais[i].rota, sinais[i].t, 1.6, 4);
+    // sinais livres, na cor do sistema de origem
+    for (i = 0; i < sinais.length; i++) {
+      var si = sinais[i];
+      if (si.t >= 0) desenharTrilha(si.rota, si.t, esp - 1, 2, si.linha >= 0 ? cor.hubs[si.linha] : cor.contorno);
+    }
 
-    // sub-neurônios do capítulo (frentes, etapas, sócios)
+    // sub-estações do capítulo (frentes, etapas, sócios): placas antes das estações dos sistemas
     capitulos.forEach(function (cap) {
       if (!cap.subNos.length) return;
       cap.subNos.forEach(function (j, m) {
@@ -488,33 +556,28 @@
         var acesa = m === cap.subFoco || m === cap.subAtivo;
         if (cap.peso > 0.02) {
           ctx.globalAlpha = cap.peso;
-          ctx.strokeStyle = cor.acao; ctx.fillStyle = cor.acao; ctx.lineWidth = 1.4;
-          ctx.beginPath(); ctx.arc(n.px, n.py, acesa ? 9 : 6, 0, 6.2832); ctx.stroke();
-          ctx.beginPath(); ctx.arc(n.px, n.py, 2.6, 0, 6.2832); ctx.fill();
+          estacao(n.px, n.py, acesa ? 8 : 7, 3, acesa);
         }
-        posicionarRotulo(cap.rotulos[m], n.px, n.py, 14, cap.peso, acesa);
+        posicionarRotulo(cap.rotulos[m], n.px, n.py, 16, cap.peso > 0.55, acesa);
       });
     });
 
-    // nós de sistema
-    var pesoRede = 0;
-    capitulos.forEach(function (cap) { if (cap.id === 'rede' || cap.id === 'exemplos') pesoRede = Math.max(pesoRede, cap.peso); });
-    for (i = 0; i < hubs.length; i++) {
-      var h = nos[hubs[i]];
-      var base = (5 + h.prof * 3) * h.s * (0.8 + cam.zoom * 0.2);
+    // estações dos sistemas: disco branco grande com contorno grosso de tinta (baldeação)
+    var ordemHubs = hubs.map(function (h, k) { return k; }).sort(function (p, q) { return nos[hubs[q]].prof - nos[hubs[p]].prof; });
+    ordemHubs.forEach(function (k) {
+      var h = nos[hubs[k]];
+      var base = raioHub(h);
       var brilhoH = Math.max(h.f, h.luz);
-      ctx.fillStyle = cor.hubs[i];
-      ctx.globalAlpha = 0.18 + brilhoH * 0.3 + pesoRede * 0.1;
-      ctx.beginPath(); ctx.arc(h.px, h.py, base * (2.4 + pesoRede * 0.8 + (menosMovimento.matches ? 0 : pesoRede * 0.4 * Math.sin(tempo / 400 + i))), 0, 6.2832); ctx.fill();
-      ctx.globalAlpha = 0.55 + h.prof * 0.45;
-      ctx.beginPath(); ctx.arc(h.px, h.py, base, 0, 6.2832); ctx.fill();
-      ctx.globalAlpha = 1; ctx.fillStyle = cor.superficie;
-      ctx.beginPath(); ctx.arc(h.px, h.py, base * 0.42, 0, 6.2832); ctx.fill();
-      posicionarRotulo(rotulosHub[i], h.px, h.py, base + 8, 0.35 + h.prof * 0.65, brilhoH > 0.3);
-      rotulosHub[i].style.zIndex = Math.round(h.prof * 10);
-    }
+      ctx.globalAlpha = 1;
+      if (brilhoH > 0.3) {
+        ctx.lineWidth = 4; ctx.strokeStyle = cor.sinal;
+        ctx.beginPath(); ctx.arc(h.px, h.py, base + 6, 0, 6.2832); ctx.stroke();
+      }
+      estacao(h.px, h.py, base, 4.5, false);
+      posicionarRotulo(rotulosHub[k], h.px, h.py, base + 12, true, brilhoH > 0.3);
+    });
 
-    // fio do neurônio ativo até o painel do capítulo
+    // fio do neurônio ativo até a placa do capítulo
     capitulos.forEach(function (cap, k) {
       var rp = retangulos[k];
       if (!cap.cam.fio || cap.peso < 0.05 || !rp) return;
@@ -526,16 +589,21 @@
         ex = cap.painel.getAttribute('data-lado') === 'd' ? rp.left : rp.right;
         ey = Math.min(Math.max(rp.top + 64, 96), altura - 64);
       }
-      ctx.globalAlpha = cap.peso * 0.8;
-      ctx.strokeStyle = cor.acao; ctx.fillStyle = cor.acao; ctx.lineWidth = 1.2;
-      ctx.setLineDash([3, 5]);
-      ctx.beginPath(); ctx.moveTo(n.px, n.py); ctx.lineTo(ex, ey); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.beginPath(); ctx.arc(ex, ey, 3, 0, 6.2832); ctx.fill();
-      ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(n.px, n.py, 11 + (menosMovimento.matches ? 0 : 3 * Math.sin(tempo / 300)), 0, 6.2832); ctx.stroke();
+      ctx.globalAlpha = cap.peso;
+      ctx.strokeStyle = cor.contorno; ctx.fillStyle = cor.contorno; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(n.px, n.py); trechoMapa(n.px, n.py, ex, ey); ctx.stroke();
+      ctx.beginPath(); ctx.arc(ex, ey, 4, 0, 6.2832); ctx.fill();
+      estacao(n.px, n.py, 10, 3.5, false);
+      ctx.fillStyle = cor.contorno;
+      ctx.beginPath(); ctx.arc(n.px, n.py, 4, 0, 6.2832); ctx.fill();
     });
     ctx.globalAlpha = 1;
+  }
+
+  function profLinha(l) {
+    var s = 0;
+    for (var m = 0; m < l.paradas.length; m++) s += nos[l.paradas[m]].prof;
+    return s / l.paradas.length;
   }
 
   /* ── Eventos de cada capítulo ── */
@@ -552,19 +620,12 @@
     if (menosMovimento.matches) return;
     // sinais ambientes entre sistemas
     relogio.ambiente -= dt;
-    if (relogio.ambiente <= 0 && sinais.length < 9) {
+    if (relogio.ambiente <= 0 && sinais.length < 5) {
       var a = hubs[Math.floor(Math.random() * hubs.length)], b = hubs[Math.floor(Math.random() * hubs.length)];
       // às vezes o sinal sai de um neurônio qualquer, não só dos sistemas
       if (Math.random() < 0.4) a = Math.floor(Math.random() * nos.length);
       dispararSinal(a, b);
-      relogio.ambiente = 0.6 + Math.random() * 0.6;
-    }
-    // faíscas: neurônios soltos acendem e apagam sozinhos
-    relogio.faisca = (relogio.faisca || 0) + dt * 14;
-    while (relogio.faisca >= 1) {
-      relogio.faisca -= 1;
-      var nf = nos[Math.floor(Math.random() * nos.length)];
-      nf.luz = Math.max(nf.luz, 0.45 + Math.random() * 0.35);
+      relogio.ambiente = 1.4 + Math.random() * 1.2;
     }
     // etapas: o sinal anda de uma etapa para a próxima
     if (capComo && capComo.subNos.length && capComo.peso > 0.5 && capComo.subFoco < 0) {
@@ -740,6 +801,7 @@
   function preparar() {
     construir(celular.matches ? 420 : 900);
     prepararCapitulos();
+    prepararLinhas();
     lerCores();
     criarRotulos();
     medir();
