@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/site.js" defer></script>
-  <script src="assets/js/rede.js" defer></script>
+  <script src="assets/js/cerebro.js" defer></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -104,13 +104,16 @@
     </div>
   </nav>
 
+  <!-- O cérebro: fica fixo atrás de todo o site. Cada capítulo abaixo é um neurônio dele. -->
+  <canvas class="cerebro" data-cerebro aria-hidden="true"></canvas>
+  <div class="cerebro-rotulos" data-cerebro-rotulos aria-hidden="true"></div>
+
   <main id="conteudo">
 
-    <!-- Abertura -->
-    <section class="hero" id="inicio" aria-labelledby="hero-titulo">
-      <div class="hero-aurora" aria-hidden="true"><span></span><span></span></div>
-      <div class="container hero-grade">
-        <div class="hero-texto">
+    <!-- 1 · Abertura -->
+    <section class="capitulo capitulo--inicio" id="inicio" data-neuronio="inicio" aria-labelledby="hero-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel painel--livre hero-texto" data-lado="e">
           <p class="fd-etiqueta fd-etiqueta--acao hero-etiqueta">Automação e integração de sistemas</p>
           <h1 class="hero-titulo" id="hero-titulo" data-cinetico>Processos que andam sozinhos.</h1>
           <p class="hero-sub">Seu time passa pedido, cliente e nota de um sistema para o outro à mão, todo dia. Nós ligamos esses sistemas e tiramos o trabalho repetitivo do caminho.</p>
@@ -119,259 +122,140 @@
               <svg class="icone"><use href="#i-calendario"/></svg>
               Agendar diagnóstico
             </a>
-            <a class="fd-botao fd-botao--fantasma fd-botao--g" href="#como-funciona">Ver como funciona</a>
+            <a class="fd-botao fd-botao--fantasma fd-botao--g" href="#problema">Entrar na rede</a>
           </div>
+          <p class="hero-rolar" aria-hidden="true"><span></span>Role para percorrer a rede</p>
         </div>
-
-        <div class="hero-visual">
-          <div class="fluxo fd-vidro" data-fluxo>
-            <div class="fluxo-topo">
-              <span class="fd-etiqueta">Exemplo</span>
-              <button class="fd-botao fd-botao--fantasma fd-botao--p" type="button" data-fluxo-repetir>
-                <svg class="icone icone-p"><use href="#i-repetir"/></svg>
-                Ver de novo
-              </button>
-            </div>
-
-            <div class="fluxo-no fluxo-no--a">
-              <span class="fluxo-no-icone"><svg class="icone"><use href="#i-mensagem"/></svg></span>
-              <span class="fluxo-no-texto">
-                <strong>WhatsApp</strong>
-                <span>O cliente manda o pedido por mensagem</span>
-              </span>
-              <span class="fluxo-no-estado fd-etiqueta fd-etiqueta--acao">Novo</span>
-            </div>
-
-            <svg class="fluxo-caminho" viewBox="0 0 400 104" aria-hidden="true">
-              <path class="fluxo-trilha" d="M72 0 C72 60 328 44 328 104"/>
-              <g class="fluxo-ponto" transform="translate(72 0)">
-                <circle class="fluxo-ponto-halo" r="14"/>
-                <circle class="fluxo-ponto-nucleo" r="6"/>
-              </g>
-            </svg>
-
-            <div class="fluxo-no fluxo-no--b">
-              <span class="fluxo-no-icone"><svg class="icone"><use href="#i-caixa"/></svg></span>
-              <span class="fluxo-no-texto">
-                <strong>Omie</strong>
-                <span>Pedido lançado, sem ninguém digitar</span>
-              </span>
-              <span class="fluxo-no-check" aria-hidden="true"><svg class="icone icone-p"><use href="#i-check"/></svg></span>
-            </div>
-
-            <div class="fluxo-registro" aria-live="polite">
-              <svg class="icone icone-p"><use href="#i-lista"/></svg>
-              <span><strong data-fluxo-hora>--:--</strong> Pedido lançado no Omie a partir do WhatsApp. Registro salvo.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container sistemas" aria-label="Sistemas que ligamos">
-        <p class="t-rotulo">Sistemas que mais ligamos</p>
-        <ul class="sistemas-lista" data-encadear>
-          <li class="sistema" style="--cor: var(--fd-g-dados-2)">Salesforce</li>
-          <li class="sistema" style="--cor: var(--fd-g-dados-5)">ClickUp</li>
-          <li class="sistema" style="--cor: var(--fd-g-dados-3)">Sankhya</li>
-          <li class="sistema" style="--cor: var(--fd-g-dados-4)">Omie</li>
-          <li class="sistema" style="--cor: var(--fd-g-dados-1)">WhatsApp</li>
-        </ul>
       </div>
     </section>
 
-    <!-- A situação que o leitor reconhece -->
-    <section class="secao problema" id="problema" aria-labelledby="problema-rotulo">
-      <div class="container estreito">
-        <p class="t-rotulo" id="problema-rotulo" data-surgir>Como é hoje</p>
-        <p class="problema-texto" data-palavras>O pedido chega pelo WhatsApp. Alguém copia para o ERP, atualiza o CRM, avisa o financeiro e confere se nada ficou para trás. Todo dia, à mão, com chance de erro em cada passo.</p>
-        <p class="problema-virada" data-surgir>A ForjaDev liga esses sistemas. A informação entra uma vez e chega sozinha onde precisa.</p>
+    <!-- 2 · A situação que o leitor reconhece (neurônio: WhatsApp) -->
+    <section class="capitulo" id="problema" data-neuronio="problema" aria-labelledby="problema-rotulo">
+      <div class="container capitulo-grade">
+        <div class="painel painel--largo fd-vidro" data-lado="e">
+          <p class="t-rotulo" id="problema-rotulo">Como é hoje</p>
+          <p class="problema-texto" data-palavras>O pedido chega pelo WhatsApp. Alguém copia para o ERP, atualiza o CRM, avisa o financeiro e confere se nada ficou para trás. Todo dia, à mão, com chance de erro em cada passo.</p>
+          <p class="problema-virada">A ForjaDev liga esses sistemas. A informação entra uma vez e chega sozinha onde precisa.</p>
+        </div>
       </div>
     </section>
 
-    <!-- Rede de neurônios: todos os sistemas ligados -->
-    <section class="secao rede" id="rede" aria-labelledby="rede-titulo" data-rede>
-      <div class="container">
-        <header class="secao-cabeca rede-cabeca" data-surgir>
+    <!-- 3 · Todos os sistemas na mesma rede -->
+    <section class="capitulo" id="rede" data-neuronio="rede" aria-labelledby="rede-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel fd-vidro" data-lado="e">
           <p class="t-rotulo">Tudo conectado</p>
-          <h2 class="t-titulo-1" id="rede-titulo">Uma rede só para todos os seus sistemas.</h2>
+          <h2 class="t-titulo-2" id="rede-titulo">Uma rede só para todos os seus sistemas.</h2>
           <p class="secao-intro">Cada ponto é uma informação do seu dia a dia. Quando um pedido entra pelo WhatsApp, o sinal percorre a rede e chega ao Omie, ao Salesforce e ao ClickUp sem ninguém digitar.</p>
-        </header>
-
-        <div class="rede-painel" data-surgir>
-          <canvas class="rede-tela" role="img" aria-label="Rede de neurônios em forma de cérebro. Cinco nós principais, Salesforce, ClickUp, Sankhya, Omie e WhatsApp, trocam sinais entre si pela rede."></canvas>
-          <div class="rede-rotulos" data-rede-rotulos aria-hidden="true"></div>
-          <p class="rede-dica fd-vidro">
-            <svg class="icone icone-p"><use href="#i-brilho"/></svg>
-            <span class="rede-dica-mouse">Passe o mouse pela rede. Clique para enviar um sinal.</span>
-            <span class="rede-dica-toque">Toque na rede para enviar um sinal.</span>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Frentes -->
-    <section class="secao" id="o-que-fazemos" aria-labelledby="fazemos-titulo">
-      <div class="container">
-        <header class="secao-cabeca" data-surgir>
-          <p class="t-rotulo">O que fazemos</p>
-          <h2 class="t-titulo-1" id="fazemos-titulo">Automação e integração, lado a lado.</h2>
-          <p class="secao-intro">Metade do nosso trabalho é fazer tarefas rodarem sozinhas. A outra metade é fazer sistemas trocarem informação. Quase sempre um projeto precisa das duas.</p>
-        </header>
-
-        <div class="bento" data-encadear>
-          <article class="bento-cartao bento--automacao">
-            <div class="bento-cabeca">
-              <span class="bento-icone"><svg class="icone"><use href="#i-repetir"/></svg></span>
-              <p class="t-rotulo">Automação</p>
-            </div>
-            <h3 class="t-titulo-3">Tarefa repetida passa a rodar sozinha.</h3>
-            <p class="bento-texto">O que alguém faz igual todo dia vira uma rotina que roda sem ninguém apertar botão.</p>
-            <ul class="tarefas">
-              <li><span>Lançar pedido</span><span class="fd-etiqueta fd-etiqueta--sucesso">Automático</span></li>
-              <li><span>Gerar boleto</span><span class="fd-etiqueta fd-etiqueta--sucesso">Automático</span></li>
-              <li><span>Atualizar status do pedido</span><span class="fd-etiqueta fd-etiqueta--sucesso">Automático</span></li>
-              <li><span>Avisar o cliente</span><span class="fd-etiqueta fd-etiqueta--sucesso">Automático</span></li>
+          <div class="sistemas" aria-label="Sistemas que ligamos">
+            <p class="t-rotulo">Sistemas que mais ligamos</p>
+            <ul class="sistemas-lista">
+              <li class="sistema" style="--cor: var(--fd-g-dados-2)">Salesforce</li>
+              <li class="sistema" style="--cor: var(--fd-g-dados-5)">ClickUp</li>
+              <li class="sistema" style="--cor: var(--fd-g-dados-3)">Sankhya</li>
+              <li class="sistema" style="--cor: var(--fd-g-dados-4)">Omie</li>
+              <li class="sistema" style="--cor: var(--fd-g-dados-1)">WhatsApp</li>
             </ul>
-          </article>
-
-          <article class="bento-cartao bento--integracao">
-            <div class="bento-cabeca">
-              <span class="bento-icone"><svg class="icone"><use href="#i-fluxo"/></svg></span>
-              <p class="t-rotulo">Integração</p>
-            </div>
-            <h3 class="t-titulo-3">Seus sistemas, conversando.</h3>
-            <p class="bento-texto">O pedido entra uma vez e aparece no ERP, no CRM e na ferramenta de projetos. Sem planilha no meio.</p>
-            <ol class="cadeia" aria-label="Exemplo de caminho de um pedido">
-              <li><span class="cadeia-ponto" style="--cor: var(--fd-g-dados-1)"></span><span><strong>Entrada</strong> WhatsApp</span></li>
-              <li><span class="cadeia-ponto" style="--cor: var(--fd-g-dados-4)"></span><span><strong>ERP</strong> Omie ou Sankhya</span></li>
-              <li><span class="cadeia-ponto" style="--cor: var(--fd-g-dados-2)"></span><span><strong>CRM</strong> Salesforce</span></li>
-              <li><span class="cadeia-ponto" style="--cor: var(--fd-g-dados-5)"></span><span><strong>Projetos</strong> ClickUp</span></li>
-            </ol>
-          </article>
-
-          <article class="bento-cartao bento--ia">
-            <div class="bento-cabeca">
-              <span class="bento-icone"><svg class="icone"><use href="#i-brilho"/></svg></span>
-              <p class="t-rotulo">IA no processo</p>
-            </div>
-            <h3 class="t-titulo-3">IA onde ela poupa trabalho.</h3>
-            <p class="bento-texto">Ler um pedido que chegou por mensagem, classificar um chamado, preencher um cadastro. A IA entra como uma etapa da automação.</p>
-          </article>
-
-          <article class="bento-cartao bento--registro">
-            <div class="bento-cabeca">
-              <span class="bento-icone"><svg class="icone"><use href="#i-lista"/></svg></span>
-              <p class="t-rotulo">Registro</p>
-            </div>
-            <h3 class="t-titulo-3">Cada execução fica anotada.</h3>
-            <p class="bento-texto">Você vê o que rodou, quando rodou e qual foi o resultado.</p>
-          </article>
-
-          <article class="bento-cartao bento--aviso">
-            <div class="bento-cabeca">
-              <span class="bento-icone"><svg class="icone"><use href="#i-sino"/></svg></span>
-              <p class="t-rotulo">Aviso de falha</p>
-            </div>
-            <h3 class="t-titulo-3">Se parar, você fica sabendo.</h3>
-            <p class="bento-texto">O aviso diz o que houve, o que já foi feito e quando volta.</p>
-            <div class="fd-aviso fd-aviso--alerta" role="note" aria-label="Exemplo de aviso">
-              <svg class="icone aviso-icone"><use href="#i-alerta"/></svg>
-              <div>
-                <strong>Conexão com o Omie parada</strong>
-                <p>A integração com o Omie parou às 14h10. Os pedidos estão guardados e entram assim que a conexão voltar. Previsão: 14h40.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="bento-cartao bento--proposta">
-            <div class="bento-cabeca">
-              <span class="bento-icone"><svg class="icone"><use href="#i-documento"/></svg></span>
-              <p class="t-rotulo">Proposta</p>
-            </div>
-            <h3 class="t-titulo-3">Escopo, prazo e preço por escrito.</h3>
-            <p class="bento-texto">Você sabe o que vai receber e quando, antes de começar.</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Etapas -->
-    <section class="secao como" id="como-funciona" aria-labelledby="como-titulo">
-      <div class="container como-grade">
-        <header class="como-cabeca" data-surgir>
-          <p class="t-rotulo">Como funciona</p>
-          <h2 class="t-titulo-1" id="como-titulo">Do diagnóstico ao processo rodando.</h2>
-          <p class="secao-intro">Cinco etapas. Em cada uma você sabe o que está sendo feito e o que vem depois.</p>
-        </header>
-
-        <ol class="passos" data-passos>
-          <li class="passos-trilho" aria-hidden="true"><span class="passos-trilho-cheio"></span></li>
-          <li class="passo">
-            <span class="passo-num">01</span>
-            <div>
-              <h3 class="t-subtitulo">Diagnóstico</h3>
-              <p>Uma conversa para mapear o processo como ele é hoje: quem faz o quê, em qual sistema e onde a informação trava.</p>
-            </div>
-          </li>
-          <li class="passo">
-            <span class="passo-num">02</span>
-            <div>
-              <h3 class="t-subtitulo">Proposta</h3>
-              <p>Escopo, prazo e preço por escrito. Você aprova antes de qualquer trabalho começar.</p>
-            </div>
-          </li>
-          <li class="passo">
-            <span class="passo-num">03</span>
-            <div>
-              <h3 class="t-subtitulo">Construção</h3>
-              <p>Ligamos os sistemas e testamos com casos do seu dia a dia, num ambiente separado da operação.</p>
-            </div>
-          </li>
-          <li class="passo">
-            <span class="passo-num">04</span>
-            <div>
-              <h3 class="t-subtitulo">Colocar no ar</h3>
-              <p>A automação entra em operação e o time é avisado do que muda na rotina.</p>
-            </div>
-          </li>
-          <li class="passo">
-            <span class="passo-num">05</span>
-            <div>
-              <h3 class="t-subtitulo">Acompanhamento</h3>
-              <p>Cada execução fica registrada. Se algo parar, você recebe um aviso claro e nós já estamos resolvendo.</p>
-            </div>
-          </li>
-        </ol>
+    <!-- 4 · Frentes: cada uma é um neurônio -->
+    <section class="capitulo" id="o-que-fazemos" data-neuronio="o-que-fazemos" aria-labelledby="fazemos-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel fd-vidro" data-lado="d">
+          <p class="t-rotulo">O que fazemos</p>
+          <h2 class="t-titulo-2" id="fazemos-titulo">Automação e integração, lado a lado.</h2>
+          <p class="secao-intro">Metade do nosso trabalho é fazer tarefas rodarem sozinhas. A outra metade é fazer sistemas trocarem informação. Quase sempre um projeto precisa das duas.</p>
+          <ul class="frentes">
+            <li class="frente" data-sub="Automação">
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-repetir"/></svg></span>
+              <div><strong>Automação</strong><p>O que alguém faz igual todo dia, como lançar pedido, gerar boleto e avisar o cliente, vira uma rotina que roda sozinha.</p></div>
+            </li>
+            <li class="frente" data-sub="Integração">
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-fluxo"/></svg></span>
+              <div><strong>Integração</strong><p>O pedido entra uma vez e aparece no ERP, no CRM e na ferramenta de projetos. Sem planilha no meio.</p></div>
+            </li>
+            <li class="frente" data-sub="IA no processo">
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-brilho"/></svg></span>
+              <div><strong>IA no processo</strong><p>Ler um pedido que chegou por mensagem, classificar um chamado, preencher um cadastro.</p></div>
+            </li>
+            <li class="frente" data-sub="Registro">
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-lista"/></svg></span>
+              <div><strong>Registro</strong><p>Você vê o que rodou, quando rodou e qual foi o resultado.</p></div>
+            </li>
+            <li class="frente" data-sub="Aviso de falha">
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-sino"/></svg></span>
+              <div><strong>Aviso de falha</strong><p>Se parar, você fica sabendo: o que houve, o que já foi feito e quando volta.</p></div>
+            </li>
+            <li class="frente" data-sub="Proposta">
+              <span class="frente-icone"><svg class="icone icone-p"><use href="#i-documento"/></svg></span>
+              <div><strong>Proposta</strong><p>Escopo, prazo e preço por escrito, antes de começar.</p></div>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- Exemplos: rolagem horizontal fixada no desktop -->
-    <section class="exemplos" id="exemplos" aria-labelledby="exemplos-titulo" data-horizontal>
-      <div class="exemplos-fixo">
-        <header class="container secao-cabeca exemplos-cabeca" data-surgir>
+    <!-- 5 · Etapas: um sinal anda de uma à próxima -->
+    <section class="capitulo" id="como-funciona" data-neuronio="como-funciona" aria-labelledby="como-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel fd-vidro" data-lado="e">
+          <p class="t-rotulo">Como funciona</p>
+          <h2 class="t-titulo-2" id="como-titulo">Do diagnóstico ao processo rodando.</h2>
+          <p class="secao-intro">Cinco etapas. Em cada uma você sabe o que está sendo feito e o que vem depois.</p>
+          <ol class="passos" data-passos>
+            <li class="passo" data-sub="01 Diagnóstico">
+              <span class="passo-num">01</span>
+              <div><h3 class="t-subtitulo">Diagnóstico</h3><p>Uma conversa para mapear o processo como ele é hoje: quem faz o quê, em qual sistema e onde a informação trava.</p></div>
+            </li>
+            <li class="passo" data-sub="02 Proposta">
+              <span class="passo-num">02</span>
+              <div><h3 class="t-subtitulo">Proposta</h3><p>Escopo, prazo e preço por escrito. Você aprova antes de qualquer trabalho começar.</p></div>
+            </li>
+            <li class="passo" data-sub="03 Construção">
+              <span class="passo-num">03</span>
+              <div><h3 class="t-subtitulo">Construção</h3><p>Ligamos os sistemas e testamos com casos do seu dia a dia, num ambiente separado da operação.</p></div>
+            </li>
+            <li class="passo" data-sub="04 No ar">
+              <span class="passo-num">04</span>
+              <div><h3 class="t-subtitulo">Colocar no ar</h3><p>A automação entra em operação e o time é avisado do que muda na rotina.</p></div>
+            </li>
+            <li class="passo" data-sub="05 Acompanhamento">
+              <span class="passo-num">05</span>
+              <div><h3 class="t-subtitulo">Acompanhamento</h3><p>Cada execução fica registrada. Se algo parar, você recebe um aviso claro e nós já estamos resolvendo.</p></div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · Exemplos: cada um é um sinal real entre dois sistemas -->
+    <section class="capitulo" id="exemplos" data-neuronio="exemplos" aria-labelledby="exemplos-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel fd-vidro" data-lado="d">
           <p class="t-rotulo">Na prática</p>
-          <h2 class="t-titulo-1" id="exemplos-titulo">O que deixa de ser feito à mão.</h2>
-        </header>
-        <div class="exemplos-janela">
-          <ul class="exemplos-trilho" data-trilho>
-            <li class="exemplo">
-              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-1)">WhatsApp</span><svg class="icone"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-4)">Omie</span></p>
+          <h2 class="t-titulo-2" id="exemplos-titulo">O que deixa de ser feito à mão.</h2>
+          <ul class="exemplos-lista" data-exemplos>
+            <li class="exemplo" data-de="WhatsApp" data-para="Omie">
+              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-1)">WhatsApp</span><svg class="icone icone-p"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-4)">Omie</span></p>
               <p>O pedido que chega por mensagem vira pedido no Omie, com cliente e itens preenchidos.</p>
             </li>
-            <li class="exemplo">
-              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-2)">Salesforce</span><svg class="icone"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-5)">ClickUp</span></p>
+            <li class="exemplo" data-de="Salesforce" data-para="ClickUp">
+              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-2)">Salesforce</span><svg class="icone icone-p"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-5)">ClickUp</span></p>
               <p>Negócio ganho no Salesforce abre o projeto no ClickUp com as tarefas de entrega.</p>
             </li>
-            <li class="exemplo">
-              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-3)">Sankhya</span><svg class="icone"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-2)">Salesforce</span></p>
+            <li class="exemplo" data-de="Sankhya" data-para="Salesforce">
+              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-3)">Sankhya</span><svg class="icone icone-p"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-2)">Salesforce</span></p>
               <p>Nota faturada no Sankhya atualiza o cliente no Salesforce. O vendedor vê sem perguntar ao financeiro.</p>
             </li>
-            <li class="exemplo">
-              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-4)">Omie</span><svg class="icone"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-1)">WhatsApp</span></p>
+            <li class="exemplo" data-de="Omie" data-para="WhatsApp">
+              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-4)">Omie</span><svg class="icone icone-p"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-1)">WhatsApp</span></p>
               <p>Boleto gerado no Omie chega ao cliente pelo WhatsApp, com valor e vencimento.</p>
             </li>
-            <li class="exemplo">
-              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-5)">ClickUp</span><svg class="icone"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-1)">WhatsApp</span></p>
+            <li class="exemplo" data-de="ClickUp" data-para="WhatsApp">
+              <p class="exemplo-par"><span style="--cor: var(--fd-g-dados-5)">ClickUp</span><svg class="icone icone-p"><use href="#i-seta"/></svg><span style="--cor: var(--fd-g-dados-1)">WhatsApp</span></p>
               <p>Etapa concluída no ClickUp avisa o cliente de como anda o projeto.</p>
             </li>
           </ul>
@@ -379,24 +263,26 @@
       </div>
     </section>
 
-    <!-- Sócios fundadores -->
-    <section class="secao socios" id="socios" aria-labelledby="socios-titulo">
-      <div class="container">
-        <header class="secao-cabeca" data-surgir>
+    <!-- 7 · Sócios fundadores: um neurônio para cada -->
+    <section class="capitulo" id="socios" data-neuronio="socios" aria-labelledby="socios-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel painel--largo fd-vidro" data-lado="d">
           <p class="t-rotulo">Sócios fundadores</p>
-          <h2 class="t-titulo-1" id="socios-titulo">Quem conduz o seu projeto.</h2>
+          <h2 class="t-titulo-2" id="socios-titulo">Quem conduz o seu projeto.</h2>
           <p class="secao-intro">Um sócio cuida da parte técnica, o outro cuida da conversa com você. Os dois acompanham cada projeto do diagnóstico à entrega.</p>
-        </header>
 
-        <div class="socios-grade">
-          <article class="socio" data-surgir>
-            <figure class="socio-foto">
-              <img src="assets/img/socios/rodrigo-prado.jpg" alt="Rodrigo Prado, de braços cruzados, sorrindo" width="960" height="1200" loading="lazy" decoding="async">
-            </figure>
-            <div class="socio-texto">
-              <span class="fd-etiqueta fd-etiqueta--acao">Tecnologia</span>
-              <h3 class="t-titulo-2">Rodrigo Prado</h3>
-              <p class="t-rotulo socio-cargo">Sócio fundador</p>
+          <div class="socios-grade">
+            <article class="socio" data-sub="Rodrigo Prado">
+              <div class="socio-cabeca">
+                <figure class="socio-foto">
+                  <img src="assets/img/socios/rodrigo-prado.jpg" alt="Rodrigo Prado, de braços cruzados, sorrindo" width="960" height="1200" loading="lazy" decoding="async">
+                </figure>
+                <div>
+                  <span class="fd-etiqueta fd-etiqueta--acao">Tecnologia</span>
+                  <h3 class="t-titulo-3">Rodrigo Prado</h3>
+                  <p class="t-rotulo">Sócio fundador</p>
+                </div>
+              </div>
               <p>Rodrigo responde pela parte técnica da ForjaDev. Desenha como os sistemas vão trocar informação, constrói as integrações e define como cada automação é testada antes de entrar no ar.</p>
               <p>Trabalha no dia a dia com Salesforce, ClickUp e ERPs como Sankhya e Omie. Antes de escrever código, mapeia o processo no papel: quem faz o quê, em qual sistema e onde a informação se perde. Prefere uma integração simples que roda todo dia a uma complexa que ninguém consegue manter.</p>
               <ul class="socio-temas" aria-label="Áreas de atuação">
@@ -406,17 +292,19 @@
                 <li>Automação com IA</li>
                 <li>Testes e registro de execução</li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <article class="socio" data-surgir>
-            <figure class="socio-foto">
-              <img src="assets/img/socios/bruno-torres.jpg" alt="Bruno Torres, de camisa polo azul-marinho, sorrindo" width="568" height="710" loading="lazy" decoding="async">
-            </figure>
-            <div class="socio-texto">
-              <span class="fd-etiqueta fd-etiqueta--acao">Comercial</span>
-              <h3 class="t-titulo-2">Bruno Torres</h3>
-              <p class="t-rotulo socio-cargo">Sócio fundador</p>
+            <article class="socio" data-sub="Bruno Torres">
+              <div class="socio-cabeca">
+                <figure class="socio-foto">
+                  <img src="assets/img/socios/bruno-torres.jpg" alt="Bruno Torres, de camisa polo azul-marinho, sorrindo" width="568" height="710" loading="lazy" decoding="async">
+                </figure>
+                <div>
+                  <span class="fd-etiqueta fd-etiqueta--acao">Comercial</span>
+                  <h3 class="t-titulo-3">Bruno Torres</h3>
+                  <p class="t-rotulo">Sócio fundador</p>
+                </div>
+              </div>
               <p>Bruno é quem conversa com você primeiro. Antes de falar de sistema, quer entender a operação: como o pedido chega, quem digita, onde trava e quanto tempo isso toma da equipe.</p>
               <p>Sai do diagnóstico com o processo desenhado e uma proposta com escopo, prazo e preço, sem rodeio. Acompanha o projeto até a entrega e continua por perto depois que a automação está no ar, para encontrar a próxima tarefa que dá para tirar do caminho.</p>
               <ul class="socio-temas" aria-label="Áreas de atuação">
@@ -425,58 +313,60 @@
                 <li>Relacionamento com clientes</li>
                 <li>Acompanhamento pós-entrega</li>
               </ul>
-            </div>
-          </article>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Contato -->
-    <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
-      <div class="container contato-grade">
-        <div class="contato-texto" data-surgir>
-          <p class="t-rotulo">Diagnóstico</p>
-          <h2 class="t-titulo-1" id="contato-titulo">Conte onde o seu processo trava.</h2>
-          <p class="secao-intro">Na conversa de diagnóstico mapeamos os sistemas que vocês usam e o que ainda é feito à mão. Você sai com um retrato claro do que dá para automatizar.</p>
-          <p class="contato-lista-titulo">Vale levar para a conversa:</p>
-          <ul class="contato-lista">
-            <li><svg class="icone icone-p"><use href="#i-check"/></svg>Quais sistemas vocês usam hoje</li>
-            <li><svg class="icone icone-p"><use href="#i-check"/></svg>Que tarefa alguém repete todo dia</li>
-            <li><svg class="icone icone-p"><use href="#i-check"/></svg>Onde a informação costuma se perder</li>
-          </ul>
-        </div>
+    <!-- 8 · Contato: todos os sinais convergem aqui -->
+    <section class="capitulo" id="contato" data-neuronio="contato" aria-labelledby="contato-titulo">
+      <div class="container capitulo-grade">
+        <div class="painel painel--largo fd-vidro contato-grade" data-lado="e">
+          <div class="contato-texto">
+            <p class="t-rotulo">Diagnóstico</p>
+            <h2 class="t-titulo-2" id="contato-titulo">Conte onde o seu processo trava.</h2>
+            <p class="secao-intro">Na conversa de diagnóstico mapeamos os sistemas que vocês usam e o que ainda é feito à mão. Você sai com um retrato claro do que dá para automatizar.</p>
+            <p class="contato-lista-titulo">Vale levar para a conversa:</p>
+            <ul class="contato-lista">
+              <li><svg class="icone icone-p"><use href="#i-check"/></svg>Quais sistemas vocês usam hoje</li>
+              <li><svg class="icone icone-p"><use href="#i-check"/></svg>Que tarefa alguém repete todo dia</li>
+              <li><svg class="icone icone-p"><use href="#i-check"/></svg>Onde a informação costuma se perder</li>
+            </ul>
+          </div>
 
-        <div class="fd-cartao contato-cartao" data-surgir>
-          <form class="formulario" data-formulario novalidate>
-            <div class="fd-campo">
-              <label for="f-nome">Nome</label>
-              <input id="f-nome" name="nome" type="text" autocomplete="name" required>
-              <span class="fd-campo-ajuda" data-ajuda hidden>Escreva seu nome.</span>
-            </div>
-            <div class="fd-campo">
-              <label for="f-email">E-mail</label>
-              <input id="f-email" name="email" type="email" autocomplete="email" required>
-              <span class="fd-campo-ajuda" data-ajuda hidden>Escreva um e-mail válido, como nome@empresa.com.br.</span>
-            </div>
-            <div class="fd-campo">
-              <label for="f-empresa">Empresa</label>
-              <input id="f-empresa" name="empresa" type="text" autocomplete="organization">
-            </div>
-            <div class="fd-campo">
-              <label for="f-sistemas">Sistemas que vocês usam</label>
-              <input id="f-sistemas" name="sistemas" type="text" placeholder="Ex.: Omie, Salesforce, WhatsApp">
-            </div>
-            <div class="fd-campo">
-              <label for="f-processo">O que hoje é feito à mão?</label>
-              <textarea id="f-processo" name="processo" rows="4"></textarea>
-            </div>
-            <button class="fd-botao fd-botao--g formulario-enviar" type="submit">Agendar diagnóstico</button>
-          </form>
-          <div class="fd-aviso fd-aviso--sucesso formulario-sucesso" data-sucesso role="status" hidden>
-            <svg class="icone aviso-icone"><use href="#i-check"/></svg>
-            <div>
-              <strong>Pedido recebido.</strong>
-              <p>Vamos responder por e-mail para combinar o melhor horário da conversa.</p>
+          <div class="contato-cartao">
+            <form class="formulario" data-formulario novalidate>
+              <div class="fd-campo">
+                <label for="f-nome">Nome</label>
+                <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+                <span class="fd-campo-ajuda" data-ajuda hidden>Escreva seu nome.</span>
+              </div>
+              <div class="fd-campo">
+                <label for="f-email">E-mail</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required>
+                <span class="fd-campo-ajuda" data-ajuda hidden>Escreva um e-mail válido, como nome@empresa.com.br.</span>
+              </div>
+              <div class="fd-campo">
+                <label for="f-empresa">Empresa</label>
+                <input id="f-empresa" name="empresa" type="text" autocomplete="organization">
+              </div>
+              <div class="fd-campo">
+                <label for="f-sistemas">Sistemas que vocês usam</label>
+                <input id="f-sistemas" name="sistemas" type="text" placeholder="Ex.: Omie, Salesforce, WhatsApp">
+              </div>
+              <div class="fd-campo">
+                <label for="f-processo">O que hoje é feito à mão?</label>
+                <textarea id="f-processo" name="processo" rows="3"></textarea>
+              </div>
+              <button class="fd-botao fd-botao--g formulario-enviar" type="submit">Agendar diagnóstico</button>
+            </form>
+            <div class="fd-aviso fd-aviso--sucesso formulario-sucesso" data-sucesso role="status" hidden>
+              <svg class="icone aviso-icone"><use href="#i-check"/></svg>
+              <div>
+                <strong>Pedido recebido.</strong>
+                <p>Vamos responder por e-mail para combinar o melhor horário da conversa.</p>
+              </div>
             </div>
           </div>
         </div>

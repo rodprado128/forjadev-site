@@ -1,4 +1,5 @@
-/* ForjaDev 2027.2 · comportamento do site. Sem dependências. */
+/* ForjaDev 2027.2 · comportamento do site. Sem dependências.
+   O cérebro de fundo e os capítulos-neurônio ficam em cerebro.js. */
 (function () {
   'use strict';
 
@@ -76,77 +77,17 @@
     });
   });
 
-  /* ── Surgir e encadear ao entrar na tela ── */
-  document.querySelectorAll('[data-encadear]').forEach(function (grupo) {
-    Array.prototype.forEach.call(grupo.children, function (filho, i) { filho.style.setProperty('--atraso', Math.min(i, 5)); });
-  });
-  var alvos = document.querySelectorAll('[data-surgir], [data-encadear]');
-  function revelar(el) {
-    el.classList.add('visivel');
-    // depois de surgir, o atraso sai para o hover responder na hora
-    setTimeout(function () {
-      el.style.setProperty('--atraso', 0);
-      Array.prototype.forEach.call(el.children, function (f) { f.style.setProperty('--atraso', 0); });
-    }, 1400);
-  }
+  /* ── Surgir ao entrar na tela (rodapé) ── */
+  var alvos = document.querySelectorAll('[data-surgir]');
   if ('IntersectionObserver' in window) {
     var observador = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (en) {
-        if (en.isIntersecting) { revelar(en.target); observador.unobserve(en.target); }
+        if (en.isIntersecting) { en.target.classList.add('visivel'); observador.unobserve(en.target); }
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
     alvos.forEach(function (el) { observador.observe(el); });
   } else {
-    alvos.forEach(revelar);
-  }
-
-  /* ── Fluxo da abertura: um ponto percorre o caminho uma vez ── */
-  var fluxo = document.querySelector('[data-fluxo]');
-  var rodandoFluxo = false;
-  function horaAgora() {
-    var d = new Date();
-    return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
-  }
-  function rodarFluxo() {
-    if (!fluxo || rodandoFluxo) return;
-    var trilha = fluxo.querySelector('.fluxo-trilha');
-    var ponto = fluxo.querySelector('.fluxo-ponto');
-    var hora = fluxo.querySelector('[data-fluxo-hora]');
-    var comprimento = trilha.getTotalLength();
-    var fim = trilha.getPointAtLength(comprimento);
-
-    if (menosMovimento.matches) {
-      ponto.setAttribute('transform', 'translate(' + fim.x + ' ' + fim.y + ')');
-      hora.textContent = horaAgora();
-      fluxo.setAttribute('data-estado', 'feito');
-      return;
-    }
-
-    rodandoFluxo = true;
-    fluxo.removeAttribute('data-estado');
-    ponto.setAttribute('transform', 'translate(72 0)');
-    setTimeout(function () {
-      fluxo.setAttribute('data-estado', 'andando');
-      var inicio = null;
-      var duracao = 1200; // --fd-g-dur-fluxo, linear
-      function quadro(t) {
-        if (inicio === null) inicio = t;
-        var k = limitar((t - inicio) / duracao, 0, 1);
-        var pt = trilha.getPointAtLength(k * comprimento);
-        ponto.setAttribute('transform', 'translate(' + pt.x.toFixed(2) + ' ' + pt.y.toFixed(2) + ')');
-        if (k < 1) { requestAnimationFrame(quadro); return; }
-        hora.textContent = horaAgora();
-        fluxo.setAttribute('data-estado', 'feito');
-        rodandoFluxo = false;
-      }
-      requestAnimationFrame(quadro);
-    }, 450);
-  }
-  if (fluxo) {
-    // o conteúdo principal aparece primeiro; o fluxo começa depois
-    setTimeout(rodarFluxo, 1100);
-    var repetir = fluxo.querySelector('[data-fluxo-repetir]');
-    if (repetir) repetir.addEventListener('click', rodarFluxo);
+    alvos.forEach(function (el) { el.classList.add('visivel'); });
   }
 
   /* ── Palavras que acendem conforme a leitura ── */
@@ -154,10 +95,12 @@
   var palavrasAcesas = [];
   if (paragrafo) {
     var texto = paragrafo.textContent.trim().split(/\s+/);
+    paragrafo.setAttribute('aria-label', paragrafo.textContent.trim());
     paragrafo.textContent = '';
     texto.forEach(function (p, i) {
       var s = document.createElement('span');
       s.className = 'p';
+      s.setAttribute('aria-hidden', 'true');
       s.textContent = p;
       paragrafo.appendChild(s);
       if (i < texto.length - 1) paragrafo.appendChild(document.createTextNode(' '));
@@ -165,42 +108,6 @@
     });
     paragrafo.setAttribute('data-palavras-pronto', '');
   }
-
-  /* ── Holofote nos cartões do bento ── */
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll('.bento-cartao').forEach(function (c) {
-      c.addEventListener('pointermove', function (e) {
-        var r = c.getBoundingClientRect();
-        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
-      });
-    });
-  }
-
-  /* ── Exemplos: rolagem horizontal fixada no desktop ── */
-  var secaoHorizontal = document.querySelector('[data-horizontal]');
-  var trilho = document.querySelector('[data-trilho]');
-  var desktopLargo = window.matchMedia('(min-width: 1200px)');
-  var excesso = 0;
-  function configurarHorizontal() {
-    if (!secaoHorizontal || !trilho) return;
-    var ativo = desktopLargo.matches && !menosMovimento.matches;
-    secaoHorizontal.classList.toggle('horizontal-ativo', ativo);
-    if (!ativo) {
-      secaoHorizontal.style.height = '';
-      trilho.style.transform = '';
-      excesso = 0;
-      return;
-    }
-    trilho.style.transform = '';
-    excesso = Math.max(0, trilho.scrollWidth - window.innerWidth);
-    secaoHorizontal.style.height = (window.innerHeight + excesso) + 'px';
-  }
-
-  /* ── Etapas: trilho enche e etapas acendem ── */
-  var passos = document.querySelector('[data-passos]');
-  var itensPasso = passos ? passos.querySelectorAll('.passo') : [];
-  var trilhoCheio = passos ? passos.querySelector('.passos-trilho-cheio') : null;
 
   /* ── Navegação: estado ao rolar e seção ativa ── */
   var nav = document.querySelector('[data-nav]');
@@ -223,32 +130,14 @@
 
     if (paragrafo && palavrasAcesas.length) {
       var r = paragrafo.getBoundingClientRect();
-      var p = menosMovimento.matches ? 1 : limitar((alturaJanela * 0.82 - r.top) / (r.height + alturaJanela * 0.3), 0, 1);
+      var p = menosMovimento.matches ? 1 : limitar((alturaJanela * 0.85 - r.top) / (r.height + alturaJanela * 0.3), 0, 1);
       var acesas = Math.round(p * palavrasAcesas.length);
       for (var i = 0; i < palavrasAcesas.length; i++) palavrasAcesas[i].classList.toggle('acesa', i < acesas);
     }
 
-    if (passos && trilhoCheio) {
-      var rp = passos.getBoundingClientRect();
-      var marca = alturaJanela * 0.6;
-      var pp = limitar((marca - rp.top) / rp.height, 0, 1);
-      trilhoCheio.style.setProperty('--progresso', pp.toFixed(4));
-      itensPasso.forEach(function (li) {
-        var rl = li.getBoundingClientRect();
-        li.classList.toggle('ativo', menosMovimento.matches || rl.top + 24 < marca);
-      });
-    }
-
-    if (excesso > 0) {
-      var rs = secaoHorizontal.getBoundingClientRect();
-      var percurso = secaoHorizontal.offsetHeight - alturaJanela;
-      var ph = percurso > 0 ? limitar(-rs.top / percurso, 0, 1) : 0;
-      trilho.style.transform = 'translate3d(' + (-ph * excesso).toFixed(1) + 'px, 0, 0)';
-    }
-
     var ativa = -1;
     secoesNav.forEach(function (s, i) {
-      if (s && s.getBoundingClientRect().top < alturaJanela * 0.4) ativa = i;
+      if (s && s.getBoundingClientRect().top < alturaJanela * 0.5) ativa = i;
     });
     linksNav.forEach(function (a, i) {
       if (i === ativa) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
@@ -262,11 +151,7 @@
     requestAnimationFrame(function () { agendado = false; aoRolar(); });
   }
   window.addEventListener('scroll', agendar, { passive: true });
-  window.addEventListener('resize', function () { configurarHorizontal(); agendar(); });
-  desktopLargo.addEventListener('change', function () { configurarHorizontal(); agendar(); });
-  menosMovimento.addEventListener('change', function () { configurarHorizontal(); agendar(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { configurarHorizontal(); agendar(); });
-  configurarHorizontal();
+  window.addEventListener('resize', agendar);
   aoRolar();
 
   /* ── Formulário de diagnóstico ── */
@@ -312,6 +197,8 @@
         sucesso.hidden = false;
         sucesso.setAttribute('tabindex', '-1');
         sucesso.focus({ preventScroll: true });
+        // o cérebro dispara o neurônio do diagnóstico para todos os sistemas
+        document.dispatchEvent(new CustomEvent('fd:enviado'));
       }, 1100);
     });
   }
