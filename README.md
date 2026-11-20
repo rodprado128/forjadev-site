@@ -41,6 +41,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File serve.ps1
 
 Depois abra http://localhost:5173.
 
-## Pendências
+## Formulário de diagnóstico
 
-- O formulário de diagnóstico ainda não envia os dados. O ponto de ligação está marcado em `assets/js/site.js`.
+- Os leads do formulário de diagnóstico vão para a planilha "ForjaDev · Leads do site" (Google Sheets, na conta Google de quem administra o site) por um Apps Script publicado como app da web. O código de referência está em `integracoes/leads-google-sheets.gs`; a URL do app fica no `action` do formulário em `index.html`.

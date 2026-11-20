@@ -158,6 +158,7 @@
   var form = document.querySelector('[data-formulario]');
   if (form) {
     var sucesso = document.querySelector('[data-sucesso]');
+    var erro = form.querySelector('[data-erro]');
     var emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     function validarCampo(input) {
       var campo = input.closest('.fd-campo');
@@ -189,17 +190,35 @@
       if (primeiroErro) { primeiroErro.focus(); return; }
 
       var botao = form.querySelector('[type="submit"]');
+      if (botao.getAttribute('aria-busy') === 'true') return; // evita envio duplo
       botao.setAttribute('data-estado', 'carregando');
       botao.setAttribute('aria-busy', 'true');
-      // Versão local: ainda não há envio real. Ligar aqui ao serviço de e-mail ou CRM antes de publicar.
-      setTimeout(function () {
-        form.hidden = true;
-        sucesso.hidden = false;
-        sucesso.setAttribute('tabindex', '-1');
-        sucesso.focus({ preventScroll: true });
-        // o cérebro dispara o neurônio do diagnóstico para todos os sistemas
-        document.dispatchEvent(new CustomEvent('fd:enviado'));
-      }, 1100);
+      erro.hidden = true;
+
+      // O lead vai para a planilha "ForjaDev · Leads do site" pelo Apps Script em form.action
+      // (código de referência em integracoes/leads-google-sheets.gs).
+      var dados = new URLSearchParams(new FormData(form));
+      dados.append('origem', location.href);
+      dados.append('navegador', navigator.userAgent);
+
+      fetch(form.action, { method: 'POST', body: dados })
+        .then(function (r) { return r.json(); })
+        .then(function (resposta) {
+          if (!resposta || !resposta.ok) throw new Error('recusado');
+          form.hidden = true;
+          sucesso.hidden = false;
+          sucesso.setAttribute('tabindex', '-1');
+          sucesso.focus({ preventScroll: true });
+          // o cérebro dispara o neurônio do diagnóstico para todos os sistemas
+          document.dispatchEvent(new CustomEvent('fd:enviado'));
+        })
+        .catch(function () {
+          erro.hidden = false;
+        })
+        .then(function () {
+          botao.removeAttribute('data-estado');
+          botao.removeAttribute('aria-busy');
+        });
     });
   }
 })();

@@ -397,3 +397,9 @@ main, .rodape { position: relative; z-index: 1; }
 @media (min-width: 768px) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
   .capitulo--inicio { scroll-snap-align: none; }
 }
+
+/* Formulário: campo-isca fora da tela e aviso de erro de envio */
+.formulario-isca { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formulario { position: relative; }
+.formulario-erro { box-shadow: none; background: var(--fd-superficie); border-left-color: var(--fd-erro); }
+.formulario-erro .aviso-icone { color: var(--fd-erro); }

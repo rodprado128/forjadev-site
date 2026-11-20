@@ -336,7 +336,12 @@
           </div>
 
           <div class="contato-cartao">
-            <form class="formulario" data-formulario novalidate>
+            <form class="formulario" data-formulario novalidate action="https://script.google.com/macros/s/AKfycbx3oRp4nmPcRJXRBUD_ZIrQwywmvyAyR8CuAxxB3n9umEYk21wuyBAxRMKz1H4rQqkA/exec" method="post">
+              <!-- campo-isca: escondido de pessoas, só robôs preenchem -->
+              <div class="formulario-isca" aria-hidden="true">
+                <label for="f-site">Não preencha</label>
+                <input id="f-site" name="site_url" type="text" tabindex="-1" autocomplete="off">
+              </div>
               <div class="fd-campo">
                 <label for="f-nome">Nome</label>
                 <input id="f-nome" name="nome" type="text" autocomplete="name" required>
@@ -358,6 +363,13 @@
               <div class="fd-campo">
                 <label for="f-processo">O que hoje é feito à mão?</label>
                 <textarea id="f-processo" name="processo" rows="3"></textarea>
+              </div>
+              <div class="fd-aviso formulario-erro" data-erro role="alert" hidden>
+                <svg class="icone aviso-icone"><use href="#i-alerta"/></svg>
+                <div>
+                  <strong>Não conseguimos enviar agora.</strong>
+                  <p>Confira sua conexão e tente de novo em instantes. Seus dados continuam preenchidos.</p>
+                </div>
               </div>
               <button class="fd-botao fd-botao--g formulario-enviar" type="submit">Agendar diagnóstico</button>
             </form>
